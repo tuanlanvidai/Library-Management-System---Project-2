@@ -48,7 +48,7 @@ This project was developed as a team assignment by six group members.
 ### Steps to Install and Run
 1. **Clone the Repository**:
    ```bash
-   [git clone [https://github.com/tuanlanvidai/Library-Management-System---Project-2.git]
+   git clone https://github.com/tuanlanvidai/Library-Management-System---Project-2.git
    ```
 2. **Import the Project**:
    - Open NetBeans IDE and import the cloned project.
@@ -59,16 +59,7 @@ This project was developed as a team assignment by six group members.
 ---
 
 ## 🎮 Usage Guide
-1. **Login**:
-   - Use librarian credentials to access the system.
-2. **Dashboard**:
-   - Navigate through different features such as managing books, readers, and transactions.
-3. **Book Management**:
-   - Add new books or update existing entries in the inventory.
-4. **Borrow/Return Operations**:
-   - Record borrow and return transactions with due dates.
-5. **Generate Reports**:
-   - Use the reporting module to analyze library activities.
+
 
 ---
 
