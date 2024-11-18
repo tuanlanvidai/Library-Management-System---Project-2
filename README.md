@@ -33,7 +33,7 @@ This project was developed as a team assignment by six group members.
 - **GUI Framework**: Java Swing
 - **Database**: MySQL
 - **Development Environment**: NetBeans IDE
-- **Database Tools**: MySQL Workbench or phpMyAdmin
+- **Database Tools**: MySQL Workbench
 
 ---
 
@@ -48,22 +48,13 @@ This project was developed as a team assignment by six group members.
 ### Steps to Install and Run
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
+   [git clone [https://github.com/tuanlanvidai/Library-Management-System---Project-2.git]
    ```
 2. **Import the Project**:
    - Open NetBeans IDE and import the cloned project.
 3. **Set Up the Database**:
-   - Navigate to the `database/` folder in the project.
-   - Import the SQL file `library_management.sql` into your MySQL server.
-   - Configure database credentials in the `DatabaseConfig.java` file to match your setup.
-     ```java
-     String url = "jdbc:mysql://localhost:3306/your_database_name";
-     String user = "your_username";
-     String password = "your_password";
-     ```
+   
 4. **Run the Application**:
-   - Open `Main.java` in NetBeans.
-   - Compile and run the project.
 
 ---
 
@@ -117,10 +108,6 @@ If you have questions, suggestions, or encounter any issues, please open an issu
 
 ## 📸 Screenshots
 *(Optional: Add screenshots of the application for better understanding)*
-- **Dashboard View**:
-  ![Dashboard](link-to-dashboard-screenshot)
-- **Book Management**:
-  ![Book Management](link-to-book-management-screenshot)
 
 ---
 
