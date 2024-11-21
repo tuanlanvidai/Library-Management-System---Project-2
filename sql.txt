@@ -1,0 +1,58 @@
+CREATE DATABASE AptLibrary;
+
+USE AptLibrary;
+
+CREATE TABLE Book (
+    bookId INT PRIMARY KEY IDENTITY(1,1),
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255),
+    category VARCHAR(255),
+    publishYear SMALLINT,
+    totalQuantity INT NOT NULL,
+    availableQty INT NOT NULL
+);
+
+CREATE TABLE Role (
+    roleId INT PRIMARY KEY IDENTITY(1,1),
+    roleName VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE Reader (
+    readerId INT PRIMARY KEY IDENTITY(1,1),
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255),
+    phoneNumber VARCHAR(15),
+    email VARCHAR(255)
+);
+
+CREATE TABLE BorrowReturn (
+    transactionId INT PRIMARY KEY IDENTITY(1,1),
+    readerId INT,
+    bookId INT,
+    borrowDate DATE NOT NULL,
+    dueDate DATE NOT NULL,
+    actualReturnDate DATE,
+    bookStatus VARCHAR(255),
+    FOREIGN KEY (readerId) REFERENCES Reader(readerId),
+    FOREIGN KEY (bookId) REFERENCES Book(bookId)
+);
+
+CREATE TABLE Employee (
+    employeeId INT PRIMARY KEY IDENTITY(1,1),
+    name VARCHAR(255) NOT NULL,
+    roleId INT,
+    phoneNumber VARCHAR(15),
+    email VARCHAR(255),
+    password VARCHAR(255) NOT NULL
+    FOREIGN KEY (roleId) REFERENCES Role(roleId)
+);
+
+
+
+
+
+
+
+
+
