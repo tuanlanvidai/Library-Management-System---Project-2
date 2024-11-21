@@ -26,17 +26,27 @@ CREATE TABLE Reader (
     email VARCHAR(255)
 );
 
-CREATE TABLE BorrowReturn (
+CREATE TABLE BorrowBook (
     transactionId INT PRIMARY KEY IDENTITY(1,1),
     readerId INT,
     bookId INT,
     borrowDate DATE NOT NULL,
     dueDate DATE NOT NULL,
-    actualReturnDate DATE,
-    bookStatus VARCHAR(255),
     FOREIGN KEY (readerId) REFERENCES Reader(readerId),
     FOREIGN KEY (bookId) REFERENCES Book(bookId)
 );
+
+CREATE TABLE ReturnBook (
+    transactionId INT,
+    readerId INT,
+    bookId INT,
+    returnDate DATE NOT NULL,
+    bookStatus VARCHAR(255),
+    FOREIGN KEY (transactionId) REFERENCES BorrowBook(transactionId),
+    FOREIGN KEY (readerId) REFERENCES Reader(readerId),
+    FOREIGN KEY (bookId) REFERENCES Book(bookId)
+);
+
 
 CREATE TABLE Employee (
     employeeId INT PRIMARY KEY IDENTITY(1,1),
