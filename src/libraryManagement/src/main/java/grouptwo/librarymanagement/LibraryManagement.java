@@ -4,6 +4,9 @@
 
 package grouptwo.librarymanagement;
 
+import librarymanagement.gui.LayoutMain;
+
+
 /**
  *
  * @author lantr
@@ -11,7 +14,6 @@ package grouptwo.librarymanagement;
 public class LibraryManagement {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        System.out.println("Hello World!");
+        new LayoutMain().setVisible(true);
     }
 }
