@@ -4,6 +4,12 @@ GO
 USE AptLibrary;
 GO
 
+CREATE TABLE Category(
+    categoryName VARCHAR(255) PRIMARY KEY,
+    isDeleted BIT DEFAULT 0
+);
+GO
+
 CREATE TABLE Book (
     bookId INT PRIMARY KEY IDENTITY(1,1),
     title VARCHAR(255) NOT NULL,
@@ -19,12 +25,6 @@ GO
 
 CREATE TABLE Role (
     roleName VARCHAR(255) PRIMARY KEY,
-    isDeleted BIT DEFAULT 0
-);
-GO
-
-CREATE TABLE Category(
-    categoryName VARCHAR(225) PRIMARY KEY,
     isDeleted BIT DEFAULT 0
 );
 GO
@@ -63,10 +63,10 @@ CREATE TABLE ReturnBook (
 GO
 
 CREATE TABLE ReturnFine(
-    returnFineId INT PRIMARY KEY IDENTITY(1,1),'
+    returnFineId INT PRIMARY KEY IDENTITY(1,1),
     returnId INT,
     lateDays SMALLINT,
-    bookStatus VARCHAR(225),
+    bookStatus VARCHAR(255),
     FineMoney INT NOT NULL,
     FOREIGN KEY (returnId) REFERENCES ReturnBook(returnId),
     isDeleted BIT DEFAULT 0
@@ -84,11 +84,3 @@ CREATE TABLE Employee (
     isDeleted BIT DEFAULT 0
 );
 GO
-
-
-
-
-
-
-
-
