@@ -1,17 +1,14 @@
 CREATE DATABASE AptLibrary;
-GO
 
 USE AptLibrary;
-GO
 
 CREATE TABLE Category(
     categoryName VARCHAR(255) PRIMARY KEY,
     isDeleted BIT DEFAULT 0
 );
-GO
 
 CREATE TABLE Book (
-    bookId INT PRIMARY KEY IDENTITY(1,1),
+    bookId INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     author VARCHAR(255),
     category VARCHAR(255),
@@ -21,16 +18,14 @@ CREATE TABLE Book (
     isDeleted BIT DEFAULT 0,
     FOREIGN KEY (category) REFERENCES Category(categoryName)
 );
-GO
 
 CREATE TABLE Role (
     roleName VARCHAR(255) PRIMARY KEY,
     isDeleted BIT DEFAULT 0
 );
-GO
 
 CREATE TABLE Reader (
-    readerId INT PRIMARY KEY IDENTITY(1,1),
+    readerId INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     address VARCHAR(255),
     phoneNumber VARCHAR(15),
@@ -38,10 +33,9 @@ CREATE TABLE Reader (
     registerDay DATE NOT NULL,
     isDeleted BIT DEFAULT 0
 );
-GO
 
 CREATE TABLE BorrowBook (
-    borrowId INT PRIMARY KEY IDENTITY(1,1),
+    borrowId INT PRIMARY KEY AUTO_INCREMENT,
     readerId INT,
     bookId INT,
     borrowDate DATE NOT NULL,
@@ -50,20 +44,18 @@ CREATE TABLE BorrowBook (
     FOREIGN KEY (bookId) REFERENCES Book(bookId),
     isDeleted BIT DEFAULT 0
 );
-GO
 
 CREATE TABLE ReturnBook (
-    returnId INT PRIMARY KEY IDENTITY(1,1),
+    returnId INT PRIMARY KEY AUTO_INCREMENT,
     borrowId INT,
     returnDate DATE NOT NULL,
     bookStatus VARCHAR(255),
     FOREIGN KEY (borrowId) REFERENCES BorrowBook(borrowId),
     isDeleted BIT DEFAULT 0
 );
-GO
 
 CREATE TABLE ReturnFine(
-    returnFineId INT PRIMARY KEY IDENTITY(1,1),
+    returnFineId INT PRIMARY KEY AUTO_INCREMENT,
     returnId INT,
     lateDays SMALLINT,
     bookStatus VARCHAR(255),
@@ -71,10 +63,9 @@ CREATE TABLE ReturnFine(
     FOREIGN KEY (returnId) REFERENCES ReturnBook(returnId),
     isDeleted BIT DEFAULT 0
 );
-GO
 
 CREATE TABLE Employee (
-    employeeId INT PRIMARY KEY IDENTITY(1,1),
+    employeeId INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     role VARCHAR(255),
     phoneNumber VARCHAR(15),
@@ -83,4 +74,3 @@ CREATE TABLE Employee (
     FOREIGN KEY (role) REFERENCES Role(roleName),
     isDeleted BIT DEFAULT 0
 );
-GO
