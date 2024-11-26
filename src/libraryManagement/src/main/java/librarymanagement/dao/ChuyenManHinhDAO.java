@@ -36,8 +36,6 @@ public class ChuyenManHinhDAO {
 
     public void setView(JPanel jpnItem, JLabel jlbItem) {
         kindSelected = "TrangChu";
-        jpnItem.setBackground(new Color(96, 100, 191));
-        jlbItem.setBackground(new Color(96, 100, 191));
         root.removeAll();
         root.setLayout(new BorderLayout());
         root.add(new TrangChuJPanel());
@@ -48,7 +46,9 @@ public class ChuyenManHinhDAO {
     public void setEvent(List<Dashboard> listItem) {
         this.listItem = listItem;
         for (Dashboard item : listItem) {
-            item.getJlb().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(), item.getJlb()));
+            LabelEvent labelEvent = new LabelEvent(item.getKind(), item.getJpn(), item.getJlb());
+            item.getJlb().addMouseListener(labelEvent);
+            item.getJpn().addMouseListener(labelEvent);
         }
     }
 
@@ -103,10 +103,6 @@ public class ChuyenManHinhDAO {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            kindSelected = kind;
-            jpnItem.setBackground(new Color(96, 100, 191));
-            jlbItem.setBackground(new Color(96, 100, 191));
-
         }
 
         @Override
@@ -133,8 +129,8 @@ public class ChuyenManHinhDAO {
                 item.getJpn().setBackground(new Color(96, 100, 191));
                 item.getJlb().setBackground(new Color(96, 100, 191));
             } else {
-                item.getJpn().setBackground(new Color(76, 155, 80));
-                item.getJlb().setBackground(new Color(76, 155, 80));
+                item.getJpn().setBackground(new Color(0, 204, 204));
+                item.getJlb().setBackground(new Color(0, 204, 204));
             }
         }
     }
