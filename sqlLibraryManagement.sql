@@ -189,6 +189,6 @@ INSERT INTO Role (roleName) VALUES
 
 INSERT INTO Employee (name, role, phoneNumber, email, password) VALUES
 ('admin', 'Admin', '0123456789', 'admin@gmail.com', 'admin'),
-('Aaa ', 'Librarian', '0372003788', 'anorgan@gmail.com', '123'),
-('Bbb ', 'Librarian', '0345018165', 'bscott@gmail.com', '123'),
-('Ccc ', 'Librarian', '0988660609', 'clee@gmail.com', '123');
+('A', 'Librarian', '0372003788', 'a@gmail.com', '123'),
+('B', 'Librarian', '0345018165', 'b@gmail.com', '123'),
+('C', 'Librarian', '0988660609', 'c@gmail.com', '123');
