@@ -165,7 +165,8 @@ INSERT INTO ReturnBook (borrowId, returnDate, bookStatus) VALUES
 
 
 INSERT INTO ReturnFine (returnId, lateDays, bookStatus, FineMoney) VALUES
-(1, 2, 'Damaged', 50),   
+-- fee = 10k/day, damaged = 40k
+(1, 2, 'Damaged', 60),   
 (2, 5, 'Good', 50),      
 (3, 1, 'Good', 10),      
 (4, 2, 'Good', 20),      
@@ -174,7 +175,7 @@ INSERT INTO ReturnFine (returnId, lateDays, bookStatus, FineMoney) VALUES
 (7, 0, 'Good', 0),      
 (8, 0, 'Good', 0),       
 (9, 0, 'Good', 0),       
-(10, 0, 'Damaged', 45),  
+(10, 0, 'Damaged', 40),  
 (11, 0, 'Good', 0),      
 (12, 0, 'Good', 0),     
 (13, 0, 'Good', 0),     
@@ -187,7 +188,7 @@ INSERT INTO Role (roleName) VALUES
 ('Admin');
 
 INSERT INTO Employee (name, role, phoneNumber, email, password) VALUES
-('admin', 'Admin', '0123456789', 'admin@gmail.com', 'admin123'),
-('A Norgan', 'Librarian', '0372003788', 'anorgan@gmail.com', 'password123'),
-('B Scott', 'Librarian', '0345018165', 'bscott@gmail.com', 'password123'),
-('C Lee', 'Librarian', '0988660609', 'clee@gmail.com', 'password123');
+('admin', 'Admin', '0123456789', 'admin@gmail.com', 'admin'),
+('Aaa ', 'Librarian', '0372003788', 'anorgan@gmail.com', '123'),
+('Bbb ', 'Librarian', '0345018165', 'bscott@gmail.com', '123'),
+('Ccc ', 'Librarian', '0988660609', 'clee@gmail.com', '123');

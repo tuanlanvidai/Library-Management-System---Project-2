@@ -9,77 +9,131 @@ package librarymanagement.dao;
  * @author CuongVu
  */
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrangChuDAO {
-    private Connection connection;
-
-    public TrangChuDAO(String string, int aInt) throws SQLException {
+    ConfigUtils util = new ConfigUtils();
+    public int getBooksBorrowedByDay(String date) {
+        int tTBrred = 0;
         try {
-            this.connection = DriverManager.getConnection(
-                    ConfigUtils.dbConnect, ConfigUtils.username, ConfigUtils.password);
-        } catch (SQLException e) {
-            System.out.println("Error to connect database!");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
+            String sql = "select count(*) as ttB from BorrowBook where borrowDate = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, date);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                tTBrred = rs.getInt("ttB");
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
         }
+        return tTBrred;
     }
-
-public List<TrangChuDAO> getBooksByDate(int date) throws SQLException {
-        List<TrangChuDAO> kq = new ArrayList<>();
-        String query = "select count(*) as totalBooks, borrowDate from BorrowBook where borrowDate = ? group by borrowDate";
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, date);
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            kq.add(new TrangChuDAO(rs.getString("borrowDate"), rs.getInt("totalBooks")));
+    public int getBooksReturnedByDay(String date) {
+        int tTReturned = 0;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
+            String sql = "select count(*) as ttR from ReturnBook where returnDate = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, date);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                tTReturned = rs.getInt("ttR");
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        return kq;
+        return tTReturned;
     }
+    public List<Integer> getDailyRp(String date) {
+        List<Integer> rp = new ArrayList<>();
+        int ttB = getBooksBorrowedByDay(date);
+        int ttR = getBooksReturnedByDay(date);
 
-    public List<TrangChuDAO> getBooksByWeek(int week, int year) throws SQLException {
-        List<TrangChuDAO> kq = new ArrayList<>();
-        String query = "select(*) as totalBooks, week(borrowDate) as weekNumber from BorrowBook where year(borrowDate) = ? and week(borrowDate) = ? group by week(borrowDate)";
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, year);
-        ps.setInt(2, week);
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            kq.add(new TrangChuDAO("Week " + rs.getInt("weekNumber"), rs.getInt("totalBooks")));
-        }
-        return kq;
+        rp.add(ttB);
+        rp.add(ttR);
+        return rp;
     }
-
-    public List<TrangChuDAO> getBooksByMonth(int month, int year) throws SQLException {
-        List<TrangChuDAO> kq = new ArrayList<>();
-        String query = "select(*) as totalBooks, month(borrowDate) as monthNumber from BorrowBook where year(borrowDate) = ? and month(borrowDate) = ? group by month(borrowDate)";
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, year);
-        ps.setInt(2, month);
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-             kq.add(new TrangChuDAO("monthNumber" + rs.getInt("weekNumber"), rs.getInt("totalBooks")));
+    
+    public int getBooksBorrowedByWeek(String sDate, String eDate) {
+        int tTBrred = 0;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
+            String sql = "select count(*) as ttB from BorrowBook where borrowDate between ? and ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, sDate);
+            stmt.setString(2, eDate);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                tTBrred = rs.getInt("ttB");
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        return kq;
+        return tTBrred;
     }
-
-    public List<TrangChuDAO> getBooksByYear(int year) throws SQLException {
-        List<TrangChuDAO> kq = new ArrayList<>();
-        String query = "select(*) as totalBooks, year(borrowDate) as yearNumber from BorrowBook where year(borrowDate) = ? group by year(borrowDate)";
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, year);
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            kq.add(new TrangChuDAO("Year " + rs.getInt("yearNumber"), rs.getInt("totalBooks")));
+    public int getBooksReturnedByWeek(String sDate, String eDate) {
+        int tTReturned = 0;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
+            String sql = "select count(*) as ttR from ReturnBook where returnDate between ? and ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, sDate);
+            stmt.setString(2, eDate);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                tTReturned = rs.getInt("ttR");
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        return kq;
+        return tTReturned;
     }
-
-    public void close() throws SQLException {
-        if (connection != null && !connection.isClosed()) {
-            connection.close();
-        }
+    public List<Integer> getWeeklyRp(String sDate, String eDate) {
+        List<Integer> rp = new ArrayList<>();
+        int ttB = getBooksBorrowedByWeek(sDate, eDate);
+        int ttR = getBooksBorrowedByWeek(sDate, eDate);
+        rp.add(ttB);
+        rp.add(ttR);
+        return rp;
+    }
+    
+    public int getBooksBorrowedByMonth(String sDate, String eDate) {
+        return getBooksBorrowedByWeek(sDate, eDate);
+    }
+    public int getBooksReturnedByMonth(String sDate, String eDate) {
+        return getBooksReturnedByWeek(sDate, eDate);
+    }
+    public List<Integer> getMonthlyRp(String sDate, String eDate) {
+        List<Integer> rp = new ArrayList<>();
+        int ttB = getBooksBorrowedByMonth(sDate, eDate);
+        int ttR = getBooksReturnedByMonth(sDate, eDate);
+        rp.add(ttB);
+        rp.add(ttR);
+        return rp;
+    }
+    
+    public int getBooksBorrowedByYear(String sDate, String eDate) {
+        return getBooksBorrowedByWeek(sDate, eDate);
+    }
+    public int getBooksReturnedByYear(String sDate, String eDate) {
+        return getBooksReturnedByWeek(sDate, eDate);
+    }
+    public List<Integer> getYearlyRp(String sDate, String eDate) {
+        List<Integer> rp = new ArrayList<>();
+        int ttB = getBooksBorrowedByYear(sDate, eDate);
+        int ttR = getBooksReturnedByYear(sDate, eDate);
+        rp.add(ttB);
+        rp.add(ttR);
+        return rp;
     }
 }
