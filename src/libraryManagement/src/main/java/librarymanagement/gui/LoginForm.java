@@ -4,17 +4,28 @@
  */
 package librarymanagement.gui;
 
+import java.awt.event.KeyEvent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+import librarymanagement.dao.EmployeeDAO;
+
 /**
  *
  * @author duyanh
  */
 public class LoginForm extends javax.swing.JFrame {
 
+    EmployeeDAO dao;
+    String regex = "^(.+)@(.+)$";
+    Pattern pattern = Pattern.compile(regex);
+
     /**
      * Creates new form LoginForm
      */
     public LoginForm() {
         initComponents();
+        dao = new EmployeeDAO();
     }
 
     /**
@@ -30,9 +41,9 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        tf_taikhoan = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtPassWord = new javax.swing.JPasswordField();
         btn_dangnhap = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,17 +73,29 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 204, 204));
         jLabel3.setText("Mật Khẩu :");
 
+        txtEmail.addActionListener(this::txtEmailActionPerformed);
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEmailKeyPressed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 204, 204));
         jLabel4.setText("Tài Khoản :");
 
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.addActionListener(this::jPasswordField1ActionPerformed);
+        txtPassWord.addActionListener(this::txtPassWordActionPerformed);
+        txtPassWord.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPassWordKeyPressed(evt);
+            }
+        });
 
         btn_dangnhap.setBackground(new java.awt.Color(0, 102, 102));
         btn_dangnhap.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         btn_dangnhap.setForeground(new java.awt.Color(255, 255, 255));
         btn_dangnhap.setText("Đăng Nhập");
+        btn_dangnhap.addActionListener(this::btn_dangnhapActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -85,8 +108,8 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                    .addComponent(tf_taikhoan)
+                    .addComponent(txtPassWord, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                    .addComponent(txtEmail)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -103,11 +126,11 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tf_taikhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jLabel3)
                 .addGap(28, 28, 28)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPassWord, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(btn_dangnhap, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -131,9 +154,56 @@ public class LoginForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void txtPassWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassWordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_txtPassWordActionPerformed
+
+    private void btn_dangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dangnhapActionPerformed
+        // TODO add your handling code here:
+        String email = txtEmail.getText();
+        String passWord = txtPassWord.getText();
+        Matcher matcher = pattern.matcher(email);
+        if (matcher.matches()) {
+            if (dao.getEmployee(email, passWord) != null) {
+                LayoutMain main = new LayoutMain();
+                main.setVisible(true);
+                this.dispose();
+            }
+        }
+        else {
+                JOptionPane.showMessageDialog(null, "Wrong Email Format");
+            }
+    }//GEN-LAST:event_btn_dangnhapActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtPassWord.requestFocus();
+        }
+    }//GEN-LAST:event_txtEmailKeyPressed
+
+    private void txtPassWordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassWordKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String email = txtEmail.getText();
+            String passWord = txtPassWord.getText();
+            Matcher matcher = pattern.matcher(email);
+            if (matcher.matches()) {
+                if (dao.getEmployee(email, passWord) != null) {
+                    LayoutMain main = new LayoutMain();
+                    main.setVisible(true);
+                    this.dispose();
+                } 
+            }
+            else {
+                    JOptionPane.showMessageDialog(null, "Wrong Email Format");
+                }
+        }
+    }//GEN-LAST:event_txtPassWordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -177,7 +247,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField tf_taikhoan;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JPasswordField txtPassWord;
     // End of variables declaration//GEN-END:variables
 }
