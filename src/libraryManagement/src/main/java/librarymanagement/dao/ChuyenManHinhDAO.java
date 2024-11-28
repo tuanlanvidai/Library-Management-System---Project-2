@@ -108,8 +108,8 @@ public class ChuyenManHinhDAO {
         @Override
         public void mouseReleased(MouseEvent e) {
             if (!kindSelected.equalsIgnoreCase(kind)) {
-                jpnItem.setBackground(new Color(96, 100, 191));
-                jlbItem.setBackground(new Color(76, 175, 80));
+                jpnItem.setBackground(new Color(211, 211, 211));
+                jlbItem.setBackground(new Color(211, 211, 211));
             }
         }
 
@@ -126,8 +126,8 @@ public class ChuyenManHinhDAO {
     private void setChangeBackground(String kind) {
         for (Dashboard item : listItem) {
             if (item.getKind().equalsIgnoreCase(kind)) {
-                item.getJpn().setBackground(new Color(96, 100, 191));
-                item.getJlb().setBackground(new Color(96, 100, 191));
+                item.getJpn().setBackground(new Color(211, 211, 211));
+                item.getJlb().setBackground(new Color(211, 211, 211));
             } else {
                 item.getJpn().setBackground(new Color(0, 204, 204));
                 item.getJlb().setBackground(new Color(0, 204, 204));
