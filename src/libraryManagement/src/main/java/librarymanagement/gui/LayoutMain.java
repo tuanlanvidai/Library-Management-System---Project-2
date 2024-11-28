@@ -38,6 +38,28 @@ public class LayoutMain extends javax.swing.JFrame {
         
 
     }
+    public LayoutMain(String Role) {
+        initComponents();
+        setTitle("Quản Lý Học Viên ");
+        ChuyenManHinhDAO chuyenmanhinhDAO = new ChuyenManHinhDAO(jpnView);
+        chuyenmanhinhDAO.setView(jpntrangchu, jlbtrangchu);
+        
+        List<Dashboard> listItem = new ArrayList<>();
+        listItem.add(new Dashboard("TrangChu",jpntrangchu,jlbtrangchu));  
+        listItem.add(new Dashboard("QuanLyDocGia",jpnquanlydocgia,jlbquanlydocgia));    
+        listItem.add(new Dashboard("QuanLySach",jpnquanlysach,jlbquanlysach));
+        listItem.add(new Dashboard("MuonTraSach",jpnmuontrasach,jlbmuontrasach));
+        listItem.add(new Dashboard("QuanLyThuThu",jpnquanlythuthu,jlbquanlythuthu));
+        listItem.add(new Dashboard("BaoCao",jpnbaocao,jlbbaocao));   
+        listItem.add(new Dashboard("CaiDat",jpncaidat,jlbcaidat));
+
+
+          chuyenmanhinhDAO.setEvent(listItem);
+        if(!Role.equals("Admin")){
+            jpnquanlythuthu.setVisible(false);
+        };
+
+    }
 
     /**
      * This method is called from within the constructor to initialiimageze the
