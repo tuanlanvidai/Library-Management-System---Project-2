@@ -28,6 +28,12 @@ public class Employee {
         this.isDelete= false;
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" + "id=" + id + ", name=" + name + ", role=" + role + ", phoneNumber=" + phoneNumber + ", email=" + email + ", password=" + password + '}';
+    }
+    
+
     
     private int id;
     private String name;

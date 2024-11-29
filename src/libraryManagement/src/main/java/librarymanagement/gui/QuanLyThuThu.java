@@ -66,18 +66,19 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         setBackground(new java.awt.Color(0, 153, 153));
         setPreferredSize(new java.awt.Dimension(1324, 646));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/quanlythuthu.png"))); // NOI18N
         jLabel1.setText("Quản lý thủ thư");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Danh sách thủ thư");
 
         jTextField1.setToolTipText("");
         jTextField1.addActionListener(this::jTextField1ActionPerformed);
 
+        tblEmployee.setBackground(new java.awt.Color(0, 102, 102));
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -92,19 +93,41 @@ public class QuanLyThuThu extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        tblEmployee.setRowSelectionAllowed(false);
+        tblEmployee.setSelectionBackground(new java.awt.Color(0, 255, 204));
         jScrollPane1.setViewportView(tblEmployee);
+        if (tblEmployee.getColumnModel().getColumnCount() > 0) {
+            tblEmployee.getColumnModel().getColumn(0).setResizable(false);
+            tblEmployee.getColumnModel().getColumn(1).setResizable(false);
+            tblEmployee.getColumnModel().getColumn(2).setResizable(false);
+            tblEmployee.getColumnModel().getColumn(3).setResizable(false);
+            tblEmployee.getColumnModel().getColumn(4).setResizable(false);
+            tblEmployee.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         btnAdd1.setBackground(new java.awt.Color(0, 204, 204));
+        btnAdd1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 20)); // NOI18N
         btnAdd1.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd1.setText("Add");
         btnAdd1.addActionListener(this::btnAdd1ActionPerformed);
 
-        jButton4.setText("jButton4");
+        jButton4.setBackground(new java.awt.Color(0, 204, 204));
+        jButton4.setFont(new java.awt.Font("Segoe UI Semibold", 1, 20)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Edit");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         jButton5.setText("Empty");
 
@@ -129,13 +152,13 @@ public class QuanLyThuThu extends javax.swing.JPanel {
                         .addComponent(jButton5))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(372, 372, 372)
-                        .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,12 +172,12 @@ public class QuanLyThuThu extends javax.swing.JPanel {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd1)
-                    .addComponent(jButton4))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addComponent(jButton4)
+                    .addComponent(btnAdd1))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -167,6 +190,12 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         ManageEmployee manage = new ManageEmployee("Add");
         manage.setVisible(true);
     }//GEN-LAST:event_btnAdd1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        ManageEmployee manage = new ManageEmployee("Edit");
+        manage.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

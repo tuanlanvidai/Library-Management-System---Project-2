@@ -109,13 +109,39 @@ public class EmployeeDAO {
         return isSuccess;
     }
 
+    public Boolean editEmployee(Employee employee) {
+        Boolean isSuccess = false;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    util.dbConnect, util.username, util.password);
+            String sql = " update employee set name=?,role=?,phoneNumber=?,email=?,password=? where employeeId = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, employee.getName());
+            stmt.setString(2, employee.getRole());
+            stmt.setString(3, employee.getPhoneNumber());
+            stmt.setString(4, employee.getEmail());
+            stmt.setString(5, employee.getPassword());
+            stmt.setInt(6, employee.getId());
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
+                isSuccess = true;
+            }
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return isSuccess;
+    }
+
     public Boolean deleteEmployee(Employee employee) {
         Boolean isSuccess = false;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "update employee set isDeleted = 0 where emplyeeId = ?";
+            String sql = "update employee set isDeleted = 0 where employeeId = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, employee.getId());
             int row = stmt.executeUpdate();
@@ -128,6 +154,27 @@ public class EmployeeDAO {
             System.out.println(e);
         }
         return isSuccess;
+    }
+
+    public Employee getEmployeeById(int id) {
+        Employee employee = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    util.dbConnect, util.username, util.password);
+            String sql = "select * from employee where employeeId = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                employee = new Employee(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+            }
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return employee;
     }
 
     public void addDataFromDB(DefaultTableModel model, JTable jtable1) {
