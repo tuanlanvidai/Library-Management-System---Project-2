@@ -75,6 +75,7 @@ public class EmployeeDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 employee = new Employee(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+                employee.setIsDelete(rs.getInt(7));
                 employeeList.add(employee);
             }
             con.close();
@@ -135,15 +136,15 @@ public class EmployeeDAO {
         return isSuccess;
     }
 
-    public Boolean deleteEmployee(Employee employee) {
+    public Boolean deleteEmployee(int id) {
         Boolean isSuccess = false;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "update employee set isDeleted = 0 where employeeId = ?";
+            String sql = "update employee set isDeleted = 1 where employeeId = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, employee.getId());
+            stmt.setInt(1, id);
             int row = stmt.executeUpdate();
             if (row > 0) {
                 isSuccess = true;
@@ -183,13 +184,15 @@ public class EmployeeDAO {
         model.setRowCount(0);
         Object columns[] = new Object[6];
         for (int i = 0; i < employeeList.size(); i++) {
-            columns[0] = employeeList.get(i).getId();
-            columns[1] = employeeList.get(i).getName();
-            columns[2] = employeeList.get(i).getRole();
-            columns[3] = employeeList.get(i).getPhoneNumber();
-            columns[4] = employeeList.get(i).getEmail();
-            columns[5] = employeeList.get(i).getPassword();
-            model.addRow(columns);
+            if (employeeList.get(i).getIsDelete()!=1) {
+                columns[0] = employeeList.get(i).getId();
+                columns[1] = employeeList.get(i).getName();
+                columns[2] = employeeList.get(i).getRole();
+                columns[3] = employeeList.get(i).getPhoneNumber();
+                columns[4] = employeeList.get(i).getEmail();
+                columns[5] = employeeList.get(i).getPassword();
+                model.addRow(columns);
+            }
         }
     }
 }
