@@ -205,7 +205,8 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void txtPassWordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassWordKeyPressed
         // TODO add your handling code here:
-         String email = txtEmail.getText();
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            String email = txtEmail.getText();
         String passWord = txtPassWord.getText();
         Matcher matcher = pattern.matcher(email);
         if (matcher.matches()) {
@@ -219,6 +220,7 @@ public class LoginForm extends javax.swing.JFrame {
         else {
                 JOptionPane.showMessageDialog(null, "Wrong Email Format");
             }
+        }
     }//GEN-LAST:event_txtPassWordKeyPressed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
