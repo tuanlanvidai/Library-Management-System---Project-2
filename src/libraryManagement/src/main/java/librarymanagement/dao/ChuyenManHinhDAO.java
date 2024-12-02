@@ -95,7 +95,7 @@ public class ChuyenManHinhDAO {
             }
             root.removeAll();
             root.setLayout(new BorderLayout());
-            root.add(node);
+            root.add(node, java.awt.BorderLayout.CENTER);
             root.validate();
             root.repaint();
             setChangeBackground(kind);
