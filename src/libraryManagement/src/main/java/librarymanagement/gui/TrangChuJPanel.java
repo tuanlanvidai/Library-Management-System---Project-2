@@ -4,16 +4,70 @@
  */
 package librarymanagement.gui;
 
+import java.time.LocalDate;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
+import librarymanagement.dao.BookDAO;
+import librarymanagement.dao.ReaderDAO;
+import librarymanagement.dao.TrangChuDAO;
+import librarymanagement.pojo.Book;
+import librarymanagement.pojo.BorrowedBook;
+
 /**
  *
  * @author duyanh
  */
 public class TrangChuJPanel extends javax.swing.JPanel {
+    TrangChuDAO dao = new TrangChuDAO();
 
-    
     public TrangChuJPanel() {
-        initComponents();
+    initComponents();
+    loadSummary();
+    loadRecentBooks();
+   
     }
+    
+    private void loadSummary() {
+    txtTSoSach.setText(String.valueOf(dao.getTotalBooks()));
+    txtSachDMuon.setText(String.valueOf(dao.getTotalBorrowedBooks()));
+    txtSachQHan.setText(String.valueOf(dao.getOverdueBooks()));
+    int totalReaders = dao.getTotalReaders();
+    jLabel5.setText(String.valueOf(totalReaders));
+    }
+    
+    private void loadRecentBooks() {
+    DefaultTableModel model = (DefaultTableModel) tblSachDuocThem.getModel();
+    model.setRowCount(0);
+    BookDAO bookDAO = new BookDAO();
+    List<Book> books = bookDAO.getBooks();
+
+    for (Book book : books) {
+        model.addRow(new Object[] {
+            book.getBookId(),
+            book.getTitle(),
+            book.getAuthor(),
+            book.getPublishYear()
+        });
+    }}
+    
+     private void loadOverdueOrDamagedData() {
+        DefaultTableModel model = (DefaultTableModel) tblMuonQuaHan.getModel();
+        List<BorrowedBook> overdueOrDamagedReaders = dao.getOverdueOrDamagedReaders();
+        model.setRowCount(0);
+        for (BorrowedBook borrowedBook : overdueOrDamagedReaders) {
+            model.addRow(new Object[]{
+                borrowedBook.getReaderId(),
+                borrowedBook.getBookId(),
+                borrowedBook.getBorrowId(),
+                borrowedBook.getBookStatus(),
+                borrowedBook.getLateDays(),
+                borrowedBook.getFineMoney()
+            });
+        }
+    }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,15 +83,19 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        txtTSoSach = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        txtSachDMuon = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        txtSachQHan = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        txtTSoDocGia = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -66,7 +124,10 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tongsach.png"))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel8.setText("Tổng số sách đã mượn");
+        jLabel8.setText("Tổng số sách");
+
+        txtTSoSach.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        txtTSoSach.setText("01");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -74,20 +135,28 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel4)
+                .addGap(48, 48, 48)
+                .addComponent(txtTSoSach)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(70, 70, 70)
                 .addComponent(jLabel8)
-                .addGap(25, 25, 25))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(45, 45, 45))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(txtTSoSach)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -96,6 +165,9 @@ public class TrangChuJPanel extends javax.swing.JPanel {
 
         jLabel9.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel9.setText("Sách đã mượn");
+
+        txtSachDMuon.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        txtSachDMuon.setText("01");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -106,17 +178,23 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel9)
                 .addGap(57, 57, 57))
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addComponent(txtSachDMuon)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(txtSachDMuon)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -128,16 +206,21 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel10.setText("Sách quá hạn");
 
+        txtSachQHan.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        txtSachQHan.setText("01");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addGap(65, 65, 65))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel6)
+                .addGap(47, 47, 47)
+                .addComponent(txtSachQHan)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -145,9 +228,14 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel10)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(txtSachQHan)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
@@ -158,15 +246,20 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel11.setText("Tổng số độc giả");
 
+        txtTSoDocGia.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        txtTSoDocGia.setText("01");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel7)
+                .addGap(47, 47, 47)
+                .addComponent(txtTSoDocGia)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(57, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addGap(60, 60, 60))
         );
@@ -175,8 +268,13 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(txtTSoDocGia)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -192,7 +290,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,7 +413,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(154, 154, 154)
                 .addComponent(jLabel3)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2))
@@ -338,14 +436,14 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 391, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -379,13 +477,13 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 986, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -417,5 +515,9 @@ public class TrangChuJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblMuonQuaHan;
     private javax.swing.JTable tblSachDuocThem;
+    private javax.swing.JLabel txtSachDMuon;
+    private javax.swing.JLabel txtSachQHan;
+    private javax.swing.JLabel txtTSoDocGia;
+    private javax.swing.JLabel txtTSoSach;
     // End of variables declaration//GEN-END:variables
 }
