@@ -75,6 +75,13 @@ CREATE TABLE Employee (
     isDeleted BIT DEFAULT 0
 );
 
+CREATE TABLE Setting (
+	settingId INT AUTO_INCREMENT PRIMARY KEY,
+    maxBorrowDays INT UNSIGNED NOT NULL,
+    lateFeePerDay INT UNSIGNED NOT NULL,
+    maxBooksBorrowed INT UNSIGNED NOT NULL
+);
+
 INSERT INTO Category (categoryName) VALUES 
 ('Mathematics'),
 ('Physics'),
@@ -188,7 +195,18 @@ INSERT INTO Role (roleName) VALUES
 ('Admin');
 
 INSERT INTO Employee (name, role, phoneNumber, email, password) VALUES
+<<<<<<< HEAD
+('admin', 'Admin', '0123456789', 'admin@gmail.com', 'admin123'),
+('A Norgan', 'Librarian', '0372003788', 'anorgan@gmail.com', 'password123'),
+('B Scott', 'Librarian', '0345018165', 'bscott@gmail.com', 'password123'),
+('C Lee', 'Librarian', '0988660609', 'clee@gmail.com', 'password123');
+
+
+INSERT INTO Setting (maxBorrowDays, lateFeePerDay, maxBooksBorrowed)
+VAlUES (14, 2000, 3);
+=======
 ('admin', 'Admin', '0123456789', 'admin@gmail.com', 'admin'),
 ('A', 'Librarian', '0372003788', 'a@gmail.com', '123'),
 ('B', 'Librarian', '0345018165', 'b@gmail.com', '123'),
 ('C', 'Librarian', '0988660609', 'c@gmail.com', '123');
+>>>>>>> 039c91b945cbcb46169b7a905f8edd12d77a0b52
