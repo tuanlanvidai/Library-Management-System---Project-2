@@ -31,11 +31,11 @@ public class MuonTraSach extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblBorrowerName = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tblBorrowBooks = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jComboBox2 = new javax.swing.JComboBox<>();
@@ -69,23 +69,23 @@ public class MuonTraSach extends javax.swing.JPanel {
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblBorrowerName.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Tên Độc Giả", "Ngày lập thẻ"
+                "ID", "Tên Độc Giả", "Ngày lập thẻ", "Số sách đang mượn"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tblBorrowerName);
 
         jLabel4.setText("Danh sách độc giả đang mượn sách");
 
@@ -110,27 +110,27 @@ public class MuonTraSach extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tblBorrowBooks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Mã PM", "Tên sách", "Tác giả", "Ngày mượn", "Ngày trả ", "Quá hạn"
+                "Mã PM", "Tên sách", "Ngày mượn", "Ngày trả ", "Tiền phạt quá hạn"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(tblBorrowBooks);
 
-        jLabel5.setText("Chi tiết");
+        jLabel5.setText("Tìm kiếm");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên độc giả" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên độc giả", "Mã độc giả" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -263,8 +263,8 @@ public class MuonTraSach extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tblBorrowBooks;
+    private javax.swing.JTable tblBorrowerName;
     // End of variables declaration//GEN-END:variables
 }
