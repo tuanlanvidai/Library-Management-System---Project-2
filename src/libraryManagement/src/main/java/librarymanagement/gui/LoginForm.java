@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import librarymanagement.dao.EmployeeDAO;
+import librarymanagement.pojo.Employee;
 
 /**
  *
@@ -45,8 +46,10 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtPassWord = new javax.swing.JPasswordField();
         btn_dangnhap = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -73,6 +76,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 204, 204));
         jLabel3.setText("Mật Khẩu :");
 
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtEmail.addActionListener(this::txtEmailActionPerformed);
         txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -84,6 +88,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 204, 204));
         jLabel4.setText("Tài Khoản :");
 
+        txtPassWord.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtPassWord.addActionListener(this::txtPassWordActionPerformed);
         txtPassWord.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -97,6 +102,12 @@ public class LoginForm extends javax.swing.JFrame {
         btn_dangnhap.setText("Đăng Nhập");
         btn_dangnhap.addActionListener(this::btn_dangnhapActionPerformed);
 
+        btnExit.setText("X");
+        btnExit.setBorder(null);
+        btnExit.setBorderPainted(false);
+        btnExit.setContentAreaFilled(false);
+        btnExit.addActionListener(this::btnExitActionPerformed);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -104,7 +115,9 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121))
+                .addGap(40, 40, 40)
+                .addComponent(btnExit)
+                .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -122,7 +135,9 @@ public class LoginForm extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExit))
                 .addGap(25, 25, 25)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -152,6 +167,7 @@ public class LoginForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPassWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassWordActionPerformed
@@ -164,8 +180,9 @@ public class LoginForm extends javax.swing.JFrame {
         String passWord = txtPassWord.getText();
         Matcher matcher = pattern.matcher(email);
         if (matcher.matches()) {
-            if (dao.getEmployee(email, passWord) != null) {
-                LayoutMain main = new LayoutMain();
+            Employee employee= dao.getEmployee(email, passWord);
+            if (employee != null) {
+                LayoutMain main = new LayoutMain(employee.getRole());
                 main.setVisible(true);
                 this.dispose();
             }
@@ -188,22 +205,28 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void txtPassWordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassWordKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
             String email = txtEmail.getText();
-            String passWord = txtPassWord.getText();
-            Matcher matcher = pattern.matcher(email);
-            if (matcher.matches()) {
-                if (dao.getEmployee(email, passWord) != null) {
-                    LayoutMain main = new LayoutMain();
-                    main.setVisible(true);
-                    this.dispose();
-                } 
+        String passWord = txtPassWord.getText();
+        Matcher matcher = pattern.matcher(email);
+        if (matcher.matches()) {
+            Employee employee= dao.getEmployee(email, passWord);
+            if (employee != null) {
+                LayoutMain main = new LayoutMain(employee.getRole());
+                main.setVisible(true);
+                this.dispose();
             }
-            else {
-                    JOptionPane.showMessageDialog(null, "Wrong Email Format");
-                }
+        }
+        else {
+                JOptionPane.showMessageDialog(null, "Wrong Email Format");
+            }
         }
     }//GEN-LAST:event_txtPassWordKeyPressed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,6 +264,7 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btn_dangnhap;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

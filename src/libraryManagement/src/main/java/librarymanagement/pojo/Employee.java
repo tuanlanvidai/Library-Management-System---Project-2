@@ -17,8 +17,22 @@ public class Employee {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
-        this.isDelete= false;
+        this.isDelete= 0;
     }
+    public Employee( String name, String role, String phoneNumber, String email, String password) {
+        this.name = name;
+        this.role = role;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password;
+        this.isDelete= 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "id=" + id + ", name=" + name + ", role=" + role + ", phoneNumber=" + phoneNumber + ", email=" + email + ", password=" + password + '}';
+    }
+    
 
     
     private int id;
@@ -27,7 +41,7 @@ public class Employee {
     private String phoneNumber;
     private String email;
     private String password;
-    private Boolean isDelete;
+    private int isDelete;
     /**
      * @return the id
      */
@@ -115,14 +129,14 @@ public class Employee {
     /**
      * @return the isDelete
      */
-    public Boolean getIsDelete() {
+    public int getIsDelete() {
         return isDelete;
     }
 
     /**
      * @param isDelete the isDelete to set
      */
-    public void setIsDelete(Boolean isDelete) {
+    public void setIsDelete(int isDelete) {
         this.isDelete = isDelete;
     }
     
