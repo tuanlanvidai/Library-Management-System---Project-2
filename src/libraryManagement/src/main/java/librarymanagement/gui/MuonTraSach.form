@@ -315,11 +315,11 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton1" min="-2" pref="266" max="-2" attributes="0"/>
+                      <Component id="btnAddBorrow" min="-2" pref="266" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="318" max="-2" attributes="0"/>
+                      <Component id="btnAddReturn" min="-2" pref="318" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="265" max="-2" attributes="0"/>
+                      <Component id="btnFineForm" min="-2" pref="265" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -329,9 +329,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton1" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
-                          <Component id="jButton3" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
+                          <Component id="btnAddBorrow" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
+                          <Component id="btnAddReturn" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
+                          <Component id="btnFineForm" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="43" max="32767" attributes="0"/>
                   </Group>
@@ -339,25 +339,28 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnAddBorrow">
               <Properties>
                 <Property name="text" type="java.lang.String" value="T&#x1ea1;o phi&#x1ebf;u m&#x1b0;&#x1ee3;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddBorrowActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="btnAddReturn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="T&#x1ea1;o phi&#x1ebf;u tr&#x1ea3;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddReturnActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="btnFineForm">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t danh s&#xe1;ch phi&#x1ebf;u thu"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFineFormActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
