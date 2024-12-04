@@ -41,7 +41,7 @@ public class LayoutMain extends javax.swing.JFrame {
     public LayoutMain(String Role) {
         initComponents();
         setTitle("Quản Lý Học Viên ");
-        ChuyenManHinhDAO chuyenmanhinhDAO = new ChuyenManHinhDAO(jpnView1);
+        ChuyenManHinhDAO chuyenmanhinhDAO = new ChuyenManHinhDAO(jpnView);
         chuyenmanhinhDAO.setView(jpntrangchu, jlbtrangchu);
         
         List<Dashboard> listItem = new ArrayList<>();
