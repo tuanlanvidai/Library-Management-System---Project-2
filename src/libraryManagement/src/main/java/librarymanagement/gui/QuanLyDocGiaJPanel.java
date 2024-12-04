@@ -4,17 +4,25 @@
  */
 package librarymanagement.gui;
 
-/**
- *
- * @author duyanh
- */
-public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import librarymanagement.dao.QuanLyDocGiaDAO;
+import librarymanagement.pojo.QuanLyDocGia;
 
-    /**
-     * Creates new form QuanLyDocGiaJPanel
-     */
+
+
+public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
+    
+    private QuanLyDocGiaDAO dao;
+    public static DefaultTableModel model;
+
     public QuanLyDocGiaJPanel() {
-        initComponents();
+         initComponents();
+        dao = new QuanLyDocGiaDAO();
+        model = (DefaultTableModel) tblQuanLyDocGia.getModel();  // Khởi tạo model cho bảng
+        btnCancelSearch.setVisible(false);
+        dao.addDataToTable(model, tblQuanLyDocGia); // Lấy dữ liệu độc giả từ cơ sở dữ liệu và thêm vào bảng
     }
 
     /**
@@ -27,29 +35,181 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        txtQuery = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
+        btnCancelSearch = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblQuanLyDocGia = new javax.swing.JTable();
+        btnThem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
 
-        jLabel1.setText("123");
+        setBackground(new java.awt.Color(0, 153, 153));
+
+        jLabel1.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/docgia.png"))); // NOI18N
+        jLabel1.setText("Quản lý độc giả");
+
+        txtQuery.setToolTipText("");
+        txtQuery.setBorder(null);
+        txtQuery.addActionListener(this::txtQueryActionPerformed);
+
+        btnSearch.setText("Search");
+        btnSearch.setBorder(null);
+        btnSearch.setBorderPainted(false);
+        btnSearch.setContentAreaFilled(false);
+        btnSearch.addActionListener(this::btnSearchActionPerformed);
+
+        btnCancelSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCancelSearch.setText("X");
+        btnCancelSearch.setBorder(null);
+        btnCancelSearch.setBorderPainted(false);
+        btnCancelSearch.setContentAreaFilled(false);
+        btnCancelSearch.addActionListener(this::btnCancelSearchActionPerformed);
+
+        tblQuanLyDocGia.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mã độc giả", "Tên độc giả", "Đia chỉ", "Điện thoại", "Ngày đăng ký", "Đã xóa"
+            }
+        ));
+        jScrollPane1.setViewportView(tblQuanLyDocGia);
+
+        btnThem.setBackground(new java.awt.Color(0, 204, 204));
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(this::btnThemActionPerformed);
+
+        btnSua.setBackground(new java.awt.Color(0, 204, 204));
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(this::btnSuaActionPerformed);
+
+        btnXoa.setBackground(new java.awt.Color(0, 204, 204));
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(this::btnXoaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(117, 117, 117)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(152, 152, 152)
+                                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 931, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(209, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel1)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuery)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQueryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQueryActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        String query = txtQuery.getText().trim();
+    if (query.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập ID độc giả để tìm kiếm.");
+        return;
+    }
+
+    try {
+        int readerId = Integer.parseInt(query); // Chuyển đổi ID độc giả từ chuỗi sang số nguyên
+
+        // Gọi phương thức tìm kiếm độc giả theo ID
+        List<QuanLyDocGia> readers = dao.searchReaderById(readerId);
+
+        // Kiểm tra kết quả tìm kiếm
+        if (readers != null && !readers.isEmpty()) {
+            dao.addDataFromSearch(readers, model, tblQuanLyDocGia);  // Thêm dữ liệu vào bảng
+            btnCancelSearch.setVisible(true);  // Hiển thị nút hủy tìm kiếm
+        } else {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy độc giả với ID: " + readerId);
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập một ID hợp lệ.");
+    }
+
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnCancelSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelSearchActionPerformed
+        dao.addDataToTable(model, tblQuanLyDocGia);
+        btnCancelSearch.setVisible(false);
+    }//GEN-LAST:event_btnCancelSearchActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        ReaderManagement manage = new ReaderManagement("Thêm");
+        manage.setVisible(true);
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        ReaderManagement manage = new ReaderManagement("Thêm");
+        manage.setVisible(true);
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // Mở cửa sổ BookManagement với chế độ "Xóa"
+        ReaderManagement manage = new ReaderManagement("Xóa");
+        manage.setVisible(true);
+    }//GEN-LAST:event_btnXoaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelSearch;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblQuanLyDocGia;
+    private javax.swing.JTextField txtQuery;
     // End of variables declaration//GEN-END:variables
 }
