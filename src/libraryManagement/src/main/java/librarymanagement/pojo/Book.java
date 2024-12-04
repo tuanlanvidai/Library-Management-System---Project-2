@@ -19,7 +19,6 @@ public class Book {
     private int availableQty;
     private boolean isDeleted;
 
-    // Getters and Setters
     public int getBookId() {
         return bookId;
     }
