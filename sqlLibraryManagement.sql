@@ -90,34 +90,30 @@ INSERT INTO Category (categoryName) VALUES
 ('History'),
 ('Geography');
 
-INSERT INTO Book (title, category, publishYear, totalQuantity, availableQty) VALUES 
-('Advanced Mathematics', 'Mathematics', 2020, 5, 4),
-('Linear Algebra', 'Mathematics', 2021, 6, 5),
-('Differential Equations', 'Mathematics', 2019, 5, 4),
-('Calculus: A Complete Guide', 'Mathematics', 2022, 5, 4);
+INSERT INTO Book (title, author, category, publishYear, totalQuantity, availableQty) VALUES
+('Advanced Mathematics',  'John Doe', 'Mathematics', 2020, 5, 4),
+('Linear Algebra', 'Jane Smith', 'Mathematics', 2021, 6, 5),
+('Differential Equations', 'Albert Johnson', 'Mathematics', 2019, 5, 4),
+('Calculus: A Complete Guide', 'Emily Davis', 'Mathematics', 2022, 5, 4),
 
-INSERT INTO Book (title, category, publishYear, totalQuantity, availableQty) VALUES
-('Fundamentals of Physics', 'Physics', 2020, 6, 5),
-('Introduction to Quantum Mechanics', 'Physics', 2021, 4, 3),
-('Classical Mechanics', 'Physics', 2019, 5, 4);
+('Fundamentals of Physics', 'Richard Feynman', 'Physics', 2020, 6, 5),
+('Introduction to Quantum Mechanics',  'Jane Smith', 'Physics', 2021, 4, 3),
+('Classical Mechanics', 'Herbert Goldstein', 'Physics', 2019, 5, 4),
 
-INSERT INTO Book (title, category, publishYear, totalQuantity, availableQty) VALUES
-('The Great Gatsby', 'Literature', 1925, 6, 5),
-('Moby Dick', 'Literature', 1851, 4, 3),
-('Pride and Prejudice', 'Literature', 1813, 5, 5);
+('The Great Gatsby', 'F. Scott Fitzgerald', 'Literature', 1925, 6, 5),
+('Moby Dick', 'Herman Melville', 'Literature', 1851, 4, 3),
+('Pride and Prejudice',  'Jane Austen', 'Literature', 1813, 5, 5),
 
-INSERT INTO Book (title, category, publishYear, totalQuantity, availableQty) VALUES
-('A History of Ancient Civilizations', 'History', 2020, 5, 5),
-('World History: A Global Perspective', 'History', 2018, 5, 5),
-('The Rise and Fall of the Roman Empire', 'History', 2019, 4, 3);
+('A History of Ancient Civilizations', 'William Thompson', 'History', 2020, 5, 5),
+('World History: A Global Perspective', 'Anna Roberts', 'History', 2018, 5, 5),
+('The Rise and Fall of the Roman Empire', 'Edward Gibbon', 'History', 2019, 4, 3),
 
-INSERT INTO Book (title, category, publishYear, totalQuantity, availableQty) VALUES
-('Organic Chemistry', 'Chemistry', 2021, 6, 5),
-('Physical Chemistry', 'Chemistry', 2020, 5, 5);
+('Organic Chemistry', 'Paula Bruice', 'Chemistry', 2021, 6, 5),
+('Physical Chemistry', 'Peter Atkins', 'Chemistry', 2020, 5, 5);
 
-INSERT INTO Book (title, category, publishYear, totalQuantity, availableQty) VALUES
-('Geography of the World', 'Geography', 2021, 4, 3),
-('World Regional Geography', 'Geography', 2020, 5, 4);
+('Geography of the World', 'Michael Smith', 'Geography', 2021, 4, 3),
+('World Regional Geography', 'James Peterson', 'Geography', 2020, 5, 4);
+
 
 INSERT INTO Reader (name, phoneNumber, address, email, registerDay) VALUES
 ('Alice Johnson', '0345678911', '123 Main St, City A', 'alice.johnson@gmail.com', '2024-10-20'),
@@ -195,18 +191,11 @@ INSERT INTO Role (roleName) VALUES
 ('Admin');
 
 INSERT INTO Employee (name, role, phoneNumber, email, password) VALUES
-<<<<<<< HEAD
-('admin', 'Admin', '0123456789', 'admin@gmail.com', 'admin123'),
-('A Norgan', 'Librarian', '0372003788', 'anorgan@gmail.com', 'password123'),
-('B Scott', 'Librarian', '0345018165', 'bscott@gmail.com', 'password123'),
-('C Lee', 'Librarian', '0988660609', 'clee@gmail.com', 'password123');
 
-
-INSERT INTO Setting (maxBorrowDays, lateFeePerDay, maxBooksBorrowed)
-VAlUES (14, 2000, 3);
-=======
 ('admin', 'Admin', '0123456789', 'admin@gmail.com', 'admin'),
 ('A', 'Librarian', '0372003788', 'a@gmail.com', '123'),
 ('B', 'Librarian', '0345018165', 'b@gmail.com', '123'),
 ('C', 'Librarian', '0988660609', 'c@gmail.com', '123');
->>>>>>> 039c91b945cbcb46169b7a905f8edd12d77a0b52
+
+INSERT INTO Setting (maxBorrowDays, lateFeePerDay, maxBooksBorrowed)
+VAlUES (14, 2000, 3);
