@@ -202,7 +202,7 @@ public class TrangChuDAO {
     int overdueBooks = 0;
     try {
         Connection con = DriverManager.getConnection(ConfigUtils.dbConnect, ConfigUtils.username, ConfigUtils.password);
-        String sql = "SELECT COUNT(*) AS total FROM ReturnFine WHERE lateDays > 0 AND isDeleted = 0";
+        String sql = "select count(*) as total from ReturnFine where lateDays > 0 and isDeleted = 0";
         PreparedStatement stmt = con.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
 

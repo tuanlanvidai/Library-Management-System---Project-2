@@ -39,7 +39,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
     DefaultTableModel model = (DefaultTableModel) tblSachDuocThem.getModel();
     model.setRowCount(0);
     BookDAO bookDAO = new BookDAO();
-    List<Book> books = bookDAO.getBooks();
+    List<Book> books = bookDAO.getBooksEarlyPublishYear();
 
     for (Book book : books) {
         model.addRow(new Object[] {
@@ -330,7 +330,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Sách được thêm gần đây");
+        jLabel1.setText("Loại sách được thêm gần đây");
 
         tblSachDuocThem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -340,7 +340,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Mã sách", "Tên Sách", "Tác Giả ", "Ngày nhập"
+                "Mã sách", "Tên Sách", "Tác Giả ", "Năm xuất bản"
             }
         ) {
             Class[] types = new Class [] {
@@ -361,7 +361,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(191, 191, 191)
+                .addGap(164, 164, 164)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -453,7 +453,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 980, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(

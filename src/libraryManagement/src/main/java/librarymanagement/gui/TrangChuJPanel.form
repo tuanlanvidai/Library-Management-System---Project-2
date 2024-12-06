@@ -67,7 +67,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel8" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jPanel9" pref="0" max="32767" attributes="0"/>
+                      <Component id="jPanel9" pref="980" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -500,7 +500,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -526,7 +526,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="S&#xe1;ch &#x111;&#x1b0;&#x1ee3;c th&#xea;m g&#x1ea7;n &#x111;&#xe2;y"/>
+                    <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i s&#xe1;ch &#x111;&#x1b0;&#x1ee3;c th&#xea;m g&#x1ea7;n &#x111;&#xe2;y"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -543,7 +543,7 @@
                             <Column editable="true" title="M&#xe3; s&#xe1;ch" type="java.lang.String"/>
                             <Column editable="true" title="T&#xea;n S&#xe1;ch" type="java.lang.String"/>
                             <Column editable="true" title="T&#xe1;c Gi&#x1ea3; " type="java.lang.String"/>
-                            <Column editable="true" title="Ng&#xe0;y nh&#x1ead;p" type="java.lang.Integer"/>
+                            <Column editable="true" title="N&#x103;m xu&#x1ea5;t b&#x1ea3;n" type="java.lang.Integer"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

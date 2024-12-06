@@ -91,28 +91,28 @@ INSERT INTO Category (categoryName) VALUES
 ('Geography');
 
 INSERT INTO Book (title, author, category, publishYear, totalQuantity, availableQty) VALUES
-('Advanced Mathematics',  'John Doe', 'Mathematics', 2020, 5, 4),
-('Linear Algebra', 'Jane Smith', 'Mathematics', 2021, 6, 5),
-('Differential Equations', 'Albert Johnson', 'Mathematics', 2019, 5, 4),
-('Calculus: A Complete Guide', 'Emily Davis', 'Mathematics', 2022, 5, 4),
+('Advanced Mathematics',  'John Doe', 'Mathematics', 2022, 5, 4),
+('Linear Algebra', 'Jane Smith', 'Mathematics', 2023, 6, 5),
+('Differential Equations', 'Albert Johnson', 'Mathematics', 2023, 5, 4),
+('Calculus: A Complete Guide', 'Emily Davis', 'Mathematics', 2024, 5, 4),
 
-('Fundamentals of Physics', 'Richard Feynman', 'Physics', 2020, 6, 5),
-('Introduction to Quantum Mechanics',  'Jane Smith', 'Physics', 2021, 4, 3),
-('Classical Mechanics', 'Herbert Goldstein', 'Physics', 2019, 5, 4),
+('Fundamentals of Physics', 'Richard Feynman', 'Physics', 2022, 6, 5),
+('Introduction to Quantum Mechanics',  'Jane Smith', 'Physics', 2023, 4, 3),
+('Classical Mechanics', 'Herbert Goldstein', 'Physics', 2024, 5, 4),
 
-('The Great Gatsby', 'F. Scott Fitzgerald', 'Literature', 1925, 6, 5),
-('Moby Dick', 'Herman Melville', 'Literature', 1851, 4, 3),
-('Pride and Prejudice',  'Jane Austen', 'Literature', 1813, 5, 5),
+('The Great Gatsby', 'F. Scott Fitzgerald', 'Literature', 2023, 6, 5),
+('Moby Dick', 'Herman Melville', 'Literature', 2023, 4, 3),
+('Pride and Prejudice',  'Jane Austen', 'Literature', 2024, 5, 5),
 
-('A History of Ancient Civilizations', 'William Thompson', 'History', 2020, 5, 5),
-('World History: A Global Perspective', 'Anna Roberts', 'History', 2018, 5, 5),
-('The Rise and Fall of the Roman Empire', 'Edward Gibbon', 'History', 2019, 4, 3),
+('A History of Ancient Civilizations', 'William Thompson', 'History', 2022, 5, 5),
+('World History: A Global Perspective', 'Anna Roberts', 'History', 2022, 5, 5),
+('The Rise and Fall of the Roman Empire', 'Edward Gibbon', 'History', 2024, 4, 3),
 
-('Organic Chemistry', 'Paula Bruice', 'Chemistry', 2021, 6, 5),
-('Physical Chemistry', 'Peter Atkins', 'Chemistry', 2020, 5, 5);
+('Organic Chemistry', 'Paula Bruice', 'Chemistry',2023, 6, 5),
+('Physical Chemistry', 'Peter Atkins', 'Chemistry', 2024, 5, 5),
 
-('Geography of the World', 'Michael Smith', 'Geography', 2021, 4, 3),
-('World Regional Geography', 'James Peterson', 'Geography', 2020, 5, 4);
+('Geography of the World', 'Michael Smith', 'Geography', 2022, 4, 3),
+('World Regional Geography', 'James Peterson', 'Geography', 2023, 5, 4);
 
 
 INSERT INTO Reader (name, phoneNumber, address, email, registerDay) VALUES
