@@ -132,58 +132,31 @@ INSERT INTO Reader (name, phoneNumber, address, email, registerDay) VALUES
 ('Nancy Davis', '0843456714', '741 Oak St, City N', 'nancy.davis@gmail.com', '2024-11-31'),
 ('Oscar Wilson', '0921345615', '852 Pine St, City O', 'oscar.wilson@gmail.com', '2024-12-08');
 
-INSERT INTO BorrowBook (readerId, bookId, borrowDate, dueDate) VALUES
-(1, 1, '2024-11-02', '2024-11-09'),
-(2, 2, '2024-11-05', '2024-11-12'),
-(3, 3, '2024-11-07', '2024-11-14'),
-(4, 4, '2024-11-08', '2024-11-15'),
-(5, 5, '2024-11-10', '2024-11-17'),
-(6, 6, '2024-11-12', '2024-11-19'),
-(7, 7, '2024-11-15', '2024-11-22'),
-(8, 8, '2024-11-18','2024-11-25'),
-(9, 9, '2024-11-20', '2024-11-27'),
-(10, 10, '2024-11-22', '2024-11-29'),
-(11, 11, '2024-11-24', '2024-12-01'),
-(12, 12, '2024-11-24', '2024-12-01'),
-(13, 13, '2024-11-27','2024-12-04'),
-(14, 14, '2024-12-01', '2024-12-08'),
-(15, 15, '2024-12-03', '2024-12-10');
+INSERT INTO BorrowBook (borrowId, readerId, bookId, borrowDate, dueDate, isDeleted)
+VALUES
+(11111, 1, 1, '2024-11-01', '2024-11-15', 0),
+(11112, 1, 2, '2024-11-02', '2024-11-16', 0),
+(11113, 1, 3, '2024-11-05', '2024-11-19', 0),
+(22221, 2, 4, '2024-11-07', '2024-11-21', 1),
+(22222, 2, 5, '2024-11-10', '2024-11-24', 0),
+(22223, 2, 6, '2024-11-12', '2024-11-26', 0),
+(33331, 3, 7, '2024-11-15', '2024-11-29', 0),
+(33332, 3, 8, '2024-11-16', '2024-11-30', 0),
+(44441, 5, 9, '2024-11-18', '2024-12-02', 1),
+(44442, 5, 10, '2024-11-20', '2024-12-04', 1),
+(44443, 5, 11, '2024-11-25', '2024-12-09', 0),
+(55551, 4, 12, '2024-11-27', '2024-12-11', 1),
+(55552, 4, 13, '2024-11-30', '2024-12-14', 0),
+(66661, 9, 14, '2024-12-01', '2024-12-15', 0),
+(66662, 9, 15, '2024-12-02', '2024-12-16', 0),
+(66663, 9, 16, '2024-12-03', '2024-12-17', 0);
 
-INSERT INTO ReturnBook (borrowId, returnDate, bookStatus) VALUES
-(1, '2024-11-11', 'Damaged'),  
-(2, '2024-11-17', 'Good'),     
-(3, '2024-11-15', 'Good'),     
-(4, '2024-11-17', 'Good'),     
-(5, '2024-11-18', 'Good'),     
-(6, '2024-11-22', 'Good'),     
-(7, '2024-11-20', 'Good'),    
-(8, '2024-11-23', 'Good'),    
-(9, '2024-11-27', 'Good'),     
-(10, '2024-11-25', 'Damaged'),   
-(11, '2024-11-30', 'Good'),    
-(12, '2024-12-01', 'Good'),    
-(13, '2024-11-30', 'Good'),    
-(14, '2024-12-07', 'Good'),    
-(15, '2024-12-10', 'Good');   
-
-
-INSERT INTO ReturnFine (returnId, lateDays, bookStatus, FineMoney) VALUES
--- fee = 10k/day, damaged = 40k
-(1, 2, 'Damaged', 60),   
-(2, 5, 'Good', 50),      
-(3, 1, 'Good', 10),      
-(4, 2, 'Good', 20),      
-(5, 1, 'Good', 10),
-(6, 3, 'Good', 30),      
-(7, 0, 'Good', 0),      
-(8, 0, 'Good', 0),       
-(9, 0, 'Good', 0),       
-(10, 0, 'Damaged', 40),  
-(11, 0, 'Good', 0),      
-(12, 0, 'Good', 0),     
-(13, 0, 'Good', 0),     
-(14, 0, 'Good', 0),    
-(15, 0, 'Good', 0);      
+INSERT INTO ReturnBook (returnId, borrowId, returnDate, bookStatus, isDeleted)
+VALUES
+(20001, 22221, '2024-11-22', 'Good', 0),
+(20002, 44441, '2024-12-03', 'Damaged', 0),
+(20003, 44442, '2024-12-05', 'Good', 0),
+(20004, 55551, '2024-12-12', 'Good', 0);
 
 
 INSERT INTO Role (roleName) VALUES 
@@ -199,3 +172,20 @@ INSERT INTO Employee (name, role, phoneNumber, email, password) VALUES
 
 INSERT INTO Setting (maxBorrowDays, lateFeePerDay, maxBooksBorrowed)
 VAlUES (14, 2000, 3);
+
+-- Trigger for random borrow id
+DELIMITER $$
+CREATE TRIGGER random_borrow_id
+BEFORE INSERT ON BorrowBook
+FOR EACH ROW
+BEGIN
+    DECLARE randomId INT;
+
+    SET randomId = FLOOR(10000 + (RAND() * 89999));
+
+    WHILE EXISTS (SELECT 1 FROM BorrowBook WHERE borrowId = randomId) DO
+        SET randomId = FLOOR(10000 + (RAND() * 89999));
+    END WHILE;
+    SET NEW.borrowId = randomId;
+END$$
+DELIMITER ;
