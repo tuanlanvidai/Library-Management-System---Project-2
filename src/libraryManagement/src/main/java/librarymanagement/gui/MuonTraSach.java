@@ -309,6 +309,8 @@ public class MuonTraSach extends javax.swing.JPanel {
 
     private void btnAddBorrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBorrowActionPerformed
         // TODO add your handling code here:
+        BookBorrowForm borrowForm = new BookBorrowForm();
+        borrowForm.setVisible(true);
     }//GEN-LAST:event_btnAddBorrowActionPerformed
 
 
