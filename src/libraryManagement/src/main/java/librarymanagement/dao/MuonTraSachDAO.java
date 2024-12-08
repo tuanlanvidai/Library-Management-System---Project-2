@@ -136,10 +136,10 @@ public class MuonTraSachDAO {
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
         String sql = """
-            SELECT bookId, title, author, category, publishYear, totalQuantity, availableQty
-            FROM Book
-            WHERE isDeleted = 0;
-            """;
+        SELECT bookId, title, author, category, publishYear, totalQuantity, availableQty
+        FROM Book
+        WHERE isDeleted = 0 AND availableQty > 0;
+        """;
 
         try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement stmt = con.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 

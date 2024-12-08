@@ -17,15 +17,20 @@ import librarymanagement.pojo.Reader;
 public class BookBorrowForm extends javax.swing.JFrame {
 
     private MuonTraSachDAO muonTraSachDAO;
+    private List<Reader> fullReaderList;
+    private List<Book> fullBookList;
 
     /**
      * Creates new form BookBorrowForm
      */
     public BookBorrowForm() {
         initComponents();
+        setTitle("Phiếu mượn");
         initDAO();
         loadReaderData();
         loadBookData();
+        addDocGiaSelectionListener();
+        addSachSelectionListener();
     }
 
     private void initDAO() {
@@ -35,10 +40,8 @@ public class BookBorrowForm extends javax.swing.JFrame {
     private void loadReaderData() {
         DefaultTableModel model = (DefaultTableModel) tblDocGia.getModel();
         model.setRowCount(0);
-
-        List<Reader> readers = muonTraSachDAO.getAllReaders();
-
-        for (Reader reader : readers) {
+        fullReaderList = muonTraSachDAO.getAllReaders();
+        for (Reader reader : fullReaderList) {
             model.addRow(new Object[]{
                 reader.getReaderId(),
                 reader.getName(),
@@ -54,9 +57,8 @@ public class BookBorrowForm extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblSach.getModel();
         model.setRowCount(0);
 
-        List<Book> books = muonTraSachDAO.getAllBooks();
-
-        for (Book book : books) {
+        fullBookList = muonTraSachDAO.getAllBooks();
+        for (Book book : fullBookList) {
             model.addRow(new Object[]{
                 book.getBookId(),
                 book.getTitle(),
@@ -65,6 +67,125 @@ public class BookBorrowForm extends javax.swing.JFrame {
                 book.getPublishYear(),
                 book.getAvailableQty()
             });
+        }
+    }
+
+    private void addDocGiaSelectionListener() {
+        tblDocGia.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = tblDocGia.getSelectedRow();
+                if (selectedRow >= 0) {
+                    String readerId = tblDocGia.getValueAt(selectedRow, 0).toString();
+                    String readerName = tblDocGia.getValueAt(selectedRow, 1).toString();
+                    String email = tblDocGia.getValueAt(selectedRow, 2).toString();
+                    String phoneNumber = tblDocGia.getValueAt(selectedRow, 3).toString();
+
+                    txtMaDocGia.setText(readerId);
+                    txtTenDocGia.setText(readerName);
+                    txtEmail.setText(email);
+                    txtSDT.setText(phoneNumber);
+                }
+            }
+        });
+    }
+
+    private void addSachSelectionListener() {
+        tblSach.getSelectionModel().addListSelectionListener(e -> {
+            int selectedRow = tblSach.getSelectedRow();
+            if (selectedRow >= 0) {
+                String bookId = tblSach.getValueAt(selectedRow, 0).toString();
+                String title = tblSach.getValueAt(selectedRow, 1).toString();
+                String author = tblSach.getValueAt(selectedRow, 2).toString();
+                String availableQty = tblSach.getValueAt(selectedRow, 5).toString();
+
+                txtMaSach.setText(bookId);
+                txtTenSach.setText(title);
+                txtTenTacGia.setText(author);
+                txtSoSachSanCo.setText(availableQty);
+            }
+        });
+    }
+
+    //Search button
+    private void filterReaderTable(String keyword) {
+        DefaultTableModel model = (DefaultTableModel) tblDocGia.getModel();
+        model.setRowCount(0);
+
+        for (Reader reader : fullReaderList) {
+            if (String.valueOf(reader.getReaderId()).contains(keyword)) {
+                model.addRow(new Object[]{
+                    reader.getReaderId(),
+                    reader.getName(),
+                    reader.getEmail(),
+                    reader.getPhoneNumber(),
+                    reader.getAddress(),
+                    reader.getRegisterDay()
+                });
+            }
+        }
+    }
+
+    private void filterReaderTableByName(String keyword) {
+        DefaultTableModel model = (DefaultTableModel) tblDocGia.getModel();
+        model.setRowCount(0);
+
+        for (Reader reader : fullReaderList) {
+            String normalizedKeyword = normalizeString(keyword).toLowerCase();
+            String normalizedName = normalizeString(reader.getName()).toLowerCase();
+            if (normalizedName.contains(normalizedKeyword)) {
+                model.addRow(new Object[]{
+                    reader.getReaderId(),
+                    reader.getName(),
+                    reader.getEmail(),
+                    reader.getPhoneNumber(),
+                    reader.getAddress(),
+                    reader.getRegisterDay()
+                });
+            }
+        }
+    }
+
+    //For searching with vietnamese
+    private String normalizeString(String input) {
+        return java.text.Normalizer.normalize(input, java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "");
+    }
+
+    private void filterBookTableByCode(String keyword) {
+        DefaultTableModel model = (DefaultTableModel) tblSach.getModel();
+        model.setRowCount(0);
+
+        for (Book book : fullBookList) {
+            if (String.valueOf(book.getBookId()).contains(keyword)) {
+                model.addRow(new Object[]{
+                    book.getBookId(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getCategory(),
+                    book.getPublishYear(),
+                    book.getAvailableQty()
+                });
+            }
+        }
+    }
+
+    private void filterBookTableByName(String keyword) {
+        DefaultTableModel model = (DefaultTableModel) tblSach.getModel();
+        model.setRowCount(0);
+
+        for (Book book : fullBookList) {
+            String normalizedKeyword = normalizeString(keyword).toLowerCase();
+            String normalizedTitle = normalizeString(book.getTitle()).toLowerCase();
+            if (normalizedTitle.contains(normalizedKeyword)) {
+                model.addRow(new Object[]{
+                    book.getBookId(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getCategory(),
+                    book.getPublishYear(),
+                    book.getAvailableQty()
+                });
+            }
         }
     }
 
@@ -146,6 +267,7 @@ public class BookBorrowForm extends javax.swing.JFrame {
         labelId.setText(bundle.getString("BookBorrowForm.labelId.text")); // NOI18N
 
         btnTimMaDocGia.setText(bundle.getString("BookBorrowForm.btnTimMaDocGia.text")); // NOI18N
+        btnTimMaDocGia.addActionListener(this::btnTimMaDocGiaActionPerformed);
 
         tblDocGia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -213,10 +335,13 @@ public class BookBorrowForm extends javax.swing.JFrame {
         txtSoSachSanCo.setEditable(false);
 
         btnTimTenDocGia.setText(bundle.getString("BookBorrowForm.btnTimTenDocGia.text")); // NOI18N
+        btnTimTenDocGia.addActionListener(this::btnTimTenDocGiaActionPerformed);
 
         btnTimMaSach.setText(bundle.getString("BookBorrowForm.btnTimMaSach.text")); // NOI18N
+        btnTimMaSach.addActionListener(this::btnTimMaSachActionPerformed);
 
         btnTimTenSach.setText(bundle.getString("BookBorrowForm.btnTimTenSach.text")); // NOI18N
+        btnTimTenSach.addActionListener(this::btnTimTenSachActionPerformed);
 
         tblSach.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -369,6 +494,30 @@ public class BookBorrowForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCloseIconActionPerformed
+
+    private void btnTimMaDocGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimMaDocGiaActionPerformed
+        // TODO add your handling code here:
+        String keyword = txtMaDocGia.getText().trim();
+        filterReaderTable(keyword);
+    }//GEN-LAST:event_btnTimMaDocGiaActionPerformed
+
+    private void btnTimTenDocGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTenDocGiaActionPerformed
+        // TODO add your handling code here:
+        String keyword = txtTenDocGia.getText().trim();
+        filterReaderTableByName(keyword);
+    }//GEN-LAST:event_btnTimTenDocGiaActionPerformed
+
+    private void btnTimMaSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimMaSachActionPerformed
+        // TODO add your handling code here:
+        String keyword = txtMaSach.getText().trim();
+        filterBookTableByCode(keyword);
+    }//GEN-LAST:event_btnTimMaSachActionPerformed
+
+    private void btnTimTenSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTenSachActionPerformed
+        // TODO add your handling code here:
+        String keyword = txtTenSach.getText().trim();
+        filterBookTableByName(keyword);
+    }//GEN-LAST:event_btnTimTenSachActionPerformed
 
     /**
      * @param args the command line arguments
