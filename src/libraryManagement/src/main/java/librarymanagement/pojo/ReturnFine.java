@@ -6,7 +6,7 @@ package librarymanagement.pojo;
 
 /**
  *
- * @author CuongVu
+ * @author lantr
  */
 public class ReturnFine {
     private int returnFineId;
@@ -14,7 +14,18 @@ public class ReturnFine {
     private int lateDays;
     private String bookStatus;
     private int fineMoney;
+    private boolean isDeleted;
 
+    public ReturnFine(int returnFineId, int returnId, int lateDays, String bookStatus, int fineMoney, boolean isDeleted) {
+        this.returnFineId = returnFineId;
+        this.returnId = returnId;
+        this.lateDays = lateDays;
+        this.bookStatus = bookStatus;
+        this.fineMoney = fineMoney;
+        this.isDeleted = isDeleted;
+    }
+
+    // Getters and Setters
     public int getReturnFineId() {
         return returnFineId;
     }
@@ -54,5 +65,12 @@ public class ReturnFine {
     public void setFineMoney(int fineMoney) {
         this.fineMoney = fineMoney;
     }
-}
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+}
