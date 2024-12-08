@@ -6,6 +6,8 @@ package librarymanagement.dao;
 
 import librarymanagement.pojo.Borrower;
 import librarymanagement.pojo.ReturnBook;
+import librarymanagement.pojo.Reader;
+import librarymanagement.pojo.Book;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -56,7 +58,7 @@ public class MuonTraSachDAO {
 
         return borrowers;
     }
-    
+
     //Get all the book a person borrowed, when select a borrower
     public List<ReturnBook> getBorrowedBooksWithFine(int readerId) {
         List<ReturnBook> borrowedBooks = new ArrayList<>();
@@ -100,5 +102,64 @@ public class MuonTraSachDAO {
         }
 
         return borrowedBooks;
+    }
+
+    public List<Reader> getAllReaders() {
+        List<Reader> readers = new ArrayList<>();
+        String sql = """
+            SELECT readerId, name, address, phoneNumber, email, registerDay
+            FROM Reader
+            WHERE isDeleted = 0;
+            """;
+
+        try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement stmt = con.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Reader reader = new Reader();
+                reader.setReaderId(rs.getInt("readerId"));
+                reader.setName(rs.getString("name"));
+                reader.setAddress(rs.getString("address"));
+                reader.setPhoneNumber(rs.getString("phoneNumber"));
+                reader.setEmail(rs.getString("email"));
+                reader.setRegisterDay(rs.getString("registerDay"));
+                reader.setIsDeleted(false);
+                readers.add(reader);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error fetching readers: " + e.getMessage());
+        }
+
+        return readers;
+    }
+
+    public List<Book> getAllBooks() {
+        List<Book> books = new ArrayList<>();
+        String sql = """
+            SELECT bookId, title, author, category, publishYear, totalQuantity, availableQty
+            FROM Book
+            WHERE isDeleted = 0;
+            """;
+
+        try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement stmt = con.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Book book = new Book();
+                book.setBookId(rs.getInt("bookId"));
+                book.setTitle(rs.getString("title"));
+                book.setAuthor(rs.getString("author"));
+                book.setCategory(rs.getString("category"));
+                book.setPublishYear(rs.getInt("publishYear"));
+                book.setTotalQuantity(rs.getInt("totalQuantity"));
+                book.setAvailableQty(rs.getInt("availableQty"));
+                book.setIsDeleted(false);
+                books.add(book);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error fetching books: " + e.getMessage());
+        }
+
+        return books;
     }
 }
