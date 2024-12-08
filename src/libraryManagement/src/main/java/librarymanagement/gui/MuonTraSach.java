@@ -4,17 +4,81 @@
  */
 package librarymanagement.gui;
 
+import librarymanagement.dao.MuonTraSachDAO;
+import librarymanagement.pojo.Borrower;
+import librarymanagement.pojo.ReturnBook;
+
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+
 /**
  *
- * @author duyanh
+ * @author duyanh, lantr
  */
 public class MuonTraSach extends javax.swing.JPanel {
+
+    private MuonTraSachDAO muonTraSachDAO;
 
     /**
      * Creates new form MuonTraSach
      */
     public MuonTraSach() {
         initComponents();
+        initDAO();
+        loadBorrowerData();
+        addTableSelectionListener();
+    }
+
+    private void initDAO() {
+        muonTraSachDAO = new MuonTraSachDAO();
+    }
+
+    private void loadBorrowerData() {
+        DefaultTableModel model = (DefaultTableModel) tblBorrowerName.getModel();
+        model.setRowCount(0);
+        List<Borrower> borrowers = muonTraSachDAO.getBorrowers();
+
+        for (Borrower borrower : borrowers) {
+            model.addRow(new Object[]{
+                borrower.getReaderId(),
+                borrower.getReaderName(),
+                borrower.getRegisterDay(),
+                borrower.getTotalBooksBorrowed()
+            });
+        }
+    }
+
+    //action when click/select a borrower, then show the books he/she borrowed
+    private void addTableSelectionListener() {
+        tblBorrowerName.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selectedRow = tblBorrowerName.getSelectedRow();
+                if (selectedRow >= 0) {
+                    int readerId = (int) tblBorrowerName.getValueAt(selectedRow, 0);
+                    loadBorrowedBooksData(readerId);
+                }
+            }
+        });
+    }
+
+    private void loadBorrowedBooksData(int readerId) {
+        DefaultTableModel model = (DefaultTableModel) tblBorrowBooks.getModel();
+        model.setRowCount(0);
+
+        List<ReturnBook> borrowedBooks = muonTraSachDAO.getBorrowedBooksWithFine(readerId);
+
+        for (ReturnBook book : borrowedBooks) {
+            model.addRow(new Object[]{
+                book.getBorrowId(),
+                book.getBookTitle(),
+                book.getBorrowDate(),
+                book.getDueDate(),
+                book.getFineAmount()
+            });
+        }
     }
 
     /**
