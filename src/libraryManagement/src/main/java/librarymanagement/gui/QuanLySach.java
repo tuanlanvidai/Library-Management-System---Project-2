@@ -4,12 +4,12 @@
  */
 package librarymanagement.gui;
 
-import javax.swing.table.DefaultTableModel;
-import librarymanagement.dao.QuanLySachDAO;
+
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import librarymanagement.pojo.QuanLySachPOJO;
+import librarymanagement.dao.QuanLySachDAO;
 
 
 /**
@@ -79,17 +79,17 @@ public class QuanLySach extends javax.swing.JPanel {
 
         tblQuanLySach.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã sách", "Tên sách", "Tác giả", "Thể loại", "Năm xuất bản", "Tổng số lượng", "Số lượng hiện có", "Đã xóa"
+                "Mã sách", "Tên sách", "Tác giả", "Thể loại", "Năm xuất bản", "Tổng số lượng", "Số lượng hiện có"
             }
         ));
         jScrollPane1.setViewportView(tblQuanLySach);
@@ -193,19 +193,19 @@ public class QuanLySach extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelSearchActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        BookManagement manage = new BookManagement("Thêm");
+        BookManagement manage = new BookManagement("Add");
         manage.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        BookManagement manage = new BookManagement("Thêm");
+        BookManagement manage = new BookManagement("Edit");
         manage.setVisible(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // Mở cửa sổ BookManagement với chế độ "Xóa"
-        BookManagement manage = new BookManagement("Xóa");
+        BookManagement manage = new BookManagement("Delete");
         manage.setVisible(true);
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -218,7 +218,7 @@ public class QuanLySach extends javax.swing.JPanel {
     private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblQuanLySach;
+    public static javax.swing.JTable tblQuanLySach;
     private javax.swing.JTextField txtQuery;
     // End of variables declaration//GEN-END:variables
 }

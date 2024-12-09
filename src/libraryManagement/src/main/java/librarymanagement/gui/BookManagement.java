@@ -33,38 +33,14 @@ public class BookManagement extends javax.swing.JFrame {
         keyword = type;
         Title.setText(type + " BookManagement");
         dao = new QuanLySachDAO();
-        model = (DefaultTableModel) tblDisplay.getModel(); // Khởi tạo model
         AddItemToCBX();
-        dao.addDataToTable(model, tblDisplay);
-        
-        if (type.equals("Add")) {
-            labelId.setVisible(false);
-            txtMaSach.setVisible(false);
-            btnCheck.setVisible(false);
-        } else if (type.equals("Edit")) {
-            labelId.setVisible(true);
-            txtMaSach.setVisible(true);
-            btnCheck.setVisible(true);
-        }
-        else if(type.equals("Delete")){
-            labelRole.setVisible(false);
-            cbxCategory.setVisible(false);
-            labelEmail.setVisible(false);
-            labelPassWord.setVisible(false);
-            labelPhone.setVisible(false);
-            txtMaSach.setVisible(false);
-            txtPublishYear.setVisible(false);
-            txtAuthor.setVisible(false);
-            labelId.setVisible(true);
-            txtMaSach.setVisible(true);
-            btnCheck.setVisible(false);
-        }
+        dao.addDataToTable(model, tblDisplay); 
     }
 
     private void AddItemToCBX() {
          List<String> item = dao.getCategoryNames(); 
-        for (String category : item) {
-            cbxCategory.addItem(category);
+        for (int i = 0; i < item.size(); i++) {
+            cbxCategory.addItem(item.get(i));
         }
     }
 
@@ -349,9 +325,10 @@ public class BookManagement extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
-             String title = txtTitle.getText().trim();
-    String author = txtAuthor.getText().trim();
+     String title = txtTitle.getText();
+    String author = txtAuthor.getText();
     String category = cbxCategory.getSelectedItem().toString();
+    
     
     if (title.isEmpty() || author.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Title and Author cannot be empty.");
@@ -374,7 +351,8 @@ public class BookManagement extends javax.swing.JFrame {
         if (keyword.equals("Add")) {
             // Thêm sách mới
             if (dao.addBook(book)) {
-                dao.addDataToTable(model, tblDisplay);  // Cập nhật bảng
+                dao.addDataToTable(model, tblDisplay);
+                dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
                 JOptionPane.showMessageDialog(null, "Book added successfully!");
             } else {
                 JOptionPane.showMessageDialog(null, "Error adding book");
@@ -383,7 +361,8 @@ public class BookManagement extends javax.swing.JFrame {
             // Sửa sách hiện có
             book.setBookId(bookId);
             if (dao.editBook(book)) {
-                dao.addDataToTable(model, tblDisplay);  // Cập nhật bảng
+                dao.addDataToTable(model, tblDisplay);
+                  dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
                 JOptionPane.showMessageDialog(null, "Book updated successfully!");
             } else {
                 JOptionPane.showMessageDialog(null, "Error updating book");
@@ -391,7 +370,9 @@ public class BookManagement extends javax.swing.JFrame {
         } else if (keyword.equals("Delete")) {
             // Xóa sách
             if (dao.deleteBook(bookId)) {
-                dao.addDataToTable(model, tblDisplay);  // Cập nhật bảng
+                dao.addDataToTable(model, tblDisplay);
+                dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach); 
+ 
                 JOptionPane.showMessageDialog(null, "Book deleted successfully!");
             } else {
                 JOptionPane.showMessageDialog(null, "Error deleting book");

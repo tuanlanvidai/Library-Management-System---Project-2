@@ -9,13 +9,16 @@ import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import librarymanagement.dao.QuanLyDocGiaDAO;
 import librarymanagement.pojo.QuanLyDocGia;
+import librarymanagement.gui.QuanLyDocGiaJPanel;
+
 
 public class ReaderManagement extends javax.swing.JFrame {
     
-     private QuanLyDocGiaDAO dao;
-    private String actionType;  // "Add", "Edit", "Delete"
+    QuanLyDocGiaDAO dao;
+    String keyword;
     private DefaultTableModel model;
 
+    
     // Constructor không có tham số (mặc định)
     public ReaderManagement() {
         initComponents();
@@ -25,33 +28,12 @@ public class ReaderManagement extends javax.swing.JFrame {
     }
 
     // Constructor với tham số actionType (Add, Edit, Delete)
-    public ReaderManagement(String actionType) {
+    public ReaderManagement(String type) {
         initComponents();
-        this.actionType = actionType;
-        Title.setText(actionType + " Reader Management");
+        keyword = type;
+        Title.setText(type + " ReaderManagement");
         dao = new QuanLyDocGiaDAO();
-        model = (DefaultTableModel) tblDisplay.getModel();  // Khởi tạo model
-        dao.addDataToTable(model, tblDisplay);  // Hiển thị danh sách độc giả
-        
-        // Điều chỉnh giao diện theo loại hành động
-        if (actionType.equals("Add")) {
-            labelId.setVisible(false);
-            txtReaderId.setVisible(false);
-            btnCheck.setVisible(false);
-        } else if (actionType.equals("Edit")) {
-            labelId.setVisible(true);
-            txtReaderId.setVisible(true);
-            btnCheck.setVisible(true);
-        } else if (actionType.equals("Delete")) {
-            labelName.setVisible(false);
-            txtName.setVisible(false);
-            labelPhone.setVisible(false);
-            txtPhone.setVisible(false);
-            txtEmail.setVisible(false);
-            txtReaderId.setVisible(true);
-            labelId.setVisible(true);
-            btnCheck.setVisible(false);
-        }
+        dao.addDataToTable(model, tblDisplay); 
     }
 
     /**
@@ -313,10 +295,10 @@ public class ReaderManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-       String name = txtName.getText().trim();
-        String address = txtAddress.getText().trim();
-        String phone = txtPhone.getText().trim();
-        String email = txtEmail.getText().trim();
+        String name = txtName.getText();
+        String address = txtAddress.getText();
+        String phone = txtPhone.getText();
+        String email = txtEmail.getText();
 
         // Kiểm tra các trường thông tin không để trống
         if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty()) {
@@ -330,23 +312,25 @@ public class ReaderManagement extends javax.swing.JFrame {
             QuanLyDocGia reader = new QuanLyDocGia(readerId, name, address, phone, email, null, false);
 
             // Xử lý theo loại hành động (Add, Edit, Delete)
-            if (actionType.equals("Add")) {
+            if (keyword.equals("Add")) {
                 // Thêm độc giả mới
                 if (dao.addReader(reader)) {
-                    dao.addDataToTable(model, tblDisplay);  // Cập nhật bảng
+                    dao.addDataToTable(model, tblDisplay);
+                    dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
                     JOptionPane.showMessageDialog(null, "Reader added successfully!");
                 } else {
                     JOptionPane.showMessageDialog(null, "Error adding reader.");
                 }
-            } else if (actionType.equals("Edit")) {
+            } else if (keyword.equals("Edit")) {
                 // Sửa thông tin độc giả
                 if (dao.editReader(reader)) {
-                    dao.addDataToTable(model, tblDisplay);  // Cập nhật bảng
+                    dao.addDataToTable(model, tblDisplay);
+                    dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
                     JOptionPane.showMessageDialog(null, "Reader updated successfully!");
                 } else {
                     JOptionPane.showMessageDialog(null, "Error updating reader.");
                 }
-            } else if (actionType.equals("Delete")) {
+            } else if (keyword.equals("Delete")) {
                 // Xóa độc giả
                 if (dao.deleteReader(readerId)) {
                     dao.addDataToTable(model, tblDisplay);  // Cập nhật bảng

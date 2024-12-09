@@ -15,19 +15,19 @@ public class QuanLyDocGiaDAO {
     // Lấy danh sách tất cả độc giả
     public List<QuanLyDocGia> getAllReaders() {
         List<QuanLyDocGia> readers = new ArrayList<>();
-        String sql = "SELECT * FROM docgia WHERE daXoa = 0";  // Lọc bỏ độc giả đã xóa
+        String sql = "SELECT * FROM reader WHERE isDeleted = 0";  // Lọc bỏ độc giả đã xóa
         try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
              PreparedStatement stmt = con.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 QuanLyDocGia reader = new QuanLyDocGia(
-                        rs.getInt("maDocGia"),
-                        rs.getString("tenDocGia"),
-                        rs.getString("diaChi"),
-                        rs.getString("soDienThoai"),
+                        rs.getInt("readerId"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("phoneNumber"),
                         rs.getString("email"),
-                        rs.getString("ngayDangKy"),
-                        rs.getBoolean("daXoa")
+                        rs.getString("registerDay"),
+                        rs.getBoolean("isDeleted")
                 );
                 readers.add(reader);
             }
@@ -40,7 +40,7 @@ public class QuanLyDocGiaDAO {
     // Thêm độc giả mới
     public boolean addReader(QuanLyDocGia reader) {
         boolean isSuccess = false;
-        String sql = "INSERT INTO docgia (tenDocGia, diaChi, soDienThoai, email, ngayDangKy) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO reader (name, address, phoneNumber, email, registerDay) VALUES (?, ?, ?, ?, ?)";
         try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
              PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, reader.getTenDocGia());
@@ -62,7 +62,7 @@ public class QuanLyDocGiaDAO {
     // Sửa thông tin độc giả
     public boolean editReader(QuanLyDocGia reader) {
         boolean isSuccess = false;
-        String sql = "UPDATE docgia SET tenDocGia = ?, diaChi = ?, soDienThoai = ?, email = ?, ngayDangKy = ? WHERE maDocGia = ?";
+        String sql = "UPDATE reader SET name = ?, address = ?, phoneNumber = ?, email = ?, registerDay = ? WHERE readerId = ?";
         try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
              PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, reader.getTenDocGia());
@@ -85,7 +85,7 @@ public class QuanLyDocGiaDAO {
     // Xóa độc giả (đánh dấu là đã xóa)
     public boolean deleteReader(int maDocGia) {
         boolean isSuccess = false;
-        String sql = "UPDATE docgia SET daXoa = 1 WHERE maDocGia = ?";
+        String sql = "UPDATE reader SET isDeleted = 1 WHERE readerId = ?";
         try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
              PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, maDocGia);
@@ -103,7 +103,7 @@ public class QuanLyDocGiaDAO {
     // Tìm kiếm độc giả theo tên hoặc mã độc giả
     public List<QuanLyDocGia> searchReader(String keyword) {
     List<QuanLyDocGia> readers = new ArrayList<>();
-    String sql = "SELECT * FROM docgia WHERE (tenDocGia LIKE ?) AND daXoa = 0";  // Tìm kiếm theo tên
+    String sql = "SELECT * FROM reader WHERE (name LIKE ?) AND isDeleted = 0";  // Tìm kiếm theo tên
     try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
          PreparedStatement stmt = con.prepareStatement(sql)) {
         
@@ -112,13 +112,13 @@ public class QuanLyDocGiaDAO {
         try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 QuanLyDocGia reader = new QuanLyDocGia(
-                        rs.getInt("maDocGia"),
-                        rs.getString("tenDocGia"),
-                        rs.getString("diaChi"),
-                        rs.getString("soDienThoai"),
+                         rs.getInt("readerId"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("phoneNumber"),
                         rs.getString("email"),
-                        rs.getString("ngayDangKy"),
-                        rs.getBoolean("daXoa")
+                        rs.getString("registerDay"),
+                        rs.getBoolean("isDeleted")
                 );
                 readers.add(reader);
             }
@@ -132,7 +132,7 @@ public class QuanLyDocGiaDAO {
     // Tìm kiếm độc giả theo mã độc giả (ID)
     public List<QuanLyDocGia> searchReaderById(int id) {
     List<QuanLyDocGia> readers = new ArrayList<>();
-    String sql = "SELECT * FROM docgia WHERE maDocGia = ? AND daXoa = 0";  // Lọc bỏ độc giả đã xóa
+    String sql = "SELECT * FROM reader WHERE readerId = ? AND isDeleted = 0";  // Lọc bỏ độc giả đã xóa
     try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
          PreparedStatement stmt = con.prepareStatement(sql)) {
         
@@ -141,13 +141,13 @@ public class QuanLyDocGiaDAO {
         try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 QuanLyDocGia reader = new QuanLyDocGia(
-                        rs.getInt("maDocGia"),
-                        rs.getString("tenDocGia"),
-                        rs.getString("diaChi"),
-                        rs.getString("soDienThoai"),
+                        rs.getInt("readerId"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("phoneNumber"),
                         rs.getString("email"),
-                        rs.getString("ngayDangKy"),
-                        rs.getBoolean("daXoa")
+                        rs.getString("registerDay"),
+                        rs.getBoolean("isDeleted")
                 );
                 readers.add(reader);
             }

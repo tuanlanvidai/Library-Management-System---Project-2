@@ -81,7 +81,7 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã độc giả", "Tên độc giả", "Đia chỉ", "Điện thoại", "Ngày đăng ký", "Đã xóa"
+                "Mã độc giả", "Tên độc giả", "Đia chỉ", "Điện thoại", "Email", "Ngày đăng ký"
             }
         ));
         jScrollPane1.setViewportView(tblQuanLyDocGia);
@@ -109,16 +109,16 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(117, 117, 117)
+                                .addGap(174, 174, 174)
                                 .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(152, 152, 152)
+                                .addGap(172, 172, 172)
                                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(67, 67, 67)
                                 .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(24, 24, 24)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(81, 81, 81)
@@ -184,19 +184,19 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelSearchActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        ReaderManagement manage = new ReaderManagement("Thêm");
+        ReaderManagement manage = new ReaderManagement("Add");
         manage.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        ReaderManagement manage = new ReaderManagement("Thêm");
+        ReaderManagement manage = new ReaderManagement("Edit");
         manage.setVisible(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // Mở cửa sổ BookManagement với chế độ "Xóa"
-        ReaderManagement manage = new ReaderManagement("Xóa");
+        ReaderManagement manage = new ReaderManagement("Delete");
         manage.setVisible(true);
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -209,7 +209,7 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblQuanLyDocGia;
+    public static javax.swing.JTable tblQuanLyDocGia;
     private javax.swing.JTextField txtQuery;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,7 +26,7 @@ public class QuanLySachDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "select category from books";
+            String sql = "select categoryName from category";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -46,7 +46,7 @@ public class QuanLySachDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "select * from books where bookId = ?";
+            String sql = "select * from book where bookId = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, bookId);
             ResultSet rs = stmt.executeQuery();
@@ -69,7 +69,7 @@ public class QuanLySachDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "select * from books";
+            String sql = "select * from book";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -91,7 +91,7 @@ public class QuanLySachDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "insert into books(title, author, category, publishYear, totalQuantity, availableQty) values(?,?,?,?,?,?)";
+            String sql = "insert into book(title, author, category, publishYear, totalQuantity, availableQty) values(?,?,?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, book.getTitle());
             stmt.setString(2, book.getAuthor());
@@ -118,7 +118,7 @@ public class QuanLySachDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "update books set title=?, author=?, category=?, publishYear=?, totalQuantity=?, availableQty=? where bookId=?";
+            String sql = "update book set title=?, author=?, category=?, publishYear=?, totalQuantity=?, availableQty=? where bookId=?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, book.getTitle());
             stmt.setString(2, book.getAuthor());
@@ -146,7 +146,7 @@ public class QuanLySachDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "update books set isDeleted = 1 where bookId = ?";
+            String sql = "update book set isDeleted = 1 where bookId = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, bookId);
             int row = stmt.executeUpdate();
@@ -169,7 +169,7 @@ public class QuanLySachDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "select * from books where bookId=?";
+            String sql = "select * from book where bookId=?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, bookId);
             ResultSet rs = stmt.executeQuery();
