@@ -4,10 +4,12 @@
  */
 package librarymanagement.gui;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import librarymanagement.dao.EmployeeDAO;
 import librarymanagement.gui.QuanLyThuThu;
 import librarymanagement.pojo.Employee;
@@ -21,7 +23,6 @@ public class ManageEmployee extends javax.swing.JFrame {
     EmployeeDAO dao;
     String keyword;
     private DefaultTableModel model;
-
     /**
      * Creates new form ManageBook
      */
@@ -31,9 +32,20 @@ public class ManageEmployee extends javax.swing.JFrame {
         dao.addDataFromDB(model, tblDisplay);
 
     }
+    public void emptyInp(){
+        txtId.setText("");
+        txtName.setText("");
+        txtEmail.setText("");
+        txtPhone.setText("");
+        txtPassword.setText("");
+        cbxRole.setSelectedIndex(0);
+        
+    }
 
     public ManageEmployee(String type) {
         initComponents();
+        JTableHeader THeader = tblDisplay.getTableHeader();
+        THeader.setBackground(Color.red);
         keyword = type;
         Title.setText(type + " Employee");
         dao = new EmployeeDAO();
@@ -178,6 +190,8 @@ public class ManageEmployee extends javax.swing.JFrame {
         labelId.setForeground(new java.awt.Color(255, 255, 255));
         labelId.setText("Id");
 
+        txtId.addActionListener(this::txtIdActionPerformed);
+
         btnCheck.setText("find");
         btnCheck.addActionListener(this::btnCheckActionPerformed);
 
@@ -258,7 +272,6 @@ public class ManageEmployee extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(11, 11, 11)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,7 +370,7 @@ public class ManageEmployee extends javax.swing.JFrame {
                JOptionPane.showConfirmDialog(null, employee.toString());
            }
        }
-
+       emptyInp();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
@@ -385,6 +398,10 @@ public class ManageEmployee extends javax.swing.JFrame {
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
 
     /**
      * @param args the command line arguments
