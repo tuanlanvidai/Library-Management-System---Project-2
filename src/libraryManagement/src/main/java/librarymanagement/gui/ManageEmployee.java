@@ -106,7 +106,7 @@ public class ManageEmployee extends javax.swing.JFrame {
         labelPassWord = new javax.swing.JLabel();
         cbxRole = new javax.swing.JComboBox<>();
         btnConfirm = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         labelId = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         btnCheck = new javax.swing.JButton();
@@ -180,11 +180,11 @@ public class ManageEmployee extends javax.swing.JFrame {
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(this::btnConfirmActionPerformed);
 
-        jButton1.setBackground(new java.awt.Color(0, 204, 204));
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnCancel.setBackground(new java.awt.Color(0, 204, 204));
+        btnCancel.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(this::btnCancelActionPerformed);
 
         labelId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelId.setForeground(new java.awt.Color(255, 255, 255));
@@ -218,6 +218,11 @@ public class ManageEmployee extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDisplayMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDisplay);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
@@ -243,7 +248,7 @@ public class ManageEmployee extends javax.swing.JFrame {
                         .addGap(13, 13, 13)
                         .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -318,7 +323,7 @@ public class ManageEmployee extends javax.swing.JFrame {
                         .addGap(133, 133, 133)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
@@ -386,10 +391,10 @@ public class ManageEmployee extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCheckActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
@@ -402,6 +407,23 @@ public class ManageEmployee extends javax.swing.JFrame {
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
+
+    private void tblDisplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked
+        // TODO add your handling code here:
+        int row = tblDisplay.getSelectedRow();
+        int colum = 0;
+        int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
+        
+        Employee employee = dao.getEmployeeById(id);
+        if (employee != null) {
+            txtId.setText(String.valueOf(employee.getId()));
+            txtName.setText(employee.getName());
+            txtEmail.setText(employee.getEmail());
+            txtPassword.setText(employee.getPassword());
+            txtPhone.setText(employee.getPhoneNumber());
+            cbxRole.setSelectedItem(employee.getRole());
+        }
+    }//GEN-LAST:event_tblDisplayMouseClicked
 
     /**
      * @param args the command line arguments
@@ -441,11 +463,11 @@ public class ManageEmployee extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCheck;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JComboBox<String> cbxRole;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
