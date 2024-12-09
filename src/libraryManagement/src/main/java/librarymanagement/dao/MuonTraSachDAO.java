@@ -162,4 +162,120 @@ public class MuonTraSachDAO {
 
         return books;
     }
+
+    public int getMaxBorrowDays() {
+        String sql = "SELECT maxBorrowDays FROM Setting LIMIT 1";
+
+        try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement stmt = con.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getInt("maxBorrowDays");
+            }
+        } catch (Exception e) {
+            System.out.println("Error fetching maxBorrowDays: " + e.getMessage());
+        }
+        return 14; // default if fail to get max borrow day
+    }
+
+    public int getMaxBooksBorrowed() {
+        String sql = "SELECT maxBooksBorrowed FROM Setting LIMIT 1";
+
+        try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement stmt = con.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getInt("maxBooksBorrowed");
+            }
+        } catch (Exception e) {
+            System.out.println("Error fetching maxBooksBorrowed: " + e.getMessage());
+        }
+        return 3; // default if fail to get max book borrowed
+    }
+
+    public int getCurrentBooksBorrowed(int readerId) {
+        String sql = """
+        SELECT COUNT(*) AS borrowedCount
+        FROM BorrowBook
+        WHERE readerId = ? AND isDeleted = 0;
+        """;
+
+        try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, readerId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("borrowedCount");
+            }
+        } catch (Exception e) {
+            System.out.println("Error fetching current books borrowed: " + e.getMessage());
+        }
+        return 0;
+    }
+
+    public boolean addBorrowRecord(int readerId, int bookId, java.sql.Date borrowDate, java.sql.Date dueDate) {
+        String insertBorrowSQL = """
+        INSERT INTO BorrowBook (readerId, bookId, borrowDate, dueDate, isDeleted)
+        VALUES (?, ?, ?, ?, 0);
+        """;
+
+        String updateBookSQL = """
+        UPDATE Book
+        SET availableQty = availableQty - 1
+        WHERE bookId = ? AND availableQty > 0;
+        """;
+
+        try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement insertStmt = con.prepareStatement(insertBorrowSQL); PreparedStatement updateStmt = con.prepareStatement(updateBookSQL)) {
+
+            con.setAutoCommit(false);
+
+            insertStmt.setInt(1, readerId);
+            insertStmt.setInt(2, bookId);
+            insertStmt.setDate(3, borrowDate);
+            insertStmt.setDate(4, dueDate);
+            int rowsInserted = insertStmt.executeUpdate();
+
+            if (rowsInserted == 0) {
+                con.rollback();
+                return false;
+            }
+            updateStmt.setInt(1, bookId);
+            int rowsUpdated = updateStmt.executeUpdate();
+
+            if (rowsUpdated == 0) {
+                con.rollback();
+                return false;
+            }
+            con.commit();
+            return true;
+
+        } catch (Exception e) {
+            System.out.println("Error adding borrow record: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean readerExists(int readerId) {
+        String sql = "SELECT 1 FROM Reader WHERE readerId = ? AND isDeleted = 0";
+        try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, readerId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            System.out.println("Error checking reader existence: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean bookExists(int bookId) {
+        String sql = "SELECT 1 FROM Book WHERE bookId = ? AND isDeleted = 0";
+        try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, bookId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            System.out.println("Error checking book existence: " + e.getMessage());
+        }
+        return false;
+    }
+
 }

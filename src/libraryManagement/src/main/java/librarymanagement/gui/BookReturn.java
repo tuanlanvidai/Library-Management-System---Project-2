@@ -4,197 +4,17 @@
  */
 package librarymanagement.gui;
 
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import librarymanagement.dao.MuonTraSachDAO;
-import librarymanagement.pojo.Book;
-import librarymanagement.pojo.Reader;
-
 /**
  *
  * @author lantr
  */
-public class BookBorrowForm extends javax.swing.JFrame {
-
-    private MuonTraSachDAO muonTraSachDAO;
-    private List<Reader> fullReaderList;
-    private List<Book> fullBookList;
+public class BookReturn extends javax.swing.JFrame {
 
     /**
-     * Creates new form BookBorrowForm
+     * Creates new form BookReturn
      */
-    public BookBorrowForm() {
+    public BookReturn() {
         initComponents();
-        setTitle("Phiếu mượn");
-        initDAO();
-        loadReaderData();
-        loadBookData();
-        addDocGiaSelectionListener();
-        addSachSelectionListener();
-    }
-
-    private void initDAO() {
-        muonTraSachDAO = new MuonTraSachDAO();
-    }
-
-    private void loadReaderData() {
-        DefaultTableModel model = (DefaultTableModel) tblDocGia.getModel();
-        model.setRowCount(0);
-        fullReaderList = muonTraSachDAO.getAllReaders();
-        for (Reader reader : fullReaderList) {
-            model.addRow(new Object[]{
-                reader.getReaderId(),
-                reader.getName(),
-                reader.getEmail(),
-                reader.getPhoneNumber(),
-                reader.getAddress(),
-                reader.getRegisterDay()
-            });
-        }
-    }
-
-    private void loadBookData() {
-        DefaultTableModel model = (DefaultTableModel) tblSach.getModel();
-        model.setRowCount(0);
-
-        fullBookList = muonTraSachDAO.getAllBooks();
-        for (Book book : fullBookList) {
-            model.addRow(new Object[]{
-                book.getBookId(),
-                book.getTitle(),
-                book.getAuthor(),
-                book.getCategory(),
-                book.getPublishYear(),
-                book.getAvailableQty()
-            });
-        }
-    }
-
-    private void addDocGiaSelectionListener() {
-        tblDocGia.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int selectedRow = tblDocGia.getSelectedRow();
-                if (selectedRow >= 0) {
-                    String readerId = tblDocGia.getValueAt(selectedRow, 0).toString();
-                    String readerName = tblDocGia.getValueAt(selectedRow, 1).toString();
-                    String email = tblDocGia.getValueAt(selectedRow, 2).toString();
-                    String phoneNumber = tblDocGia.getValueAt(selectedRow, 3).toString();
-
-                    txtMaDocGia.setText(readerId);
-                    txtTenDocGia.setText(readerName);
-                    txtEmail.setText(email);
-                    txtSDT.setText(phoneNumber);
-                }
-            }
-        });
-    }
-
-    private void addSachSelectionListener() {
-        tblSach.getSelectionModel().addListSelectionListener(e -> {
-            int selectedRow = tblSach.getSelectedRow();
-            if (selectedRow >= 0) {
-                String bookId = tblSach.getValueAt(selectedRow, 0).toString();
-                String title = tblSach.getValueAt(selectedRow, 1).toString();
-                String author = tblSach.getValueAt(selectedRow, 2).toString();
-                String availableQty = tblSach.getValueAt(selectedRow, 5).toString();
-
-                txtMaSach.setText(bookId);
-                txtTenSach.setText(title);
-                txtTenTacGia.setText(author);
-                txtSoSachSanCo.setText(availableQty);
-            }
-        });
-    }
-
-    //Search button
-    private void filterReaderTable(String keyword) {
-        DefaultTableModel model = (DefaultTableModel) tblDocGia.getModel();
-        model.setRowCount(0);
-
-        for (Reader reader : fullReaderList) {
-            if (String.valueOf(reader.getReaderId()).contains(keyword)) {
-                model.addRow(new Object[]{
-                    reader.getReaderId(),
-                    reader.getName(),
-                    reader.getEmail(),
-                    reader.getPhoneNumber(),
-                    reader.getAddress(),
-                    reader.getRegisterDay()
-                });
-            }
-        }
-    }
-
-    private void filterReaderTableByName(String keyword) {
-        DefaultTableModel model = (DefaultTableModel) tblDocGia.getModel();
-        model.setRowCount(0);
-
-        for (Reader reader : fullReaderList) {
-            String normalizedKeyword = normalizeString(keyword).toLowerCase();
-            String normalizedName = normalizeString(reader.getName()).toLowerCase();
-            if (normalizedName.contains(normalizedKeyword)) {
-                model.addRow(new Object[]{
-                    reader.getReaderId(),
-                    reader.getName(),
-                    reader.getEmail(),
-                    reader.getPhoneNumber(),
-                    reader.getAddress(),
-                    reader.getRegisterDay()
-                });
-            }
-        }
-    }
-
-    //For searching with vietnamese
-    private String normalizeString(String input) {
-        return java.text.Normalizer.normalize(input, java.text.Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", "");
-    }
-
-    private void filterBookTableByCode(String keyword) {
-        DefaultTableModel model = (DefaultTableModel) tblSach.getModel();
-        model.setRowCount(0);
-
-        for (Book book : fullBookList) {
-            if (String.valueOf(book.getBookId()).contains(keyword)) {
-                model.addRow(new Object[]{
-                    book.getBookId(),
-                    book.getTitle(),
-                    book.getAuthor(),
-                    book.getCategory(),
-                    book.getPublishYear(),
-                    book.getAvailableQty()
-                });
-            }
-        }
-    }
-
-    private void filterBookTableByName(String keyword) {
-        DefaultTableModel model = (DefaultTableModel) tblSach.getModel();
-        model.setRowCount(0);
-
-        for (Book book : fullBookList) {
-            String normalizedKeyword = normalizeString(keyword).toLowerCase();
-            String normalizedTitle = normalizeString(book.getTitle()).toLowerCase();
-            if (normalizedTitle.contains(normalizedKeyword)) {
-                model.addRow(new Object[]{
-                    book.getBookId(),
-                    book.getTitle(),
-                    book.getAuthor(),
-                    book.getCategory(),
-                    book.getPublishYear(),
-                    book.getAvailableQty()
-                });
-            }
-        }
-    }
-
-    private java.sql.Date calculateDueDate(java.sql.Date borrowDate) {
-        int maxBorrowDays = muonTraSachDAO.getMaxBorrowDays();
-        java.util.Calendar calendar = java.util.Calendar.getInstance();
-        calendar.setTime(borrowDate);
-        calendar.add(java.util.Calendar.DATE, maxBorrowDays);
-        return new java.sql.Date(calendar.getTimeInMillis());
     }
 
     /**
@@ -229,16 +49,13 @@ public class BookBorrowForm extends javax.swing.JFrame {
         txtMaDocGia = new javax.swing.JTextField();
         txtTenSach = new javax.swing.JTextField();
         txtTenTacGia = new javax.swing.JTextField();
-        txtSoSachSanCo = new javax.swing.JTextField();
         btnTimTenDocGia = new javax.swing.JButton();
         btnTimMaSach = new javax.swing.JButton();
-        btnTimTenSach = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSach = new javax.swing.JTable();
+        cmbDamage = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
         Title.setBackground(new java.awt.Color(255, 255, 255));
         Title.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
@@ -248,26 +65,24 @@ public class BookBorrowForm extends javax.swing.JFrame {
         labelName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName.setForeground(new java.awt.Color(255, 255, 255));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("librarymanagement/gui/Bundle"); // NOI18N
-        labelName.setText(bundle.getString("BookBorrowForm.labelName.text")); // NOI18N
+        labelName.setText(bundle.getString("BookReturn.labelName.text")); // NOI18N
 
         btnTaoPhieu.setBackground(new java.awt.Color(0, 204, 204));
         btnTaoPhieu.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnTaoPhieu.setForeground(new java.awt.Color(255, 255, 255));
-        btnTaoPhieu.setText(bundle.getString("BookBorrowForm.btnTaoPhieu.text")); // NOI18N
-        btnTaoPhieu.addActionListener(this::btnTaoPhieuActionPerformed);
+        btnTaoPhieu.setText(bundle.getString("BookReturn.btnTaoPhieu.text")); // NOI18N
 
         btnDong.setBackground(new java.awt.Color(0, 204, 204));
         btnDong.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnDong.setForeground(new java.awt.Color(255, 255, 255));
-        btnDong.setText(bundle.getString("BookBorrowForm.btnDong.text")); // NOI18N
+        btnDong.setText(bundle.getString("BookReturn.btnDong.text")); // NOI18N
         btnDong.addActionListener(this::btnDongActionPerformed);
 
         labelId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelId.setForeground(new java.awt.Color(255, 255, 255));
-        labelId.setText(bundle.getString("BookBorrowForm.labelId.text")); // NOI18N
+        labelId.setText(bundle.getString("BookReturn.labelId.text")); // NOI18N
 
-        btnTimMaDocGia.setText(bundle.getString("BookBorrowForm.btnTimMaDocGia.text")); // NOI18N
-        btnTimMaDocGia.addActionListener(this::btnTimMaDocGiaActionPerformed);
+        btnTimMaDocGia.setText(bundle.getString("BookReturn.btnTimMaDocGia.text")); // NOI18N
 
         tblDocGia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -296,52 +111,47 @@ public class BookBorrowForm extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText(bundle.getString("BookBorrowForm.jLabel1.text")); // NOI18N
+        jLabel1.setText(bundle.getString("BookReturn.jLabel1.text")); // NOI18N
 
-        txtTenDocGia.setText(bundle.getString("BookBorrowForm.txtTenDocGia.text")); // NOI18N
+        txtTenDocGia.setText(bundle.getString("BookReturn.txtTenDocGia.text")); // NOI18N
 
         labelName1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName1.setForeground(new java.awt.Color(255, 255, 255));
-        labelName1.setText(bundle.getString("BookBorrowForm.labelName1.text")); // NOI18N
+        labelName1.setText(bundle.getString("BookReturn.labelName1.text")); // NOI18N
 
         txtEmail.setEditable(false);
-        txtEmail.setText(bundle.getString("BookBorrowForm.txtEmail.text")); // NOI18N
+        txtEmail.setText(bundle.getString("BookReturn.txtEmail.text")); // NOI18N
 
         labelName2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName2.setForeground(new java.awt.Color(255, 255, 255));
-        labelName2.setText(bundle.getString("BookBorrowForm.labelName2.text")); // NOI18N
+        labelName2.setText(bundle.getString("BookReturn.labelName2.text")); // NOI18N
 
         txtSDT.setEditable(false);
-        txtSDT.setText(bundle.getString("BookBorrowForm.txtSDT.text")); // NOI18N
+        txtSDT.setText(bundle.getString("BookReturn.txtSDT.text")); // NOI18N
 
         labelId1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelId1.setForeground(new java.awt.Color(255, 255, 255));
-        labelId1.setText(bundle.getString("BookBorrowForm.labelId1.text")); // NOI18N
+        labelId1.setText(bundle.getString("BookReturn.labelId1.text")); // NOI18N
 
         labelName3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName3.setForeground(new java.awt.Color(255, 255, 255));
-        labelName3.setText(bundle.getString("BookBorrowForm.labelName3.text")); // NOI18N
+        labelName3.setText(bundle.getString("BookReturn.labelName3.text")); // NOI18N
 
         labelName4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName4.setForeground(new java.awt.Color(255, 255, 255));
-        labelName4.setText(bundle.getString("BookBorrowForm.labelName4.text")); // NOI18N
+        labelName4.setText(bundle.getString("BookReturn.labelName4.text")); // NOI18N
 
         labelName5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName5.setForeground(new java.awt.Color(255, 255, 255));
-        labelName5.setText(bundle.getString("BookBorrowForm.labelName5.text")); // NOI18N
+        labelName5.setText(bundle.getString("BookReturn.labelName5.text")); // NOI18N
+
+        txtTenSach.setEditable(false);
 
         txtTenTacGia.setEditable(false);
 
-        txtSoSachSanCo.setEditable(false);
+        btnTimTenDocGia.setText(bundle.getString("BookReturn.btnTimTenDocGia.text")); // NOI18N
 
-        btnTimTenDocGia.setText(bundle.getString("BookBorrowForm.btnTimTenDocGia.text")); // NOI18N
-        btnTimTenDocGia.addActionListener(this::btnTimTenDocGiaActionPerformed);
-
-        btnTimMaSach.setText(bundle.getString("BookBorrowForm.btnTimMaSach.text")); // NOI18N
-        btnTimMaSach.addActionListener(this::btnTimMaSachActionPerformed);
-
-        btnTimTenSach.setText(bundle.getString("BookBorrowForm.btnTimTenSach.text")); // NOI18N
-        btnTimTenSach.addActionListener(this::btnTimTenSachActionPerformed);
+        btnTimMaSach.setText(bundle.getString("BookReturn.btnTimMaSach.text")); // NOI18N
 
         tblSach.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -368,6 +178,8 @@ public class BookBorrowForm extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblSach);
 
+        cmbDamage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bình thường", "Hư hại", "Mất sách" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -375,36 +187,34 @@ public class BookBorrowForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(157, 157, 157)
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(269, 269, 269))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelName)
+                    .addComponent(labelName5)
                     .addComponent(labelId)
                     .addComponent(labelName1)
+                    .addComponent(labelName)
                     .addComponent(labelName2)
                     .addComponent(labelId1)
                     .addComponent(labelName3)
-                    .addComponent(labelName4)
-                    .addComponent(labelName5))
-                .addGap(36, 36, 36)
+                    .addComponent(labelName4))
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTenTacGia, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtTenSach, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtMaSach, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtSDT, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSDT)
-                    .addComponent(txtTenSach)
-                    .addComponent(txtTenTacGia)
-                    .addComponent(txtSoSachSanCo)
-                    .addComponent(txtTenDocGia)
-                    .addComponent(txtMaDocGia))
+                    .addComponent(txtTenDocGia, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtMaDocGia)
+                    .addComponent(cmbDamage, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnTimMaSach, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTimTenSach, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                        .addComponent(btnTimMaSach, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -444,10 +254,10 @@ public class BookBorrowForm extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelName1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelName2)
-                            .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelName2)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,8 +269,7 @@ public class BookBorrowForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelName3)
-                            .addComponent(txtTenSach, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTimTenSach, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTenSach, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelName4)
@@ -468,103 +277,19 @@ public class BookBorrowForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelName5)
-                            .addComponent(txtSoSachSanCo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbDamage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTaoPhieu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnTimMaDocGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimMaDocGiaActionPerformed
-        // TODO add your handling code here:
-        String keyword = txtMaDocGia.getText().trim();
-        filterReaderTable(keyword);
-    }//GEN-LAST:event_btnTimMaDocGiaActionPerformed
-
-    private void btnTimTenDocGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTenDocGiaActionPerformed
-        // TODO add your handling code here:
-        String keyword = txtTenDocGia.getText().trim();
-        filterReaderTableByName(keyword);
-    }//GEN-LAST:event_btnTimTenDocGiaActionPerformed
-
-    private void btnTimMaSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimMaSachActionPerformed
-        // TODO add your handling code here:
-        String keyword = txtMaSach.getText().trim();
-        filterBookTableByCode(keyword);
-    }//GEN-LAST:event_btnTimMaSachActionPerformed
-
-    private void btnTimTenSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTenSachActionPerformed
-        // TODO add your handling code here:
-        String keyword = txtTenSach.getText().trim();
-        filterBookTableByName(keyword);
-    }//GEN-LAST:event_btnTimTenSachActionPerformed
-
-    private void btnTaoPhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoPhieuActionPerformed
-        // TODO add your handling code here:
-        try {
-            String readerIdText = txtMaDocGia.getText().trim();
-            if (readerIdText.isEmpty() || !readerIdText.matches("\\d+")) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Mã độc giả không hợp lệ!");
-                return;
-            }
-            int readerId = Integer.parseInt(readerIdText);
-
-            String bookIdText = txtMaSach.getText().trim();
-            if (bookIdText.isEmpty() || !bookIdText.matches("\\d+")) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Mã sách không hợp lệ!");
-                return;
-            }
-            int bookId = Integer.parseInt(bookIdText);
-
-            if (!muonTraSachDAO.readerExists(readerId)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Độc giả không tồn tại trong hệ thống.");
-                return;
-            }
-
-            if (!muonTraSachDAO.bookExists(bookId)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Sách không tồn tại trong hệ thống.");
-                return;
-            }
-
-            java.sql.Date borrowDate = new java.sql.Date(System.currentTimeMillis());
-            java.sql.Date dueDate = calculateDueDate(borrowDate);
-
-            // Book availbility
-            int availableQty = Integer.parseInt(txtSoSachSanCo.getText().trim());
-            if (availableQty <= 0) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Sách không còn sẵn có!");
-                return;
-            }
-
-            // Book borrowed by one person
-            int maxBooksBorrowed = muonTraSachDAO.getMaxBooksBorrowed();
-            int currentBooksBorrowed = muonTraSachDAO.getCurrentBooksBorrowed(readerId);
-            if (currentBooksBorrowed >= maxBooksBorrowed) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Độc giả đã mượn đủ số lượng sách tối đa: " + maxBooksBorrowed);
-                return;
-            }
-
-            // Add to database
-            boolean isInserted = muonTraSachDAO.addBorrowRecord(readerId, bookId, borrowDate, dueDate);
-
-            if (isInserted) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Thêm phiếu mượn thành công!");
-                loadBookData(); // update the table
-                this.dispose();
-            } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Thêm phiếu mượn thất bại!");
-            }
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
-    }//GEN-LAST:event_btnTaoPhieuActionPerformed
 
     private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
         // TODO add your handling code here:
@@ -588,20 +313,20 @@ public class BookBorrowForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BookBorrowForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BookBorrowForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BookBorrowForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BookBorrowForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookBorrowForm().setVisible(true);
+                new BookReturn().setVisible(true);
             }
         });
     }
@@ -613,7 +338,7 @@ public class BookBorrowForm extends javax.swing.JFrame {
     private javax.swing.JButton btnTimMaDocGia;
     private javax.swing.JButton btnTimMaSach;
     private javax.swing.JButton btnTimTenDocGia;
-    private javax.swing.JButton btnTimTenSach;
+    private javax.swing.JComboBox<String> cmbDamage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -632,7 +357,6 @@ public class BookBorrowForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtMaDocGia;
     private javax.swing.JTextField txtMaSach;
     private javax.swing.JTextField txtSDT;
-    private javax.swing.JTextField txtSoSachSanCo;
     private javax.swing.JTextField txtTenDocGia;
     private javax.swing.JTextField txtTenSach;
     private javax.swing.JTextField txtTenTacGia;

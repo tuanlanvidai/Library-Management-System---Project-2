@@ -203,6 +203,30 @@ public class QuanLySachDAO {
             }
         }
     }
+    
+     // Tìm kiếm sách theo tên (sử dụng LIKE để tìm tên gần giống)
+public List<QuanLySachPOJO> searchBookByName(String bookName) {
+    List<QuanLySachPOJO> bookList = new ArrayList<>();
+    String sql = "SELECT * FROM book WHERE title LIKE ?";
+    
+    // Sử dụng kết nối từ ConfigUtils
+    try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
+         PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setString(1, "%" + bookName + "%");
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                QuanLySachPOJO book = new QuanLySachPOJO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getBoolean(8));
+                bookList.add(book);
+            }
+        }
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+
+    return bookList;
+}
+
 
     // Thêm dữ liệu từ tìm kiếm vào bảng
     public void addDataFromSearch(List<QuanLySachPOJO> books, DefaultTableModel model, JTable table) {

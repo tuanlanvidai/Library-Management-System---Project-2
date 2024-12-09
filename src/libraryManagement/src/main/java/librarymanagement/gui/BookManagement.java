@@ -35,6 +35,7 @@ public class BookManagement extends javax.swing.JFrame {
         dao = new QuanLySachDAO();
         AddItemToCBX();
         dao.addDataToTable(model, tblDisplay); 
+        
     }
 
     private void AddItemToCBX() {
@@ -277,6 +278,11 @@ public class BookManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDisplayMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDisplay);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
@@ -438,6 +444,10 @@ public class BookManagement extends javax.swing.JFrame {
      // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void tblDisplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked
+     
+    }//GEN-LAST:event_tblDisplayMouseClicked
 
     /**
      * @param args the command line arguments

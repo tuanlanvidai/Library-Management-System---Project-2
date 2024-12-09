@@ -79,6 +79,7 @@ CREATE TABLE Setting (
 	settingId INT AUTO_INCREMENT PRIMARY KEY,
     maxBorrowDays INT UNSIGNED NOT NULL,
     lateFeePerDay INT UNSIGNED NOT NULL,
+    bookDamageFee INT UNSIGNED NOT NULL,
     maxBooksBorrowed INT UNSIGNED NOT NULL
 );
 
@@ -129,7 +130,7 @@ INSERT INTO Reader (name, phoneNumber, address, email, registerDay) VALUES
 ('Kim Adams', '0357918211', '852 Cedar St, City K', 'kim.adams@gmail.com', '2024-11-01'),
 ('Laura Taylor', '0486123412', '741 Birch St, City L', 'laura.taylor@gmail.com', '2024-11-08'),
 ('Mandy Phillips', '0712345613', '963 Maple St, City M', 'mandy.phillips@gmail.com', '2024-11-12'),
-('Nancy Davis', '0843456714', '741 Oak St, City N', 'nancy.davis@gmail.com', '2024-11-31'),
+('Nancy Davis', '0843456714', '741 Oak St, City N', 'nancy.davis@gmail.com', '2024-11-30'),
 ('Oscar Wilson', '0921345615', '852 Pine St, City O', 'oscar.wilson@gmail.com', '2024-12-08');
 
 INSERT INTO BorrowBook (borrowId, readerId, bookId, borrowDate, dueDate, isDeleted)
@@ -170,8 +171,8 @@ INSERT INTO Employee (name, role, phoneNumber, email, password) VALUES
 ('B', 'Librarian', '0345018165', 'b@gmail.com', '123'),
 ('C', 'Librarian', '0988660609', 'c@gmail.com', '123');
 
-INSERT INTO Setting (maxBorrowDays, lateFeePerDay, maxBooksBorrowed)
-VAlUES (14, 2000, 3);
+INSERT INTO Setting (maxBorrowDays, lateFeePerDay, bookDamageFee, maxBooksBorrowed)
+VAlUES (14, 2000, 10000 ,3);
 
 -- Trigger for random borrow id
 DELIMITER $$

@@ -10,6 +10,7 @@ import java.util.List;
 import librarymanagement.dao.QuanLyDocGiaDAO;
 import librarymanagement.pojo.QuanLyDocGia;
 import librarymanagement.gui.QuanLyDocGiaJPanel;
+import librarymanagement.pojo.Reader;
 
 
 public class ReaderManagement extends javax.swing.JFrame {
@@ -33,6 +34,7 @@ public class ReaderManagement extends javax.swing.JFrame {
         keyword = type;
         Title.setText(type + " ReaderManagement");
         dao = new QuanLyDocGiaDAO();
+        model = (DefaultTableModel) tblDisplay.getModel();
         dao.addDataToTable(model, tblDisplay); 
     }
 
@@ -270,6 +272,11 @@ public class ReaderManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDisplayMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDisplay);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -407,6 +414,11 @@ public class ReaderManagement extends javax.swing.JFrame {
      // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void tblDisplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_tblDisplayMouseClicked
 
     /**
      * @param args the command line arguments
