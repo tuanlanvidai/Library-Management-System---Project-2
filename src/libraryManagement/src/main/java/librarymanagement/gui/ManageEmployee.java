@@ -47,20 +47,20 @@ public class ManageEmployee extends javax.swing.JFrame {
         JTableHeader THeader = tblDisplay.getTableHeader();
         THeader.setBackground(Color.red);
         keyword = type;
-        Title.setText(type + " Employee");
+        Title.setText(type + "Thủ Thư");
         dao = new EmployeeDAO();
         AddItemToCBX();
         dao.addDataFromDB(model, tblDisplay);
-        if (type.equals("Add")) {
+        if (type.equals("Thêm mới")) {
             labelId.setVisible(false);
             txtId.setVisible(false);
             btnCheck.setVisible(false);
-        } else if (type.equals("Edit")) {
+        } else if (type.equals("Sửa ")) {
             labelId.setVisible(true);
             txtId.setVisible(true);
             btnCheck.setVisible(true);
         }
-        else if(type.equals("Delete")){
+        else if(type.equals("Xoá ")){
             labelRole.setVisible(false);
             cbxRole.setVisible(false);
             labelEmail.setVisible(false);
@@ -91,7 +91,6 @@ public class ManageEmployee extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         Title = new javax.swing.JLabel();
@@ -116,22 +115,6 @@ public class ManageEmployee extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -234,8 +217,9 @@ public class ManageEmployee extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(19, 19, 19)
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -247,7 +231,7 @@ public class ManageEmployee extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -285,15 +269,16 @@ public class ManageEmployee extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel1)
-                        .addGap(25, 25, 25))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnClose)
-                        .addGap(103, 103, 103)))
+                        .addGap(103, 103, 103))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(25, 25, 25)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -325,7 +310,7 @@ public class ManageEmployee extends javax.swing.JFrame {
                             .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -348,7 +333,7 @@ public class ManageEmployee extends javax.swing.JFrame {
         String password = txtPassword.getText();
         int id = Integer.parseInt(txtId.getText());
         Employee employee = new Employee(name, role, phone, email, password);
-       if(keyword.equals("Add")){
+       if(keyword.equals("Thêm mới ")){
             if (dao.addEmployee(employee) == true) {
             dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
             dao.addDataFromDB(model, tblDisplay);
@@ -356,7 +341,7 @@ public class ManageEmployee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error");
         }
        }
-       else if(keyword.equals("Edit")){
+       else if(keyword.equals("Sửa ")){
            employee.setId(id);
            if(dao.editEmployee(employee)==true){
                dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
@@ -366,7 +351,7 @@ public class ManageEmployee extends javax.swing.JFrame {
                JOptionPane.showConfirmDialog(null, employee.toString());
            }
        }
-       else if(keyword.equals("Delete")){
+       else if(keyword.equals("Xoá ")){
            if(dao.deleteEmployee(id)){
                dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
                dao.addDataFromDB(model, tblDisplay);
@@ -469,7 +454,6 @@ public class ManageEmployee extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirm;
     private javax.swing.JComboBox<String> cbxRole;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelEmail;
