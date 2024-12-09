@@ -20,6 +20,7 @@ import java.util.List;
 public class MuonTraSach extends javax.swing.JPanel {
 
     private MuonTraSachDAO muonTraSachDAO;
+    private List<Borrower> fullBorrowerList;
 
     /**
      * Creates new form MuonTraSach
@@ -38,9 +39,9 @@ public class MuonTraSach extends javax.swing.JPanel {
     private void loadBorrowerData() {
         DefaultTableModel model = (DefaultTableModel) tblBorrowerName.getModel();
         model.setRowCount(0);
-        List<Borrower> borrowers = muonTraSachDAO.getBorrowers();
+        fullBorrowerList = muonTraSachDAO.getBorrowers();
 
-        for (Borrower borrower : borrowers) {
+        for (Borrower borrower : fullBorrowerList) {
             model.addRow(new Object[]{
                 borrower.getReaderId(),
                 borrower.getReaderName(),
@@ -81,6 +82,45 @@ public class MuonTraSach extends javax.swing.JPanel {
         }
     }
 
+    private void filterBorrowerTableByName(String keyword) {
+        DefaultTableModel model = (DefaultTableModel) tblBorrowerName.getModel();
+        model.setRowCount(0);
+
+        for (Borrower borrower : fullBorrowerList) {
+            String normalizedKeyword = normalizeString(keyword).toLowerCase();
+            String normalizedName = normalizeString(borrower.getReaderName()).toLowerCase();
+            if (normalizedName.contains(normalizedKeyword)) {
+                model.addRow(new Object[]{
+                    borrower.getReaderId(),
+                    borrower.getReaderName(),
+                    borrower.getRegisterDay(),
+                    borrower.getTotalBooksBorrowed()
+                });
+            }
+        }
+    }
+
+    private void filterBorrowerTableById(String keyword) {
+        DefaultTableModel model = (DefaultTableModel) tblBorrowerName.getModel();
+        model.setRowCount(0);
+
+        for (Borrower borrower : fullBorrowerList) {
+            if (String.valueOf(borrower.getReaderId()).contains(keyword)) {
+                model.addRow(new Object[]{
+                    borrower.getReaderId(),
+                    borrower.getReaderName(),
+                    borrower.getRegisterDay(),
+                    borrower.getTotalBooksBorrowed()
+                });
+            }
+        }
+    }
+
+    private String normalizeString(String input) {
+        return java.text.Normalizer.normalize(input, java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,8 +141,9 @@ public class MuonTraSach extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblBorrowBooks = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        txtTim = new javax.swing.JTextField();
+        cmbTimTheo = new javax.swing.JComboBox<>();
+        btnTim = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnAddBorrow = new javax.swing.JButton();
         btnAddReturn = new javax.swing.JButton();
@@ -194,7 +235,10 @@ public class MuonTraSach extends javax.swing.JPanel {
 
         jLabel5.setText("Tìm kiếm");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên độc giả", "Mã độc giả" }));
+        cmbTimTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên độc giả", "Mã độc giả" }));
+
+        btnTim.setText("Tìm");
+        btnTim.addActionListener(this::btnTimActionPerformed);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -203,13 +247,15 @@ public class MuonTraSach extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbTimTheo, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0))
         );
         jPanel6Layout.setVerticalGroup(
@@ -217,10 +263,11 @@ public class MuonTraSach extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(14, 14, 14)
+                    .addComponent(txtTim)
+                    .addComponent(cmbTimTheo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(btnTim))
+                .addGap(13, 13, 13)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -288,7 +335,7 @@ public class MuonTraSach extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,12 +360,25 @@ public class MuonTraSach extends javax.swing.JPanel {
         borrowForm.setVisible(true);
     }//GEN-LAST:event_btnAddBorrowActionPerformed
 
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        // TODO add your handling code here:
+        String keyword = txtTim.getText().trim();
+        String searchOption = cmbTimTheo.getSelectedItem().toString();
+
+        if (searchOption.equals("Tên độc giả")) {
+            filterBorrowerTableByName(keyword);
+        } else if (searchOption.equals("Mã độc giả")) {
+            filterBorrowerTableById(keyword);
+        }
+    }//GEN-LAST:event_btnTimActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBorrow;
     private javax.swing.JButton btnAddReturn;
     private javax.swing.JButton btnFineForm;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton btnTim;
+    private javax.swing.JComboBox<String> cmbTimTheo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -329,8 +389,8 @@ public class MuonTraSach extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable tblBorrowBooks;
     private javax.swing.JTable tblBorrowerName;
+    private javax.swing.JTextField txtTim;
     // End of variables declaration//GEN-END:variables
 }
