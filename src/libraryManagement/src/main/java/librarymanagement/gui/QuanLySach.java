@@ -62,6 +62,11 @@ public class QuanLySach extends javax.swing.JPanel {
 
         txtQuery.setToolTipText("");
         txtQuery.setBorder(null);
+        txtQuery.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtQueryMouseReleased(evt);
+            }
+        });
         txtQuery.addActionListener(this::txtQueryActionPerformed);
 
         btnSearch.setText("Search");
@@ -117,7 +122,7 @@ public class QuanLySach extends javax.swing.JPanel {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -160,16 +165,20 @@ public class QuanLySach extends javax.swing.JPanel {
     }//GEN-LAST:event_txtQueryActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-        // Lấy ID sách từ txtQuery và gọi phương thức tìm kiếm
-        String query = txtQuery.getText().trim();
-        if (query.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập ID sách để tìm kiếm.");
-            return;
-        }
+             // Lấy giá trị từ ô tìm kiếm
+    String query = txtQuery.getText().trim();
 
-        try {
-            int bookId = Integer.parseInt(query); // Chuyển đổi ID sách từ chuỗi sang số nguyên
+    // Kiểm tra nếu ô tìm kiếm trống
+    if (query.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin để tìm kiếm.");
+        btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm khi ô tìm kiếm trống
+        return;
+    }
+
+    try {
+        // Kiểm tra nếu chuỗi nhập vào là một số -> tìm kiếm theo ID
+        if (query.matches("\\d+")) {  // Kiểm tra xem có phải số nguyên không
+            int bookId = Integer.parseInt(query);  // Chuyển đổi chuỗi thành số nguyên
 
             // Gọi phương thức tìm kiếm sách theo ID
             List<QuanLySachPOJO> books = dao.searchBookById(bookId);
@@ -180,10 +189,25 @@ public class QuanLySach extends javax.swing.JPanel {
                 btnCancelSearch.setVisible(true);  // Hiển thị nút hủy tìm kiếm
             } else {
                 JOptionPane.showMessageDialog(null, "Không tìm thấy sách với ID: " + bookId);
+                btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm nếu không có kết quả
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập một ID hợp lệ.");
+        } else {
+            // Tìm kiếm theo tên sách (nếu chuỗi nhập vào không phải là số)
+            List<QuanLySachPOJO> books = dao.searchBookByName(query);
+
+            // Kiểm tra kết quả tìm kiếm
+            if (books != null && !books.isEmpty()) {
+                dao.addDataFromSearch(books, model, tblQuanLySach);  // Thêm dữ liệu vào bảng
+                btnCancelSearch.setVisible(true);  // Hiển thị nút hủy tìm kiếm
+            } else {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy sách với tên: " + query);
+                btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm nếu không có kết quả
+            }
         }
+    } catch (Exception e) {
+        // Nếu có lỗi xảy ra
+        JOptionPane.showMessageDialog(null, "Có lỗi khi tìm kiếm sách.");
+    }
 
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -209,6 +233,24 @@ public class QuanLySach extends javax.swing.JPanel {
         manage.setVisible(true);
     }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void txtQueryMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtQueryMouseReleased
+        // TODO add your handling code here:
+        // Khi người dùng nhấp chuột vào ô tìm kiếm
+    String query = txtQuery.getText().trim();
+
+    // Nếu ô tìm kiếm trống, tải lại toàn bộ sách và ẩn nút hủy tìm kiếm
+    if (query.isEmpty()) {
+        // Tải lại toàn bộ sách
+        loadAllBooks();
+        btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm
+    }
+    }//GEN-LAST:event_txtQueryMouseReleased
+
+    // Phương thức tải lại toàn bộ sách
+    private void loadAllBooks() {
+    List<QuanLySachPOJO> books = dao.getAllBooks();  // Lấy toàn bộ sách
+    dao.addDataFromSearch(books, model, tblQuanLySach);  // Thêm dữ liệu vào bảng
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelSearch;

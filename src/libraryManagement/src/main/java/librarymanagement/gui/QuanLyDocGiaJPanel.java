@@ -105,6 +105,12 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 931, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,16 +122,10 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(67, 67, 67)
                                 .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
+                                .addGap(36, 36, 36)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 931, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(209, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -144,38 +144,59 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                .addGap(161, 161, 161))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQueryActionPerformed
         // TODO add your handling code here:
+        btnSearchActionPerformed(evt);
     }//GEN-LAST:event_txtQueryActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        String query = txtQuery.getText().trim();
+            // Lấy giá trị từ ô tìm kiếm
+    String query = txtQuery.getText().trim();
+
+    // Kiểm tra nếu ô tìm kiếm trống
     if (query.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập ID độc giả để tìm kiếm.");
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin để tìm kiếm.");
+        btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm khi ô tìm kiếm trống
         return;
     }
 
     try {
-        int readerId = Integer.parseInt(query); // Chuyển đổi ID độc giả từ chuỗi sang số nguyên
+        // Kiểm tra nếu chuỗi nhập vào là một số -> tìm kiếm theo ID
+        if (query.matches("\\d+")) {  // Kiểm tra xem có phải số nguyên không
+            int readerId = Integer.parseInt(query);  // Chuyển đổi chuỗi thành số nguyên
 
-        // Gọi phương thức tìm kiếm độc giả theo ID
-        List<QuanLyDocGia> readers = dao.searchReaderById(readerId);
+            // Gọi phương thức tìm kiếm độc giả theo ID
+            List<QuanLyDocGia> readers = dao.searchReaderById(readerId);
 
-        // Kiểm tra kết quả tìm kiếm
-        if (readers != null && !readers.isEmpty()) {
-            dao.addDataFromSearch(readers, model, tblQuanLyDocGia);  // Thêm dữ liệu vào bảng
-            btnCancelSearch.setVisible(true);  // Hiển thị nút hủy tìm kiếm
+            // Kiểm tra kết quả tìm kiếm
+            if (readers != null && !readers.isEmpty()) {
+                dao.addDataFromSearch(readers, model, tblQuanLyDocGia);  // Thêm dữ liệu vào bảng
+                btnCancelSearch.setVisible(true);  // Hiển thị nút hủy tìm kiếm
+            } else {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy độc giả với ID: " + readerId);
+                btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm nếu không có kết quả
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy độc giả với ID: " + readerId);
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập một ID hợp lệ.");
-    }
+            // Tìm kiếm theo tên độc giả (nếu chuỗi nhập vào không phải là số)
+            List<QuanLyDocGia> readers = dao.searchReader(query);
 
+            // Kiểm tra kết quả tìm kiếm
+            if (readers != null && !readers.isEmpty()) {
+                dao.addDataFromSearch(readers, model, tblQuanLyDocGia);  // Thêm dữ liệu vào bảng
+                btnCancelSearch.setVisible(true);  // Hiển thị nút hủy tìm kiếm
+            } else {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy độc giả với tên: " + query);
+                btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm nếu không có kết quả
+            }
+        }
+    } catch (Exception e) {
+        // Nếu có lỗi xảy ra
+        JOptionPane.showMessageDialog(null, "Có lỗi khi tìm kiếm độc giả.");
+    }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnCancelSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelSearchActionPerformed
@@ -195,7 +216,7 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // Mở cửa sổ BookManagement với chế độ "Xóa"
+
         ReaderManagement manage = new ReaderManagement("Delete");
         manage.setVisible(true);
     }//GEN-LAST:event_btnXoaActionPerformed
