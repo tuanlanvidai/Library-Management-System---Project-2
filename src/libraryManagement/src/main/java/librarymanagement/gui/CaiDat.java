@@ -4,6 +4,16 @@
  */
 package librarymanagement.gui;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import librarymanagement.dao.CaiDatDAO;
+import librarymanagement.dao.TheLoaiDAO;
+import librarymanagement.pojo.Setting;
+import librarymanagement.util.DatabaseConnection;
+
 /**
  *
  * @author duyanh
@@ -13,10 +23,58 @@ public class CaiDat extends javax.swing.JPanel {
     /**
      * Creates new form CaiDat
      */
+    
+    private CaiDatDAO caiDatDAO;
+    private TheLoaiDAO theLoaiDAO;
+
     public CaiDat() {
-        initComponents();
+        try {
+            // Lấy kết nối từ DatabaseConnection
+            Connection connection = DatabaseConnection.getConnection();
+
+            // Khởi tạo DAO với kết nối
+            this.caiDatDAO = new CaiDatDAO(connection);
+            this.theLoaiDAO = new TheLoaiDAO(connection);
+            // Tạo giao diện
+            initComponents();
+            loadSettings();
+            loadTheLoai();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu: " + e.getMessage());
+        }
     }
 
+    private void loadSettings() {
+        try {
+            Setting setting = caiDatDAO.getSetting();
+            if (setting != null) {
+                maxBorrowDays_txt.setText(String.valueOf(setting.getMaxBorrowDays()));
+                lateFeePerDay_txt.setText(String.valueOf(setting.getLateFeePerDay()));
+                maxBooksBorrowed_txt.setText(String.valueOf(setting.getMaxBooksBorrowed()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu cài đặt!");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu: " + e.getMessage());
+        }
+    }
+   
+    private void loadTheLoai() {
+    try {
+        List<String> theLoaiList = theLoaiDAO.getAllTheLoai();
+        DefaultTableModel model = new DefaultTableModel(new String[]{"Tên thể loại"}, 0);
+        categoryTbl.setModel(model);
+        model.setRowCount(0); // Xóa dữ liệu cũ trên bảng
+
+        for (String theLoai : theLoaiList) {
+            model.addRow(new Object[]{theLoai});
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Lỗi khi tải danh sách thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,26 +91,24 @@ public class CaiDat extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
+        maxBorrowDays_txt = new javax.swing.JTextField();
+        lateFeePerDay_txt = new javax.swing.JTextField();
+        maxBooksBorrowed_txt = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        settingSaveBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        categoryTbl = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        deleteCategory = new javax.swing.JButton();
+        editCategory = new javax.swing.JButton();
+        addCategory = new javax.swing.JButton();
+        categoryName_txt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(900, 706));
 
@@ -84,6 +140,8 @@ public class CaiDat extends javax.swing.JPanel {
 
         jLabel16.setText("Số sách độc giả mượn tối đa :");
 
+        maxBorrowDays_txt.addActionListener(this::maxBorrowDays_txtActionPerformed);
+
         jLabel19.setText("Số ngày độc giả mượn tối đa :");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -92,14 +150,14 @@ public class CaiDat extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(maxBorrowDays_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(87, 87, 87)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lateFeePerDay_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(maxBooksBorrowed_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addGap(88, 88, 88))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,9 +175,9 @@ public class CaiDat extends javax.swing.JPanel {
                     .addComponent(jLabel16))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(maxBorrowDays_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lateFeePerDay_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(maxBooksBorrowed_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
@@ -128,20 +186,21 @@ public class CaiDat extends javax.swing.JPanel {
                     .addContainerGap(61, Short.MAX_VALUE)))
         );
 
-        jButton1.setText("Lưu thông tin");
+        settingSaveBtn.setText("Lưu thông tin");
+        settingSaveBtn.addActionListener(this::settingSaveBtnActionPerformed);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(858, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(852, Short.MAX_VALUE)
+                .addComponent(settingSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+            .addComponent(settingSaveBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -159,7 +218,7 @@ public class CaiDat extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +235,7 @@ public class CaiDat extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel9.setText("Thể loại");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        categoryTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -238,22 +297,23 @@ public class CaiDat extends javax.swing.JPanel {
                 "Tên thể loại"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(categoryTbl);
 
         jLabel3.setText("Danh sách thể loại");
 
-        jButton2.setText("Xoá");
+        deleteCategory.setText("Xoá");
+        deleteCategory.addActionListener(this::deleteCategoryActionPerformed);
 
-        jButton5.setText("Sửa");
+        editCategory.setText("Sửa");
+        editCategory.addActionListener(this::editCategoryActionPerformed);
 
-        jButton6.setText("Thêm");
+        addCategory.setText("Thêm");
+        addCategory.addActionListener(this::addCategoryActionPerformed);
+
+        categoryName_txt.addActionListener(this::categoryName_txtActionPerformed);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel4.setText("Tên thể loại:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel5.setText("Thể loại");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -262,41 +322,32 @@ public class CaiDat extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(categoryName_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addContainerGap(249, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jComboBox1, 0, 226, Short.MAX_VALUE))))
-                .addContainerGap())
+                            .addComponent(deleteCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(10, 10, 10)
-                        .addComponent(jComboBox1))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(categoryName_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addComponent(editCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -356,13 +407,125 @@ public class CaiDat extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void settingSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingSaveBtnActionPerformed
+        try {
+        // Kiểm tra dữ liệu từ các ô nhập liệu
+        if (maxBorrowDays_txt.getText().trim().isEmpty() ||
+            lateFeePerDay_txt.getText().trim().isEmpty() ||
+            maxBooksBorrowed_txt.getText().trim().isEmpty()) {
+            
+            // Hiển thị lỗi nếu bất kỳ ô nào bị trống
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ tất cả các trường!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Chuyển đổi dữ liệu từ các ô nhập liệu
+        int maxBorrowDays = Integer.parseInt(maxBorrowDays_txt.getText().trim());
+        int lateFeePerDay = Integer.parseInt(lateFeePerDay_txt.getText().trim());
+        int maxBooksBorrowed = Integer.parseInt(maxBooksBorrowed_txt.getText().trim());
+
+        // Gọi DAO để cập nhật dữ liệu vào cơ sở dữ liệu
+        caiDatDAO.updateSetting(maxBorrowDays, lateFeePerDay, maxBooksBorrowed);
+
+        // Cập nhật lại dữ liệu trên giao diện
+        loadSettings();
+
+        // Thông báo thành công
+        JOptionPane.showMessageDialog(this, "Cập nhật cài đặt thành công!");
+    } catch (NumberFormatException ex) {
+        // Xử lý lỗi khi nhập không phải số
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    } catch (SQLException ex) {
+        // Xử lý lỗi kết nối cơ sở dữ liệu
+        JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_settingSaveBtnActionPerformed
+
+    private void maxBorrowDays_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxBorrowDays_txtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_maxBorrowDays_txtActionPerformed
+
+    private void addCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryActionPerformed
+        try {
+        String newTheLoai = categoryName_txt.getText().trim();
+
+        if (newTheLoai.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        theLoaiDAO.addTheLoai(newTheLoai); // Thêm thể loại vào cơ sở dữ liệu
+        loadTheLoai(); // Cập nhật lại bảng
+        JOptionPane.showMessageDialog(this, "Thêm thể loại thành công!");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Lỗi khi thêm thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_addCategoryActionPerformed
+
+    private void categoryName_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryName_txtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_categoryName_txtActionPerformed
+
+    private void editCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCategoryActionPerformed
+        try {
+            int selectedRow = categoryTbl.getSelectedRow();
+
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần sửa!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String oldName = (String) categoryTbl.getValueAt(selectedRow, 0); // Tên thể loại cũ
+            String newName = categoryName_txt.getText().trim(); // Tên thể loại mới
+
+            if (newName.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại mới!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            theLoaiDAO.updateTheLoai(oldName, newName); // Cập nhật trong cơ sở dữ liệu
+            loadTheLoai(); // Cập nhật lại bảng
+            JOptionPane.showMessageDialog(this, "Sửa thể loại thành công!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi sửa thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_editCategoryActionPerformed
+
+    private void deleteCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCategoryActionPerformed
+        try {
+            // Lấy hàng được chọn từ bảng
+            int selectedRow = categoryTbl.getSelectedRow(); // Đổi từ categoryName_txt sang categoryTable
+
+            // Kiểm tra xem có dòng nào được chọn không
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần xóa!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Lấy tên thể loại từ bảng
+            String categoryName = (String) categoryTbl.getValueAt(selectedRow, 0);
+
+            // Xóa thể loại trong cơ sở dữ liệu
+            theLoaiDAO.deleteTheLoai(categoryName);
+
+            // Cập nhật lại danh sách trên giao diện
+            loadTheLoai();
+
+            // Hiển thị thông báo thành công
+            JOptionPane.showMessageDialog(this, "Xóa thể loại thành công!");
+        } catch (SQLException e) {
+            // Xử lý lỗi khi xóa
+            JOptionPane.showMessageDialog(this, "Lỗi khi xóa thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_deleteCategoryActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton addCategory;
+    private javax.swing.JTextField categoryName_txt;
+    private javax.swing.JTable categoryTbl;
+    private javax.swing.JButton deleteCategory;
+    private javax.swing.JButton editCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -370,7 +533,6 @@ public class CaiDat extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -380,10 +542,9 @@ public class CaiDat extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
+    private javax.swing.JTextField lateFeePerDay_txt;
+    private javax.swing.JTextField maxBooksBorrowed_txt;
+    private javax.swing.JTextField maxBorrowDays_txt;
+    private javax.swing.JButton settingSaveBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,7 +22,7 @@ public class QuanLySach extends javax.swing.JPanel {
      * Creates new form QuanLySach
      */
        
-     private QuanLySachDAO dao;
+    private QuanLySachDAO dao;
     public static DefaultTableModel model;
 
     public QuanLySach() {
