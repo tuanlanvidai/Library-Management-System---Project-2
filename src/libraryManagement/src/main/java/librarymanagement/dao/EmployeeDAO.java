@@ -71,7 +71,7 @@ public class EmployeeDAO {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "select * from employee";
+            String sql = "select * from employee where isDeleted=0";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -189,7 +189,7 @@ public class EmployeeDAO {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "select * from employee where employeeId=?";
+            String sql = "select * from employee where employeeId like '%?%'";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -204,6 +204,7 @@ public class EmployeeDAO {
         }
         return employeeList;
     }
+    
 
 //add data to table
     public void addDataFromDB(DefaultTableModel model, JTable jtable1) {
@@ -212,7 +213,6 @@ public class EmployeeDAO {
         model.setRowCount(0);
         Object columns[] = new Object[6];
         for (int i = 0; i < employeeList.size(); i++) {
-            if (employeeList.get(i).getIsDelete() != 1) {
                 columns[0] = employeeList.get(i).getId();
                 columns[1] = employeeList.get(i).getName();
                 columns[2] = employeeList.get(i).getRole();
@@ -220,7 +220,6 @@ public class EmployeeDAO {
                 columns[4] = employeeList.get(i).getEmail();
                 columns[5] = employeeList.get(i).getPassword();
                 model.addRow(columns);
-            }
         }
     }
     public void addDataFromDBSearch(List<Employee> employees,DefaultTableModel model, JTable jtable1) {
@@ -228,7 +227,6 @@ public class EmployeeDAO {
         model.setRowCount(0);
         Object columns[] = new Object[6];
         for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getIsDelete() != 1) {
                 columns[0] = employees.get(i).getId();
                 columns[1] = employees.get(i).getName();
                 columns[2] = employees.get(i).getRole();
@@ -236,7 +234,6 @@ public class EmployeeDAO {
                 columns[4] = employees.get(i).getEmail();
                 columns[5] = employees.get(i).getPassword();
                 model.addRow(columns);
-            }
         }
     }
 }
