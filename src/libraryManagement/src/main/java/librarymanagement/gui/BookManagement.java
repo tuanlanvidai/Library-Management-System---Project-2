@@ -20,7 +20,7 @@ public class BookManagement extends javax.swing.JFrame {
     QuanLySachDAO dao;
     String keyword;
     private DefaultTableModel model;
-
+    
     public BookManagement() {
         initComponents();
         dao = new QuanLySachDAO();
@@ -370,11 +370,10 @@ public class BookManagement extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
-     String title = txtTitle.getText();
+    String title = txtTitle.getText();
     String author = txtAuthor.getText();
     String category = cbxCategory.getSelectedItem().toString();
-    
-    
+        
     if (title.isEmpty() || author.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Title and Author cannot be empty.");
         return;

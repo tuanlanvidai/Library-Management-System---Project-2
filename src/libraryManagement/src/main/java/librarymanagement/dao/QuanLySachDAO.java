@@ -204,6 +204,9 @@ public class QuanLySachDAO {
         }
     }
     
+    
+ 
+    
      // Tìm kiếm sách theo tên (sử dụng LIKE để tìm tên gần giống)
 public List<QuanLySachPOJO> searchBookByName(String bookName) {
     List<QuanLySachPOJO> bookList = new ArrayList<>();

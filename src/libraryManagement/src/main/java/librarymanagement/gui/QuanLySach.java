@@ -66,11 +66,6 @@ public class QuanLySach extends javax.swing.JPanel {
 
         txtQuery.setToolTipText("");
         txtQuery.setBorder(null);
-        txtQuery.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtQueryMouseReleased(evt);
-            }
-        });
         txtQuery.addActionListener(this::txtQueryActionPerformed);
 
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
@@ -86,6 +81,11 @@ public class QuanLySach extends javax.swing.JPanel {
         btnCancelSearch.setBorder(null);
         btnCancelSearch.setBorderPainted(false);
         btnCancelSearch.setContentAreaFilled(false);
+        btnCancelSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnCancelSearchMouseReleased(evt);
+            }
+        });
         btnCancelSearch.addActionListener(this::btnCancelSearchActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -281,6 +281,10 @@ public class QuanLySach extends javax.swing.JPanel {
         btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm
     }
     }//GEN-LAST:event_txtQueryMouseReleased
+
+    private void btnCancelSearchMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelSearchMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelSearchMouseReleased
 
     // Phương thức tải lại toàn bộ sách
     private void loadAllBooks() {

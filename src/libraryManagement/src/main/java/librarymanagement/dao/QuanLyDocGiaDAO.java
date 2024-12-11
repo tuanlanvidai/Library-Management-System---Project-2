@@ -203,6 +203,41 @@ public class QuanLyDocGiaDAO {
             });
         }
     }
+    
+    public QuanLyDocGia getReaderById(int id) {
+    QuanLyDocGia reader = null;
+    try {
+        // Tải driver JDBC
+        Class.forName("com.mysql.jdbc.Driver");
+        // Kết nối cơ sở dữ liệu
+        Connection con = DriverManager.getConnection(
+                util.dbConnect, util.username, util.password);
+        // Câu truy vấn SQL để lấy thông tin độc giả theo ID
+        String sql = "SELECT * FROM reader WHERE readerId = ?";
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setInt(1, id);  // Gán giá trị ID vào câu truy vấn
+
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            // Khởi tạo đối tượng QuanLyDocGia từ kết quả truy vấn
+            reader = new QuanLyDocGia(
+                rs.getInt("readerId"),
+                rs.getString("name"),
+                rs.getString("address"),
+                rs.getString("phoneNumber"),
+                rs.getString("email"),
+                rs.getString("registerDay"),
+                rs.getBoolean("isDeleted")
+            );
+        }
+
+        con.close();  // Đóng kết nối cơ sở dữ liệu
+    } catch (Exception e) {
+        // In thông báo lỗi nếu có ngoại lệ xảy ra
+        System.out.println("Lỗi: " + e.getMessage());
+    }
+    return reader;  // Trả về thông tin độc giả hoặc null nếu không tìm thấy
+}
 
     // Thêm dữ liệu từ tìm kiếm vào bảng
     public void addDataFromSearch(List<QuanLyDocGia> readers, DefaultTableModel model, JTable table) {

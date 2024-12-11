@@ -29,8 +29,7 @@ public class QuanLyDocGia {
         this.ngayDangKy = "";
         this.daXoa = false;
     }
-
-    // Constructor đầy đủ tham số
+    
     public QuanLyDocGia(int maDocGia, String tenDocGia, String diaChi, String soDienThoai, String email, String ngayDangKy, boolean daXoa) {
         this.maDocGia = maDocGia;
         this.tenDocGia = tenDocGia;
@@ -40,7 +39,17 @@ public class QuanLyDocGia {
         this.ngayDangKy = ngayDangKy;
         this.daXoa = daXoa;
     }
-
+    
+    public QuanLyDocGia(String tenDocGia, String diaChi, String soDienThoai, String email,boolean daXoa) {
+        this.tenDocGia = tenDocGia;
+        this.diaChi = diaChi;
+        this.soDienThoai = soDienThoai;
+        this.email = email;
+        this.ngayDangKy = "0000-00-00";
+        this.daXoa = daXoa;
+    }
+    
+    
     // Getter và Setter
     public int getMaDocGia() {
         return maDocGia;
