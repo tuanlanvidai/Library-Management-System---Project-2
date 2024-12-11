@@ -15,7 +15,7 @@ import librarymanagement.gui.LoginForm;
 public class LibraryManagement {
 
     public static void main(String[] args) {
-        new LayoutMain().setVisible(true);
-//       new LoginForm().setVisible(true);
+        //new LayoutMain().setVisible(true);
+        new LoginForm().setVisible(true);
     }
 }

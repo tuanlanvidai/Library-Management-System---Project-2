@@ -4,6 +4,7 @@
  */
 package librarymanagement.gui;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -66,14 +67,14 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         btnEdit = new javax.swing.JButton();
         btnAdd1 = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        SearchPanel = new javax.swing.JPanel();
-        txtQuery = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        btnCancelSearch = new javax.swing.JButton();
         cbxSearchType = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
+        txtQuery = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
+        btnCancelSearch = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setPreferredSize(new java.awt.Dimension(1324, 646));
@@ -92,7 +93,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(918, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,49 +123,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         btnDelete.setText("Xoá");
         btnDelete.addActionListener(this::btnDeleteActionPerformed);
 
-        SearchPanel.setBackground(new java.awt.Color(255, 255, 255));
-        SearchPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        txtQuery.setToolTipText("");
-        txtQuery.setBorder(null);
-        txtQuery.addActionListener(this::txtQueryActionPerformed);
-
-        btnSearch.setText("Search");
-        btnSearch.setBorder(null);
-        btnSearch.setBorderPainted(false);
-        btnSearch.setContentAreaFilled(false);
-        btnSearch.addActionListener(this::btnSearchActionPerformed);
-
-        btnCancelSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCancelSearch.setText("X");
-        btnCancelSearch.setBorder(null);
-        btnCancelSearch.setBorderPainted(false);
-        btnCancelSearch.setContentAreaFilled(false);
-        btnCancelSearch.addActionListener(this::btnCancelSearchActionPerformed);
-
-        javax.swing.GroupLayout SearchPanelLayout = new javax.swing.GroupLayout(SearchPanel);
-        SearchPanel.setLayout(SearchPanelLayout);
-        SearchPanelLayout.setHorizontalGroup(
-            SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SearchPanelLayout.createSequentialGroup()
-                .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        SearchPanelLayout.setVerticalGroup(
-            SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SearchPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancelSearch)))
-        );
-
-        cbxSearchType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Search By Name", "Search By Id" }));
+        cbxSearchType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên thủ thư", "Mã thủ thư" }));
         cbxSearchType.addActionListener(this::cbxSearchTypeActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -179,7 +138,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Name", "Role", "Phone number", "Email", "Password"
+                "Mã thủ thư", "Tên", "Vai trò", "Số điện thoại", "Email", "mật khẩu"
             }
         ) {
             Class[] types = new Class [] {
@@ -209,6 +168,30 @@ public class QuanLyThuThu extends javax.swing.JPanel {
             tblEmployee.getColumnModel().getColumn(5).setResizable(false);
         }
 
+        txtQuery.setToolTipText("");
+        txtQuery.setBorder(null);
+        txtQuery.addActionListener(this::txtQueryActionPerformed);
+        txtQuery.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtQueryKeyPressed(evt);
+            }
+        });
+
+        btnSearch.setText("tìm");
+        btnSearch.setBorder(null);
+        btnSearch.setBorderPainted(false);
+        btnSearch.addActionListener(this::btnSearchActionPerformed);
+
+        btnCancelSearch.setText("Hủy");
+        btnCancelSearch.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnCancelSearch.setBorderPainted(false);
+        btnCancelSearch.setDefaultCapable(false);
+        btnCancelSearch.addActionListener(this::btnCancelSearchActionPerformed);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Tìm kiếm");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -216,28 +199,40 @@ public class QuanLyThuThu extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(142, 142, 142)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(203, 203, 203)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(SearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbxSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 12, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(SearchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbxSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))))
                 .addGap(39, 39, 39)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -258,7 +253,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 31, Short.MAX_VALUE))))
+                        .addGap(0, 77, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +267,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
 
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
         // TODO add your handling code here:
-        ManageEmployee manage = new ManageEmployee("Thêm mới ");
+        ManageEmployee manage = new ManageEmployee("Thêm ");
         manage.setVisible(true);
     }//GEN-LAST:event_btnAdd1ActionPerformed
 
@@ -288,10 +283,56 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         manage.setVisible(true);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void txtQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQueryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQueryActionPerformed
+
+    private void cbxSearchTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSearchTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxSearchTypeActionPerformed
+
+    private void btnCancelSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelSearchActionPerformed
+        // TODO add your handling code here:
+        txtQuery.setText("");
+        dao.addDataFromDB(model, tblEmployee);
+        btnCancelSearch.setVisible(false);
+    }//GEN-LAST:event_btnCancelSearchActionPerformed
+
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         //int id = Integer.parseInt(txtQuery.getText());
-        if (cbxSearchType.getSelectedIndex() == 0) {
+        if(txtQuery.getText().isEmpty()){
+            dao.addDataFromDB(model, tblEmployee);
+        btnCancelSearch.setVisible(false);
+        }
+        else{
+             if (cbxSearchType.getSelectedIndex() == 0) {
+            String name = txtQuery.getText();
+            List<Employee> a = FilterName(name);
+            if (a != null) {
+                dao.addDataFromDBSearch(a, model, tblEmployee);
+                btnCancelSearch.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+        }
+        else{
+            int id = Integer.parseInt(txtQuery.getText());
+            List<Employee> a = FilterId(id);
+            if (a != null) {
+                dao.addDataFromDBSearch(a, model, tblEmployee);
+                btnCancelSearch.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+        }   
+      }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtQueryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQueryKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if (cbxSearchType.getSelectedIndex() == 0) {
             String name = txtQuery.getText();
             List<Employee> a = FilterName(name);
             if (a != null) {
@@ -311,25 +352,11 @@ public class QuanLyThuThu extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Error");
             }
         }
-    }//GEN-LAST:event_btnSearchActionPerformed
-
-    private void btnCancelSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelSearchActionPerformed
-        // TODO add your handling code here:
-        dao.addDataFromDB(model, tblEmployee);
-        btnCancelSearch.setVisible(false);
-    }//GEN-LAST:event_btnCancelSearchActionPerformed
-
-    private void txtQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQueryActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtQueryActionPerformed
-
-    private void cbxSearchTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSearchTypeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxSearchTypeActionPerformed
+        }
+    }//GEN-LAST:event_txtQueryKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel SearchPanel;
     private javax.swing.JButton btnAdd1;
     private javax.swing.JButton btnCancelSearch;
     private javax.swing.JButton btnDelete;
@@ -338,6 +365,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbxSearchType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
