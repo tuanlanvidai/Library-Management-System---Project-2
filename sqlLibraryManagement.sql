@@ -34,6 +34,11 @@ CREATE TABLE Reader (
     isDeleted BIT DEFAULT 0
 );
 
+CREATE TABLE BookStatus (
+    statusId INT PRIMARY KEY AUTO_INCREMENT,
+    statusName VARCHAR(255) NOT NULL UNIQUE
+);
+
 CREATE TABLE BorrowBook (
     borrowId INT PRIMARY KEY AUTO_INCREMENT,
     readerId INT,
@@ -49,18 +54,20 @@ CREATE TABLE ReturnBook (
     returnId INT PRIMARY KEY AUTO_INCREMENT,
     borrowId INT,
     returnDate DATE NOT NULL,
-    bookStatus VARCHAR(255),
+    statusId INT,
     FOREIGN KEY (borrowId) REFERENCES BorrowBook(borrowId),
+    FOREIGN KEY (statusId) REFERENCES BookStatus(statusId),
     isDeleted BIT DEFAULT 0
 );
 
-CREATE TABLE ReturnFine(
+CREATE TABLE ReturnFine (
     returnFineId INT PRIMARY KEY AUTO_INCREMENT,
     returnId INT,
     lateDays SMALLINT,
-    bookStatus VARCHAR(255),
+    statusId INT,
     FineMoney INT NOT NULL,
     FOREIGN KEY (returnId) REFERENCES ReturnBook(returnId),
+    FOREIGN KEY (statusId) REFERENCES BookStatus(statusId),
     isDeleted BIT DEFAULT 0
 );
 
@@ -76,62 +83,67 @@ CREATE TABLE Employee (
 );
 
 CREATE TABLE Setting (
-	settingId INT AUTO_INCREMENT PRIMARY KEY,
+    settingId INT AUTO_INCREMENT PRIMARY KEY,
     maxBorrowDays INT UNSIGNED NOT NULL,
     lateFeePerDay INT UNSIGNED NOT NULL,
     bookDamageFee INT UNSIGNED NOT NULL,
-    maxBooksBorrowed INT UNSIGNED NOT NULL
+    lostBookFee INT UNSIGNED NOT NULL,
+    maxBooksBorrowed INT UNSIGNED NOT NULL 
 );
 
 INSERT INTO Category (categoryName) VALUES 
-('Mathematics'),
-('Physics'),
-('Chemistry'),
-('Literature'),
-('History'),
-('Geography');
+('Toán học'),
+('Vật lý'),
+('Hóa học'),
+('Văn học'),
+('Lịch sử'),
+('Địa lý');
 
 INSERT INTO Book (title, author, category, publishYear, totalQuantity, availableQty) VALUES
-('Advanced Mathematics',  'John Doe', 'Mathematics', 2022, 5, 4),
-('Linear Algebra', 'Jane Smith', 'Mathematics', 2023, 6, 5),
-('Differential Equations', 'Albert Johnson', 'Mathematics', 2023, 5, 4),
-('Calculus: A Complete Guide', 'Emily Davis', 'Mathematics', 2024, 5, 4),
+('Toán Cao Cấp',  'Nguyễn Minh Hoàng', 'Toán học', 2022, 5, 4),
+('Đại Số Tuyến Tính', 'Trần Thị Lan', 'Toán học', 2023, 6, 5),
+('Phương Trình Vi Phân', 'Lê Văn Dũng', 'Toán học', 2023, 5, 4),
+('Giải Tích: Hướng Dẫn Hoàn Chỉnh', 'Phạm Văn Tùng', 'Toán học', 2024, 5, 4),
 
-('Fundamentals of Physics', 'Richard Feynman', 'Physics', 2022, 6, 5),
-('Introduction to Quantum Mechanics',  'Jane Smith', 'Physics', 2023, 4, 3),
-('Classical Mechanics', 'Herbert Goldstein', 'Physics', 2024, 5, 4),
+('Vật Lý Căn Bản', 'Nguyễn Quốc Hùng', 'Vật lý', 2022, 6, 5),
+('Nhập Môn Cơ Học Lượng Tử',  'Trần Văn Bảo', 'Vật lý', 2023, 4, 3),
+('Cơ Học Cổ Điển', 'Phạm Hồng Phúc', 'Vật lý', 2024, 5, 4),
 
-('The Great Gatsby', 'F. Scott Fitzgerald', 'Literature', 2023, 6, 5),
-('Moby Dick', 'Herman Melville', 'Literature', 2023, 4, 3),
-('Pride and Prejudice',  'Jane Austen', 'Literature', 2024, 5, 5),
+('Đại Gia Gatsby', 'F. Scott Fitzgerald (Dịch: Nguyễn Hồng Anh)', 'Văn học', 2023, 6, 5),
+('Moby Dick', 'Herman Melville (Dịch: Trần Hữu Minh)', 'Văn học', 2023, 4, 3),
+('Kiêu Hãnh Và Định Kiến',  'Jane Austen (Dịch: Lê Thu Hà)', 'Văn học', 2024, 5, 5),
 
-('A History of Ancient Civilizations', 'William Thompson', 'History', 2022, 5, 5),
-('World History: A Global Perspective', 'Anna Roberts', 'History', 2022, 5, 5),
-('The Rise and Fall of the Roman Empire', 'Edward Gibbon', 'History', 2024, 4, 3),
+('Lịch Sử Các Nền Văn Minh Cổ Đại', 'Nguyễn Quốc Thịnh', 'Lịch sử', 2022, 5, 5),
+('Lịch Sử Thế Giới: Góc Nhìn Toàn Cầu', 'Phạm Minh Phương', 'Lịch sử', 2022, 5, 5),
+('Sự Trỗi Dậy Và Suy Tàn Của Đế Chế La Mã', 'Lê Văn Cường', 'Lịch sử', 2024, 4, 3),
 
-('Organic Chemistry', 'Paula Bruice', 'Chemistry',2023, 6, 5),
-('Physical Chemistry', 'Peter Atkins', 'Chemistry', 2024, 5, 5),
+('Hóa Học Hữu Cơ', 'Nguyễn Thị Thu Hương', 'Hóa học',2023, 6, 5),
+('Hóa Lý', 'Phan Văn Bình', 'Hóa học', 2024, 5, 5),
 
-('Geography of the World', 'Michael Smith', 'Geography', 2022, 4, 3),
-('World Regional Geography', 'James Peterson', 'Geography', 2023, 5, 4);
-
+('Địa Lý Thế Giới', 'Lê Hồng Minh', 'Địa lý', 2022, 4, 3),
+('Địa Lý Khu Vực Toàn Cầu', 'Nguyễn Thị Mai', 'Địa lý', 2023, 5, 4);
 
 INSERT INTO Reader (name, phoneNumber, address, email, registerDay) VALUES
-('Alice Johnson', '0345678911', '123 Main St, City A', 'alice.johnson@gmail.com', '2024-10-20'),
-('Bob Smith', '0298765432', '456 Oak St, City B', 'bob.smith@gmail.com', '2024-11-08'),
-('Charlie Brown', '0214356873', '789 Pine St, City C', 'charlie.brown@gmail.com', '2024-03-08'),
-('David Lee', '0432123454', '321 Elm St, City D', 'david.lee@gmail.com', '2024-04-12'),
-('Eva Green', '0756123455', '654 Birch St, City E', 'eva.green@gmail.com', '2024-07-08'),
-('Fay Miller', '0879654326', '987 Cedar St, City F', 'fay.miller@gmail.com', '2024-06-18'),
-('George King', '0567891237', '159 Maple St, City G', 'george.king@gmail.com', '2024-07-23'),
-('Hannah Scott', '0654321988', '753 Fir St, City H', 'hannah.scott@gmail.com', '2024-08-28'),
-('Ian Wright', '0987123459', '159 Oak St, City I', 'ian.wright@gmail.com', '2024-11-08'),
-('Jack White', '0210987610', '963 Pine St, City J', 'jack.white@gmail.com', '2024-10-27'),
-('Kim Adams', '0357918211', '852 Cedar St, City K', 'kim.adams@gmail.com', '2024-11-01'),
-('Laura Taylor', '0486123412', '741 Birch St, City L', 'laura.taylor@gmail.com', '2024-11-08'),
-('Mandy Phillips', '0712345613', '963 Maple St, City M', 'mandy.phillips@gmail.com', '2024-11-12'),
-('Nancy Davis', '0843456714', '741 Oak St, City N', 'nancy.davis@gmail.com', '2024-11-30'),
-('Oscar Wilson', '0921345615', '852 Pine St, City O', 'oscar.wilson@gmail.com', '2024-12-08');
+('Nguyễn Thị Lan Anh', '0345678911', '123 Đường Chính, Thành phố A', 'lananh.nguyen@gmail.com', '2024-10-20'),
+('Trần Văn Minh', '0298765432', '456 Đường Sồi, Thành phố B', 'vanminh.tran@gmail.com', '2024-11-08'),
+('Phạm Thị Thu Hà', '0214356873', '789 Đường Thông, Thành phố C', 'thuha.pham@gmail.com', '2024-03-08'),
+('Lê Hoàng Nam', '0432123454', '321 Đường Bàng, Thành phố D', 'hoangnam.le@gmail.com', '2024-04-12'),
+('Ngô Thị Hồng', '0756123455', '654 Đường Dương, Thành phố E', 'hong.ngo@gmail.com', '2024-07-08'),
+('Đỗ Đức Anh', '0879654326', '987 Đường Tùng, Thành phố F', 'ducanh.do@gmail.com', '2024-06-18'),
+('Bùi Thị Mai Hương', '0567891237', '159 Đường Phong, Thành phố G', 'maihuong.bui@gmail.com', '2024-07-23'),
+('Phan Văn Quân', '0654321988', '753 Đường Tràm, Thành phố H', 'vanquan.phan@gmail.com', '2024-08-28'),
+('Vũ Minh Hằng', '0987123459', '159 Đường Sồi, Thành phố I', 'minhhang.vu@gmail.com', '2024-11-08'),
+('Nguyễn Văn Hùng', '0210987610', '963 Đường Thông, Thành phố J', 'vanhung.nguyen@gmail.com', '2024-10-27'),
+('Trần Thị Hạnh', '0357918211', '852 Đường Tùng, Thành phố K', 'thihanh.tran@gmail.com', '2024-11-01'),
+('Phạm Văn An', '0486123412', '741 Đường Dương, Thành phố L', 'vanan.pham@gmail.com', '2024-11-08'),
+('Ngô Thị Mai', '0712345613', '963 Đường Phong, Thành phố M', 'thimai.ngo@gmail.com', '2024-11-12'),
+('Hoàng Thị Lan', '0843456714', '741 Đường Sồi, Thành phố N', 'thilan.hoang@gmail.com', '2024-11-30'),
+('Phạm Quốc Bảo', '0921345615', '852 Đường Thông, Thành phố O', 'quocbao.pham@gmail.com', '2024-12-08');
+
+INSERT INTO BookStatus (statusName) VALUES
+('Bình thường'),
+('Hư hại'),
+('Mất sách');
 
 INSERT INTO BorrowBook (borrowId, readerId, bookId, borrowDate, dueDate, isDeleted)
 VALUES
@@ -152,12 +164,12 @@ VALUES
 (66662, 9, 15, '2024-12-02', '2024-12-16', 0),
 (66663, 9, 16, '2024-12-03', '2024-12-17', 0);
 
-INSERT INTO ReturnBook (returnId, borrowId, returnDate, bookStatus, isDeleted)
+INSERT INTO ReturnBook (returnId, borrowId, returnDate, statusId, isDeleted)
 VALUES
-(20001, 22221, '2024-11-22', 'Good', 0),
-(20002, 44441, '2024-12-03', 'Damaged', 0),
-(20003, 44442, '2024-12-05', 'Good', 0),
-(20004, 55551, '2024-12-12', 'Good', 0);
+(20001, 22221, '2024-11-22', 1, 0),
+(20002, 44441, '2024-12-03', 2, 0),
+(20003, 44442, '2024-12-05', 1, 0),
+(20004, 55551, '2024-12-12', 1, 0);
 
 
 INSERT INTO Role (roleName) VALUES 
@@ -171,8 +183,9 @@ INSERT INTO Employee (name, role, phoneNumber, email, password) VALUES
 ('B', 'Librarian', '0345018165', 'b@gmail.com', '123'),
 ('C', 'Librarian', '0988660609', 'c@gmail.com', '123');
 
-INSERT INTO Setting (maxBorrowDays, lateFeePerDay, bookDamageFee, maxBooksBorrowed)
-VAlUES (14, 2000, 10000 ,3);
+INSERT INTO Setting (maxBorrowDays, lateFeePerDay, bookDamageFee, lostBookFee, maxBooksBorrowed)
+VALUES 
+(14, 2000, 10000, 50000, 3);
 
 -- Trigger for random borrow id
 DELIMITER $$
