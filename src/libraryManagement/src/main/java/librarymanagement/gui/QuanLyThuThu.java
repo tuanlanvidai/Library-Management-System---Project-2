@@ -42,10 +42,11 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         }
         return employees;
     }
+
     private List<Employee> FilterId(int Id) {
         List<Employee> employees = new ArrayList<>();
         for (int i = 0; i < temp.size(); i++) {
-            if (temp.get(i).getId()==Id) {
+            if (temp.get(i).getId() == Id) {
                 employees.add(temp.get(i));
             }
         }
@@ -156,8 +157,8 @@ public class QuanLyThuThu extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblEmployee.setRowSelectionAllowed(false);
         tblEmployee.setSelectionBackground(new java.awt.Color(0, 255, 204));
+        tblEmployee.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblEmployee);
         if (tblEmployee.getColumnModel().getColumnCount() > 0) {
             tblEmployee.getColumnModel().getColumn(0).setResizable(false);
@@ -279,8 +280,13 @@ public class QuanLyThuThu extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        ManageEmployee manage = new ManageEmployee("Xoá ");
-        manage.setVisible(true);
+        int row = tblEmployee.getSelectedRow();
+        int column = 0;
+        int id = Integer.parseInt(String.valueOf(tblEmployee.getModel().getValueAt(row, column)));
+        if (id!=0) {
+            dao.deleteEmployee(id);
+            dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQueryActionPerformed
@@ -301,57 +307,54 @@ public class QuanLyThuThu extends javax.swing.JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         //int id = Integer.parseInt(txtQuery.getText());
-        if(txtQuery.getText().isEmpty()){
+        if (txtQuery.getText().isEmpty()) {
             dao.addDataFromDB(model, tblEmployee);
-        btnCancelSearch.setVisible(false);
-        }
-        else{
-             if (cbxSearchType.getSelectedIndex() == 0) {
-            String name = txtQuery.getText();
-            List<Employee> a = FilterName(name);
-            if (a != null) {
-                dao.addDataFromDBSearch(a, model, tblEmployee);
-                btnCancelSearch.setVisible(true);
+            btnCancelSearch.setVisible(false);
+        } else {
+            if (cbxSearchType.getSelectedIndex() == 0) {
+                String name = txtQuery.getText();
+                List<Employee> a = FilterName(name);
+                if (a != null) {
+                    dao.addDataFromDBSearch(a, model, tblEmployee);
+                    btnCancelSearch.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Error");
+                int id = Integer.parseInt(txtQuery.getText());
+                List<Employee> a = FilterId(id);
+                if (a != null) {
+                    dao.addDataFromDBSearch(a, model, tblEmployee);
+                    btnCancelSearch.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error");
+                }
             }
         }
-        else{
-            int id = Integer.parseInt(txtQuery.getText());
-            List<Employee> a = FilterId(id);
-            if (a != null) {
-                dao.addDataFromDBSearch(a, model, tblEmployee);
-                btnCancelSearch.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Error");
-            }
-        }   
-      }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtQueryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQueryKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (cbxSearchType.getSelectedIndex() == 0) {
-            String name = txtQuery.getText();
-            List<Employee> a = FilterName(name);
-            if (a != null) {
-                dao.addDataFromDBSearch(a, model, tblEmployee);
-                btnCancelSearch.setVisible(true);
+                String name = txtQuery.getText();
+                List<Employee> a = FilterName(name);
+                if (a != null) {
+                    dao.addDataFromDBSearch(a, model, tblEmployee);
+                    btnCancelSearch.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Error");
+                int id = Integer.parseInt(txtQuery.getText());
+                List<Employee> a = FilterId(id);
+                if (a != null) {
+                    dao.addDataFromDBSearch(a, model, tblEmployee);
+                    btnCancelSearch.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error");
+                }
             }
-        }
-        else{
-            int id = Integer.parseInt(txtQuery.getText());
-            List<Employee> a = FilterId(id);
-            if (a != null) {
-                dao.addDataFromDBSearch(a, model, tblEmployee);
-                btnCancelSearch.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Error");
-            }
-        }
         }
     }//GEN-LAST:event_txtQueryKeyPressed
 
