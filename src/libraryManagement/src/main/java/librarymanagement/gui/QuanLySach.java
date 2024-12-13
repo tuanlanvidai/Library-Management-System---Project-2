@@ -201,7 +201,7 @@ public class QuanLySach extends javax.swing.JPanel {
     }//GEN-LAST:event_txtQueryActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-             // Lấy giá trị từ ô tìm kiếm
+                // Lấy giá trị từ ô tìm kiếm
     String query = txtQuery.getText().trim();
 
     // Kiểm tra nếu ô tìm kiếm trống

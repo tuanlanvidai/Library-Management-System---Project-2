@@ -63,7 +63,7 @@ public class BookManagement extends javax.swing.JFrame {
         labelEmail = new javax.swing.JLabel();
         txtTotalQuantity = new javax.swing.JTextField();
         labelPassWord = new javax.swing.JLabel();
-        txtAvailableQty = new javax.swing.JTextField();
+        txtAvailableQuantity = new javax.swing.JTextField();
         cbxCategory = new javax.swing.JComboBox<>();
         txtTitle = new javax.swing.JTextField();
         txtAuthor = new javax.swing.JTextField();
@@ -203,7 +203,7 @@ public class BookManagement extends javax.swing.JFrame {
                     .addComponent(txtAuthor)
                     .addComponent(cbxCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtTotalQuantity)
-                    .addComponent(txtAvailableQty))
+                    .addComponent(txtAvailableQuantity))
                 .addGap(18, 18, 18)
                 .addComponent(btnCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -245,7 +245,7 @@ public class BookManagement extends javax.swing.JFrame {
                             .addComponent(txtTotalQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelEmail))
                         .addGap(28, 28, 28)
-                        .addComponent(txtAvailableQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtAvailableQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,7 +280,7 @@ public class BookManagement extends javax.swing.JFrame {
         });
         tblDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblDisplayMouseClicked(evt);
+                tblDisplayMouseClicked1(evt);
             }
         });
         jScrollPane1.setViewportView(tblDisplay);
@@ -288,6 +288,11 @@ public class BookManagement extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Quản lý sách");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDisplayMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -354,7 +359,7 @@ public class BookManagement extends javax.swing.JFrame {
             cbxCategory.setSelectedItem(book.getCategory());
             txtPublishYear.setText(String.valueOf(book.getPublishYear()));
             txtTotalQuantity.setText(String.valueOf(book.getTotalQuantity()));
-            txtAvailableQty.setText(String.valueOf(book.getAvailableQty()));
+            txtAvailableQuantity.setText(String.valueOf(book.getAvailableQty()));
         } else {
             JOptionPane.showMessageDialog(null, "Book not found");
         }
@@ -382,7 +387,7 @@ public class BookManagement extends javax.swing.JFrame {
     try {
         int publishYear = Integer.parseInt(txtPublishYear.getText());
         int totalQuantity = Integer.parseInt(txtTotalQuantity.getText());
-        int availableQty = Integer.parseInt(txtAvailableQty.getText());
+        int availableQty = Integer.parseInt(txtAvailableQuantity.getText());
         int bookId = Integer.parseInt(txtMaSach.getText());  // Đảm bảo nhập đúng ID
         
         if (publishYear <= 0 || totalQuantity <= 0 || availableQty < 0) {
@@ -406,7 +411,7 @@ public class BookManagement extends javax.swing.JFrame {
             book.setBookId(bookId);
             if (dao.editBook(book)) {
                 dao.addDataToTable(model, tblDisplay);
-                  dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
+                dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
                 JOptionPane.showMessageDialog(null, "Book updated successfully!");
             } else {
                 JOptionPane.showMessageDialog(null, "Error updating book");
@@ -445,8 +450,25 @@ public class BookManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void tblDisplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked
-     
+
     }//GEN-LAST:event_tblDisplayMouseClicked
+
+    private void tblDisplayMouseClicked1(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked1
+        // TODO add your handling code here:
+         int row = tblDisplay.getSelectedRow();
+        int colum = 0;
+        int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
+        QuanLySachPOJO book = dao.getBookById(id);
+        if (book != null) {
+            txtMaSach.setText(String.valueOf(book.getBookId()));
+            txtTitle.setText(book.getTitle());
+            txtAuthor.setText(book.getAuthor());
+            cbxCategory.setSelectedItem(book.getCategory());
+            txtPublishYear.setText(String.valueOf(book.getPublishYear()));
+            txtTotalQuantity.setText(String.valueOf(book.getTotalQuantity()));
+            txtAvailableQuantity.setText(String.valueOf(book.getAvailableQty()));
+        }
+    }//GEN-LAST:event_tblDisplayMouseClicked1
 
     /**
      * @param args the command line arguments
@@ -504,9 +526,9 @@ public class BookManagement extends javax.swing.JFrame {
     private javax.swing.JLabel labelPhone;
     private javax.swing.JLabel labelPhone1;
     private javax.swing.JLabel labelRole;
-    private javax.swing.JTable tblDisplay;
+    public static javax.swing.JTable tblDisplay;
     private javax.swing.JTextField txtAuthor;
-    private javax.swing.JTextField txtAvailableQty;
+    private javax.swing.JTextField txtAvailableQuantity;
     private javax.swing.JTextField txtMaSach;
     private javax.swing.JTextField txtPublishYear;
     private javax.swing.JTextField txtTitle;
