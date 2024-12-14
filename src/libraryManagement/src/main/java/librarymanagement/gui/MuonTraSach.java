@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import librarymanagement.pojo.Reader;
 
 /**
  *
@@ -147,7 +148,6 @@ public class MuonTraSach extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         btnAddBorrow = new javax.swing.JButton();
         btnAddReturn = new javax.swing.JButton();
-        btnFineForm = new javax.swing.JButton();
 
         setForeground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(900, 552));
@@ -280,20 +280,15 @@ public class MuonTraSach extends javax.swing.JPanel {
         btnAddReturn.setText("Tạo phiếu trả");
         btnAddReturn.addActionListener(this::btnAddReturnActionPerformed);
 
-        btnFineForm.setText("Xuất danh sách phiếu thu");
-        btnFineForm.addActionListener(this::btnFineFormActionPerformed);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btnAddBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88)
-                .addComponent(btnAddReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnFineForm, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addComponent(btnAddReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,8 +296,7 @@ public class MuonTraSach extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFineForm, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnAddReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -347,12 +341,61 @@ public class MuonTraSach extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddReturnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddReturnActionPerformed
+        int selectedBorrowRow = tblBorrowBooks.getSelectedRow();
+        int selectedBorrowerRow = tblBorrowerName.getSelectedRow();
 
-    private void btnFineFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFineFormActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnFineFormActionPerformed
+        BookReturn returnForm = new BookReturn();
+
+        returnForm.setMuonTraSachPanel(this);
+
+        if (selectedBorrowRow >= 0 && selectedBorrowerRow >= 0) {
+            int borrowId = (int) tblBorrowBooks.getValueAt(selectedBorrowRow, 0);
+            String bookTitle = (String) tblBorrowBooks.getValueAt(selectedBorrowRow, 1);
+            java.sql.Date dueDate = (java.sql.Date) tblBorrowBooks.getValueAt(selectedBorrowRow, 3);
+
+            int readerId = (int) tblBorrowerName.getValueAt(selectedBorrowerRow, 0);
+            String readerName = (String) tblBorrowerName.getValueAt(selectedBorrowerRow, 1);
+
+            List<Reader> readers = muonTraSachDAO.getAllReaders();
+            for (Reader reader : readers) {
+                if (reader.getReaderId() == readerId) {
+                    returnForm.setReturnInfo(
+                            readerId,
+                            readerName,
+                            reader.getEmail(),
+                            reader.getPhoneNumber(),
+                            borrowId,
+                            bookTitle,
+                            dueDate
+                    );
+                    returnForm.loadBorrowRecordsByReader(readerId);
+                    break;
+                }
+            }
+        } else if (selectedBorrowerRow >= 0) {
+            int readerId = (int) tblBorrowerName.getValueAt(selectedBorrowerRow, 0);
+            String readerName = (String) tblBorrowerName.getValueAt(selectedBorrowerRow, 1);
+
+            List<Reader> readers = muonTraSachDAO.getAllReaders();
+            for (Reader reader : readers) {
+                if (reader.getReaderId() == readerId) {
+                    returnForm.setReturnInfo(
+                            readerId,
+                            readerName,
+                            reader.getEmail(),
+                            reader.getPhoneNumber(),
+                            0,
+                            "",
+                            null
+                    );
+                    returnForm.loadBorrowRecordsByReader(readerId);
+                    break;
+                }
+            }
+        }
+
+        returnForm.setVisible(true);
+    }//GEN-LAST:event_btnAddReturnActionPerformed
 
     private void btnAddBorrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBorrowActionPerformed
         // TODO add your handling code here:
@@ -371,12 +414,13 @@ public class MuonTraSach extends javax.swing.JPanel {
             filterBorrowerTableById(keyword);
         }
     }//GEN-LAST:event_btnTimActionPerformed
-
+    public void refreshBorrowerTable() {
+        loadBorrowerData();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBorrow;
     private javax.swing.JButton btnAddReturn;
-    private javax.swing.JButton btnFineForm;
     private javax.swing.JButton btnTim;
     private javax.swing.JComboBox<String> cmbTimTheo;
     private javax.swing.JLabel jLabel1;
