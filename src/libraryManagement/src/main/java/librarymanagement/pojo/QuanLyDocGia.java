@@ -49,6 +49,16 @@ public class QuanLyDocGia {
         this.daXoa = daXoa;
     }
     
+       
+    public QuanLyDocGia( String tenDocGia, String diaChi, String soDienThoai, String email, String ngayDangKy, boolean daXoa) {
+        this.tenDocGia = tenDocGia;
+        this.diaChi = diaChi;
+        this.soDienThoai = soDienThoai;
+        this.email = email;
+        this.ngayDangKy = ngayDangKy;
+        this.daXoa = daXoa;
+    }
+    
     
     // Getter và Setter
     public int getMaDocGia() {
