@@ -4,7 +4,6 @@
 
 package grouptwo.librarymanagement;
 
-import librarymanagement.gui.LayoutMain;
 import librarymanagement.gui.LoginForm;
 
 
@@ -15,7 +14,6 @@ import librarymanagement.gui.LoginForm;
 public class LibraryManagement {
 
     public static void main(String[] args) {
-        new LayoutMain().setVisible(true);
-//       new LoginForm().setVisible(true);
+       new LoginForm().setVisible(true);
     }
 }
