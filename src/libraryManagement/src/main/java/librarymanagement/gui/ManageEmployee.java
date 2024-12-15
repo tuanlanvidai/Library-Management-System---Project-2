@@ -5,6 +5,7 @@
 package librarymanagement.gui;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class ManageEmployee extends javax.swing.JFrame {
     EmployeeDAO dao;
     String keyword;
     private DefaultTableModel model;
+
     /**
      * Creates new form ManageBook
      */
@@ -32,14 +34,15 @@ public class ManageEmployee extends javax.swing.JFrame {
         dao.addDataFromDB(model, tblDisplay);
 
     }
-    public void emptyInp(){
+
+    public void emptyInp() {
         txtId.setText("");
         txtName.setText("");
         txtEmail.setText("");
         txtPhone.setText("");
         txtPassword.setText("");
         cbxRole.setSelectedIndex(0);
-        
+
     }
 
     public ManageEmployee(String type) {
@@ -51,7 +54,7 @@ public class ManageEmployee extends javax.swing.JFrame {
         dao = new EmployeeDAO();
         AddItemToCBX();
         dao.addDataFromDB(model, tblDisplay);
-        if (type.equals("Thêm mới")) {
+        if (type.equals("Thêm ")) {
             labelId.setVisible(false);
             txtId.setVisible(false);
             btnCheck.setVisible(false);
@@ -59,19 +62,6 @@ public class ManageEmployee extends javax.swing.JFrame {
             labelId.setVisible(true);
             txtId.setVisible(true);
             btnCheck.setVisible(true);
-        }
-        else if(type.equals("Xoá ")){
-            labelRole.setVisible(false);
-            cbxRole.setVisible(false);
-            labelEmail.setVisible(false);
-            labelPassWord.setVisible(false);
-            labelPhone.setVisible(false);
-            txtEmail.setVisible(false);
-            txtPassword.setVisible(false);
-            txtPhone.setVisible(false);
-            labelId.setVisible(true);
-            txtId.setVisible(true);
-            btnCheck.setVisible(false);
         }
     }
 
@@ -134,20 +124,41 @@ public class ManageEmployee extends javax.swing.JFrame {
         Title.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/quanlythuthu.png"))); // NOI18N
 
         txtName.addActionListener(this::txtNameActionPerformed);
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNameKeyPressed(evt);
+            }
+        });
 
-        txtEmail.addActionListener(this::txtEmailActionPerformed);
+        txtPhone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPhoneKeyPressed(evt);
+            }
+        });
+
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEmailKeyPressed(evt);
+            }
+        });
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         labelName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName.setForeground(new java.awt.Color(255, 255, 255));
-        labelName.setText("Name");
+        labelName.setText("Tên thủ thư");
 
         labelRole.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelRole.setForeground(new java.awt.Color(255, 255, 255));
-        labelRole.setText("Role");
+        labelRole.setText("Vai trò");
 
         labelPhone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPhone.setForeground(new java.awt.Color(255, 255, 255));
-        labelPhone.setText("Phone Number");
+        labelPhone.setText("Số điện thoại");
 
         labelEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelEmail.setForeground(new java.awt.Color(255, 255, 255));
@@ -155,25 +166,36 @@ public class ManageEmployee extends javax.swing.JFrame {
 
         labelPassWord.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPassWord.setForeground(new java.awt.Color(255, 255, 255));
-        labelPassWord.setText("Password");
+        labelPassWord.setText("Mật khẩu");
+
+        cbxRole.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxRoleKeyPressed(evt);
+            }
+        });
 
         btnConfirm.setBackground(new java.awt.Color(0, 204, 204));
         btnConfirm.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirm.setText("Confirm");
+        btnConfirm.setText("Xác nhận");
         btnConfirm.addActionListener(this::btnConfirmActionPerformed);
 
         btnCancel.setBackground(new java.awt.Color(0, 204, 204));
         btnCancel.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnCancel.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancel.setText("Cancel");
+        btnCancel.setText("Hủy");
         btnCancel.addActionListener(this::btnCancelActionPerformed);
 
         labelId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelId.setForeground(new java.awt.Color(255, 255, 255));
-        labelId.setText("Id");
+        labelId.setText("Mã thủ thư");
 
         txtId.addActionListener(this::txtIdActionPerformed);
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdKeyPressed(evt);
+            }
+        });
 
         btnCheck.setText("find");
         btnCheck.addActionListener(this::btnCheckActionPerformed);
@@ -183,7 +205,7 @@ public class ManageEmployee extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Role", "Password"
+                "Mã thủ thư", "Tên thủ thư", "Vai trò", "Số điện thoại"
             }
         ) {
             Class[] types = new Class [] {
@@ -210,7 +232,7 @@ public class ManageEmployee extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Employee");
+        jLabel1.setText("Thủ thư");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -246,8 +268,8 @@ public class ManageEmployee extends javax.swing.JFrame {
                                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(labelId)
+                                    .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -310,7 +332,7 @@ public class ManageEmployee extends javax.swing.JFrame {
                             .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -326,53 +348,70 @@ public class ManageEmployee extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
-        String name = txtName.getText();
-        String role = cbxRole.getSelectedItem().toString();
-        String email = txtEmail.getText();
-        String phone = txtPhone.getText();
-        String password = txtPassword.getText();
-        int id = Integer.parseInt(txtId.getText());
-        Employee employee = new Employee(name, role, phone, email, password);
-       if(keyword.equals("Thêm mới ")){
-            if (dao.addEmployee(employee) == true) {
-            dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
-            dao.addDataFromDB(model, tblDisplay);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error");
+        //check input
+        if (txtName.getText().isEmpty() && txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty()
+                || txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtPhone.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtEmail.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtPhone.getText().isEmpty() || txtEmail.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtPhone.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtEmail.getText().isEmpty()
+                || txtPassword.getText().isEmpty() && txtPhone.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui Lòng nhập đầy đủ thông tin");
+        } else if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui Lòng nhập tên thủ thư");
+        } else if (txtPhone.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập vào số điện thoại");
+        } else if (txtEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập vào Email");
+        } else if (txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập vào mật khẩu");
+        } //confirm btn handle
+        else {
+            String name = txtName.getText();
+            String role = cbxRole.getSelectedItem().toString();
+            String email = txtEmail.getText();
+            String phone = txtPhone.getText();
+            String password = txtPassword.getText();
+            int id = 0;
+            Employee employee = new Employee(name, role, phone, email, password);
+            switch (keyword) {
+                case "Thêm ":
+                    if (dao.addEmployee(employee) == true) {
+                        dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
+                        dao.addDataFromDB(model, tblDisplay);
+                    }
+                    break;
+                case "Sửa ":
+                    id = Integer.parseInt(txtId.getText());
+                    employee.setId(id);
+                    if (dao.editEmployee(employee) == true) {
+                        dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
+                        dao.addDataFromDB(model, tblDisplay);
+                    }
+                    ;
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            emptyInp();
         }
-       }
-       else if(keyword.equals("Sửa ")){
-           employee.setId(id);
-           if(dao.editEmployee(employee)==true){
-               dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
-               dao.addDataFromDB(model, tblDisplay);
-           }
-           else{
-               JOptionPane.showConfirmDialog(null, employee.toString());
-           }
-       }
-       else if(keyword.equals("Xoá ")){
-           if(dao.deleteEmployee(id)){
-               dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
-               dao.addDataFromDB(model, tblDisplay);
-           }
-           else{
-               JOptionPane.showConfirmDialog(null, employee.toString());
-           }
-       }
-       emptyInp();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
         // TODO add your handling code here:
-        int id = Integer.parseInt(txtId.getText());
-        Employee employee = dao.getEmployeeById(id);
-        if (employee != null) {
-            txtName.setText(employee.getName());
-            txtEmail.setText(employee.getEmail());
-            txtPassword.setText(employee.getPassword());
-            txtPhone.setText(employee.getPhoneNumber());
-            cbxRole.setSelectedItem(employee.getRole());
+        if (!txtId.getText().isEmpty()) {
+            int id = Integer.parseInt(txtId.getText());
+            Employee employee = dao.getEmployeeById(id);
+            if (employee != null) {
+                txtName.setText(employee.getName());
+                txtEmail.setText(employee.getEmail());
+                txtPassword.setText(employee.getPassword());
+                txtPhone.setText(employee.getPhoneNumber());
+                cbxRole.setSelectedItem(employee.getRole());
+            }
         }
     }//GEN-LAST:event_btnCheckActionPerformed
 
@@ -385,30 +424,97 @@ public class ManageEmployee extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
     private void tblDisplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked
-        // TODO add your handling code here:
-        int row = tblDisplay.getSelectedRow();
-        int colum = 0;
-        int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
-        
-        Employee employee = dao.getEmployeeById(id);
-        if (employee != null) {
-            txtId.setText(String.valueOf(employee.getId()));
-            txtName.setText(employee.getName());
-            txtEmail.setText(employee.getEmail());
-            txtPassword.setText(employee.getPassword());
-            txtPhone.setText(employee.getPhoneNumber());
-            cbxRole.setSelectedItem(employee.getRole());
+        // get data from table
+        if (keyword.equals("Sửa ")) {
+            int row = tblDisplay.getSelectedRow();
+            int colum = 0;
+            int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
+
+            Employee employee = dao.getEmployeeById(id);
+            if (employee != null) {
+                txtId.setText(String.valueOf(employee.getId()));
+                txtName.setText(employee.getName());
+                txtEmail.setText(employee.getEmail());
+                txtPassword.setText(employee.getPassword());
+                txtPhone.setText(employee.getPhoneNumber());
+                cbxRole.setSelectedItem(employee.getRole());
+            }
         }
     }//GEN-LAST:event_tblDisplayMouseClicked
+
+    private void txtIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyPressed
+        // focus
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtName.requestFocus();
+        }
+    }//GEN-LAST:event_txtIdKeyPressed
+
+    private void cbxRoleKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxRoleKeyPressed
+        // focus
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtPhone.requestFocus();
+        }
+    }//GEN-LAST:event_cbxRoleKeyPressed
+
+    private void txtNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyPressed
+        // focus
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxRole.requestFocus();
+        }
+    }//GEN-LAST:event_txtNameKeyPressed
+
+    private void txtPhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhoneKeyPressed
+        // focus
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtEmail.requestFocus();
+        }
+    }//GEN-LAST:event_txtPhoneKeyPressed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        // focus
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String name = txtName.getText();
+            String role = cbxRole.getSelectedItem().toString();
+            String email = txtEmail.getText();
+            String phone = txtPhone.getText();
+            String password = txtPassword.getText();
+            int id = 0;
+            Employee employee = new Employee(name, role, phone, email, password);
+            switch (keyword) {
+                case "Thêm ":
+                    if (dao.addEmployee(employee) == true) {
+                        dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
+                        dao.addDataFromDB(model, tblDisplay);
+                    }
+                    break;
+                case "Sửa ":
+                    id = Integer.parseInt(txtId.getText());
+                    employee.setId(id);
+                    if (dao.editEmployee(employee) == true) {
+                        dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
+                        dao.addDataFromDB(model, tblDisplay);
+                    }
+                    ;
+                    break;
+
+                default:
+                    throw new AssertionError();
+            }
+            emptyInp();
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
+
+    private void txtEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtPassword.requestFocus();
+        }
+    }//GEN-LAST:event_txtEmailKeyPressed
 
     /**
      * @param args the command line arguments

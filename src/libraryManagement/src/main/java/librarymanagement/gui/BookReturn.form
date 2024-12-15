@@ -54,9 +54,9 @@
                   </Group>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtTenTacGia" alignment="1" max="32767" attributes="0"/>
+                      <Component id="txtNgayPhaiTra" alignment="1" max="32767" attributes="0"/>
                       <Component id="txtTenSach" alignment="1" max="32767" attributes="0"/>
-                      <Component id="txtMaSach" alignment="1" max="32767" attributes="0"/>
+                      <Component id="txtMaPM" alignment="1" max="32767" attributes="0"/>
                       <Component id="txtSDT" alignment="1" max="32767" attributes="0"/>
                       <Component id="txtEmail" alignment="1" max="32767" attributes="0"/>
                       <Component id="txtTenDocGia" alignment="1" max="32767" attributes="0"/>
@@ -129,7 +129,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelId1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtMaSach" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="txtMaPM" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                               <Component id="btnTimMaSach" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -140,7 +140,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelName4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtTenTacGia" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="txtNgayPhaiTra" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -177,7 +177,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtMaSach">
+        <Component class="javax.swing.JTextField" name="txtMaPM">
         </Component>
         <Component class="javax.swing.JLabel" name="labelName">
           <Properties>
@@ -207,6 +207,9 @@
               <ResourceString bundle="librarymanagement/gui/Bundle.properties" key="BookReturn.btnTaoPhieu.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTaoPhieuActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnDong">
           <Properties>
@@ -246,6 +249,9 @@
               <ResourceString bundle="librarymanagement/gui/Bundle.properties" key="BookReturn.btnTimMaDocGia.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimMaDocGiaActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -394,7 +400,7 @@
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtTenTacGia">
+        <Component class="javax.swing.JTextField" name="txtNgayPhaiTra">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
@@ -405,6 +411,9 @@
               <ResourceString bundle="librarymanagement/gui/Bundle.properties" key="BookReturn.btnTimTenDocGia.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimTenDocGiaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnTimMaSach">
           <Properties>
@@ -420,16 +429,16 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tblSach">
+            <Component class="javax.swing.JTable" name="tblPhieuMuon">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="0">
-                    <Column editable="false" title="M&#xe3; s&#xe1;ch" type="java.lang.Integer"/>
+                    <Column editable="false" title="M&#xe3; Phi&#x1ebf;u m&#x1b0;&#x1ee3;n" type="java.lang.Integer"/>
+                    <Column editable="false" title="T&#xea;n &#x111;&#x1ed9;c gi&#x1ea3;" type="java.lang.String"/>
                     <Column editable="false" title="T&#xea;n s&#xe1;ch" type="java.lang.String"/>
-                    <Column editable="false" title="T&#xe1;c gi&#x1ea3;" type="java.lang.String"/>
-                    <Column editable="false" title="Th&#x1ec3; lo&#x1ea1;i" type="java.lang.String"/>
-                    <Column editable="false" title="N&#x103;m xu&#x1ea5;t b&#x1ea3;n" type="java.lang.Object"/>
-                    <Column editable="false" title="S&#x1ed1; s&#xe1;ch s&#x1eb5;n c&#xf3;" type="java.lang.Integer"/>
+                    <Column editable="false" title="Ng&#xe0;y m&#x1b0;&#x1ee3;n" type="java.lang.String"/>
+                    <Column editable="false" title="Ng&#xe0;y ph&#x1ea3;i tr&#x1ea3;" type="java.lang.String"/>
+                    <Column editable="false" title="Ti&#x1ec1;n ph&#x1ea1;t tr&#x1ea3; ch&#x1ead;m" type="java.lang.Integer"/>
                   </Table>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -442,11 +451,7 @@
         <Component class="javax.swing.JComboBox" name="cmbDamage">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="B&#xec;nh th&#x1b0;&#x1edd;ng"/>
-                <StringItem index="1" value="H&#x1b0; h&#x1ea1;i"/>
-                <StringItem index="2" value="M&#x1ea5;t s&#xe1;ch"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>

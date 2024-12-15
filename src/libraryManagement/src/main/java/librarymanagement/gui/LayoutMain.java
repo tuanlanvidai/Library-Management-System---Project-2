@@ -113,7 +113,7 @@ public class LayoutMain extends javax.swing.JFrame {
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnRootLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(50, 50, 50))
         );
         jpnRootLayout.setVerticalGroup(
@@ -399,6 +399,8 @@ public class LayoutMain extends javax.swing.JFrame {
     private void btn_dangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dangxuatActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        LoginForm login = new LoginForm();
+        login.setVisible(true);
     }//GEN-LAST:event_btn_dangxuatActionPerformed
 
     /**
