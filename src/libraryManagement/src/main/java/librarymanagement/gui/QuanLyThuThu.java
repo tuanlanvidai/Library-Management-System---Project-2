@@ -159,6 +159,11 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         });
         tblEmployee.setSelectionBackground(new java.awt.Color(0, 255, 204));
         tblEmployee.getTableHeader().setReorderingAllowed(false);
+        tblEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmployeeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEmployee);
         if (tblEmployee.getColumnModel().getColumnCount() > 0) {
             tblEmployee.getColumnModel().getColumn(0).setResizable(false);
@@ -224,14 +229,14 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbxSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -279,7 +284,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         int row = tblEmployee.getSelectedRow();
         int column = 0;
         int id = Integer.parseInt(String.valueOf(tblEmployee.getModel().getValueAt(row, column)));
-        if (id!=0) {
+        if (id != 0) {
             dao.deleteEmployee(id);
             dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
         }
@@ -353,6 +358,15 @@ public class QuanLyThuThu extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_txtQueryKeyPressed
+
+    private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
+        // TODO add your handling code here:
+        int row = tblEmployee.getSelectedRow();
+        int colum = 0;
+        int id = Integer.parseInt(tblEmployee.getModel().getValueAt(row, colum).toString());
+        Employee employee = dao.getEmployeeById(id);
+        ManageEmployee.employee = employee;
+    }//GEN-LAST:event_tblEmployeeMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

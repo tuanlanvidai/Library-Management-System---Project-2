@@ -18,7 +18,6 @@ import librarymanagement.pojo.Employee;
  *
  * @author minhp
  */
-
 public class EmployeeDAO {
 
     List<Employee> employeeList = new ArrayList<>();
@@ -41,6 +40,28 @@ public class EmployeeDAO {
             System.out.println(e);
         }
         return result;
+    }
+
+    public Boolean checkEmail(String email) {
+        Boolean isSuccess = false;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    util.dbConnect, util.username, util.password);
+            String sql = "select employeeId from employee where email = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                if (!rs.getString(1).isEmpty()) {
+                    isSuccess = true;
+                }
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return isSuccess;
     }
 
     public Employee getEmployee(String email, String passWord) {
@@ -183,7 +204,7 @@ public class EmployeeDAO {
 
 //search
     public List<Employee> SearchById(int id) {
-        employeeList=new ArrayList<>();
+        employeeList = new ArrayList<>();
         Employee employee;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -204,7 +225,6 @@ public class EmployeeDAO {
         }
         return employeeList;
     }
-    
 
 //add data to table
     public void addDataFromDB(DefaultTableModel model, JTable jtable1) {
@@ -213,27 +233,28 @@ public class EmployeeDAO {
         model.setRowCount(0);
         Object columns[] = new Object[6];
         for (int i = 0; i < employeeList.size(); i++) {
-                columns[0] = employeeList.get(i).getId();
-                columns[1] = employeeList.get(i).getName();
-                columns[2] = employeeList.get(i).getRole();
-                columns[3] = employeeList.get(i).getPhoneNumber();
-                columns[4] = employeeList.get(i).getEmail();
-                columns[5] = employeeList.get(i).getPassword();
-                model.addRow(columns);
+            columns[0] = employeeList.get(i).getId();
+            columns[1] = employeeList.get(i).getName();
+            columns[2] = employeeList.get(i).getRole();
+            columns[3] = employeeList.get(i).getPhoneNumber();
+            columns[4] = employeeList.get(i).getEmail();
+            columns[5] = employeeList.get(i).getPassword();
+            model.addRow(columns);
         }
     }
-    public void addDataFromDBSearch(List<Employee> employees,DefaultTableModel model, JTable jtable1) {
+
+    public void addDataFromDBSearch(List<Employee> employees, DefaultTableModel model, JTable jtable1) {
         model = (DefaultTableModel) jtable1.getModel();
         model.setRowCount(0);
         Object columns[] = new Object[6];
         for (int i = 0; i < employees.size(); i++) {
-                columns[0] = employees.get(i).getId();
-                columns[1] = employees.get(i).getName();
-                columns[2] = employees.get(i).getRole();
-                columns[3] = employees.get(i).getPhoneNumber();
-                columns[4] = employees.get(i).getEmail();
-                columns[5] = employees.get(i).getPassword();
-                model.addRow(columns);
+            columns[0] = employees.get(i).getId();
+            columns[1] = employees.get(i).getName();
+            columns[2] = employees.get(i).getRole();
+            columns[3] = employees.get(i).getPhoneNumber();
+            columns[4] = employees.get(i).getEmail();
+            columns[5] = employees.get(i).getPassword();
+            model.addRow(columns);
         }
     }
 }
