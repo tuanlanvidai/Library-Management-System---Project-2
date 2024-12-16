@@ -2,6 +2,9 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="99" green="99" red="0" type="rgb"/>
+    </Property>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[900, 706]"/>
     </Property>
@@ -36,7 +39,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel3" max="32767" attributes="0"/>
+              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -44,12 +47,17 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="99" red="0" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -71,8 +79,11 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Helvetica Neue" size="18" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/setting.png"/>
+              <Image iconType="3" name="/images/caidat.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="C&#xe0;i &#x111;&#x1eb7;t"/>
           </Properties>
@@ -80,6 +91,11 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="99" red="0" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -99,7 +115,7 @@
                           <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -123,34 +139,45 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Helvetica Neue" size="18" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ch&#x1ec9;nh s&#x1eed;a quy &#x111;&#x1ecb;nh"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel5">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="99" red="0" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="maxBorrowDays_txt" min="-2" pref="258" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lateFeePerDay_txt" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
-                          <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="92" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="maxBooksBorrowed_txt" min="-2" pref="258" max="-2" attributes="0"/>
-                          <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="maxBorrowDays_txt" min="-2" pref="258" max="-2" attributes="0"/>
                           <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="862" max="32767" attributes="0"/>
+                          <Component id="maxBorrowDays_txt1" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
+                          <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="166" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lateFeePerDay_txt" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
+                                  <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="maxBooksBorrowed_txt" min="-2" pref="258" max="-2" attributes="0"/>
+                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="maxBorrowDays_txt2" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
+                          <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -162,6 +189,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel15" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -169,14 +197,20 @@
                           <Component id="lateFeePerDay_txt" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                           <Component id="maxBooksBorrowed_txt" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="61" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                              <Component id="maxBorrowDays_txt1" min="-2" pref="42" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                              <Component id="maxBorrowDays_txt2" min="-2" pref="42" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -184,11 +218,17 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="S&#x1ed1; ti&#x1ec1;n ph&#x1ea3;i n&#x1ed9;p theo ng&#xe0;y khi tr&#x1ea3; tr&#x1ec5; s&#xe1;ch:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel16">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="S&#x1ed1; s&#xe1;ch &#x111;&#x1ed9;c gi&#x1ea3; m&#x1b0;&#x1ee3;n t&#x1ed1;i &#x111;a :"/>
               </Properties>
             </Component>
@@ -203,12 +243,46 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="S&#x1ed1; ng&#xe0;y &#x111;&#x1ed9;c gi&#x1ea3; m&#x1b0;&#x1ee3;n t&#x1ed1;i &#x111;a :"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel20">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="test"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="maxBorrowDays_txt1">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="maxBorrowDays_txt1ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel21">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="test"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="maxBorrowDays_txt2">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="maxBorrowDays_txt2ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel6">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="99" red="0" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -240,19 +314,24 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel3">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="99" red="0" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="341" max="-2" attributes="0"/>
@@ -273,14 +352,14 @@
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanel7" max="32767" attributes="0"/>
                       <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -292,6 +371,9 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Helvetica Neue" size="18" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Th&#x1ec3; lo&#x1ea1;i"/>
           </Properties>
@@ -325,10 +407,21 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch th&#x1ec3; lo&#x1ea1;i"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel7">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="99" red="0" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="99" red="0" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -336,22 +429,13 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="categoryName_txt" alignment="0" min="-2" pref="221" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="249" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="deleteCategory" min="-2" pref="142" max="-2" attributes="0"/>
-                                  <Component id="editCategory" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
-                                  <Component id="addCategory" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="categoryName_txt" alignment="0" min="-2" pref="221" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
+                          <Component id="deleteCategory" min="-2" pref="142" max="-2" attributes="0"/>
+                          <Component id="editCategory" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
+                          <Component id="addCategory" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace pref="249" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -368,7 +452,7 @@
                       <Component id="deleteCategory" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="editCategory" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace pref="72" max="32767" attributes="0"/>
+                      <EmptySpace pref="53" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -407,6 +491,9 @@
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Helvetica Neue" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="T&#xea;n th&#x1ec3; lo&#x1ea1;i:"/>
               </Properties>

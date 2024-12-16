@@ -95,6 +95,10 @@ public class CaiDat extends javax.swing.JPanel {
         lateFeePerDay_txt = new javax.swing.JTextField();
         maxBooksBorrowed_txt = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        maxBorrowDays_txt1 = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        maxBorrowDays_txt2 = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         settingSaveBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -110,10 +114,14 @@ public class CaiDat extends javax.swing.JPanel {
         categoryName_txt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(0, 153, 153));
         setPreferredSize(new java.awt.Dimension(900, 706));
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/setting.png"))); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/caidat.png"))); // NOI18N
         jLabel1.setText("Cài đặt");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -121,7 +129,7 @@ public class CaiDat extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -133,38 +141,58 @@ public class CaiDat extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Chỉnh sửa quy định");
 
+        jPanel5.setBackground(new java.awt.Color(0, 153, 153));
+
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Số tiền phải nộp theo ngày khi trả trễ sách:");
 
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Số sách độc giả mượn tối đa :");
 
         maxBorrowDays_txt.addActionListener(this::maxBorrowDays_txtActionPerformed);
 
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Số ngày độc giả mượn tối đa :");
+
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("test");
+
+        maxBorrowDays_txt1.addActionListener(this::maxBorrowDays_txt1ActionPerformed);
+
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setText("test");
+
+        maxBorrowDays_txt2.addActionListener(this::maxBorrowDays_txt2ActionPerformed);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(maxBorrowDays_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lateFeePerDay_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(maxBooksBorrowed_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addGap(88, 88, 88))
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(33, 33, 33)
+                    .addComponent(maxBorrowDays_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
-                    .addContainerGap(862, Short.MAX_VALUE)))
+                    .addComponent(maxBorrowDays_txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lateFeePerDay_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15))
+                        .addGap(128, 128, 128)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(maxBooksBorrowed_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)))
+                    .addComponent(maxBorrowDays_txt2, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,19 +200,27 @@ public class CaiDat extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel19))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(maxBorrowDays_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lateFeePerDay_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(maxBooksBorrowed_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel19)
-                    .addContainerGap(61, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(13, 13, 13)
+                        .addComponent(maxBorrowDays_txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addGap(13, 13, 13)
+                        .addComponent(maxBorrowDays_txt2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
+
+        jPanel6.setBackground(new java.awt.Color(0, 153, 153));
 
         settingSaveBtn.setText("Lưu thông tin");
         settingSaveBtn.addActionListener(this::settingSaveBtnActionPerformed);
@@ -218,7 +254,7 @@ public class CaiDat extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +268,10 @@ public class CaiDat extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
+
         jLabel9.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Thể loại");
 
         categoryTbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -299,7 +338,11 @@ public class CaiDat extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(categoryTbl);
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Danh sách thể loại");
+
+        jPanel7.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel7.setForeground(new java.awt.Color(0, 153, 153));
 
         deleteCategory.setText("Xoá");
         deleteCategory.addActionListener(this::deleteCategoryActionPerformed);
@@ -313,6 +356,7 @@ public class CaiDat extends javax.swing.JPanel {
         categoryName_txt.addActionListener(this::categoryName_txtActionPerformed);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Tên thể loại:");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -322,17 +366,12 @@ public class CaiDat extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(categoryName_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(249, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(deleteCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                    .addComponent(categoryName_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,7 +386,7 @@ public class CaiDat extends javax.swing.JPanel {
                 .addComponent(deleteCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(editCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -355,9 +394,9 @@ public class CaiDat extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8))
@@ -376,13 +415,13 @@ public class CaiDat extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel8))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(9, 9, 9)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(36, 36, 36))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -402,7 +441,7 @@ public class CaiDat extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -519,6 +558,14 @@ public class CaiDat extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_deleteCategoryActionPerformed
 
+    private void maxBorrowDays_txt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxBorrowDays_txt1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_maxBorrowDays_txt1ActionPerformed
+
+    private void maxBorrowDays_txt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxBorrowDays_txt2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_maxBorrowDays_txt2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCategory;
@@ -531,6 +578,8 @@ public class CaiDat extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
@@ -545,6 +594,8 @@ public class CaiDat extends javax.swing.JPanel {
     private javax.swing.JTextField lateFeePerDay_txt;
     private javax.swing.JTextField maxBooksBorrowed_txt;
     private javax.swing.JTextField maxBorrowDays_txt;
+    private javax.swing.JTextField maxBorrowDays_txt1;
+    private javax.swing.JTextField maxBorrowDays_txt2;
     private javax.swing.JButton settingSaveBtn;
     // End of variables declaration//GEN-END:variables
 }

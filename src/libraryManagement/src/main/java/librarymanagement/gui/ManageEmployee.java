@@ -106,7 +106,7 @@ public class ManageEmployee extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnClose.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -237,8 +237,8 @@ public class ManageEmployee extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -285,8 +285,8 @@ public class ManageEmployee extends javax.swing.JFrame {
                         .addGap(11, 11, 11)))
                 .addComponent(btnCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,7 +332,7 @@ public class ManageEmployee extends javax.swing.JFrame {
                             .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
