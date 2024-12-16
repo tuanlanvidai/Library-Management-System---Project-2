@@ -254,7 +254,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="test"/>
+                <Property name="text" type="java.lang.String" value="S&#x1ed1; ti&#x1ec1;n ph&#x1ea3;i n&#x1ed9;p khi s&#xe1;ch b&#x1ecb; h&#x1b0; h&#x1ea1;i :"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="maxBorrowDays_txt1">
@@ -267,7 +267,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="test"/>
+                <Property name="text" type="java.lang.String" value="S&#x1ed1; ti&#x1ec1;n ph&#x1ea3;i n&#x1ed9;p khi m&#x1ea5;t s&#xe1;ch :"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="maxBorrowDays_txt2">

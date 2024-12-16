@@ -161,12 +161,12 @@ public class CaiDat extends javax.swing.JPanel {
         jLabel19.setText("Số ngày độc giả mượn tối đa :");
 
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("test");
+        jLabel20.setText("Số tiền phải nộp khi sách bị hư hại :");
 
         maxBorrowDays_txt1.addActionListener(this::maxBorrowDays_txt1ActionPerformed);
 
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("test");
+        jLabel21.setText("Số tiền phải nộp khi mất sách :");
 
         maxBorrowDays_txt2.addActionListener(this::maxBorrowDays_txt2ActionPerformed);
 
