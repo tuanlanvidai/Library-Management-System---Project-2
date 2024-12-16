@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import librarymanagement.dao.QuanLyDocGiaDAO;
+import static librarymanagement.gui.QuanLyThuThu.tblEmployee;
 import librarymanagement.pojo.QuanLyDocGia;
 
 
@@ -87,7 +88,7 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
                 .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -144,9 +145,9 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
+                        .addGap(72, 72, 72)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0))
         );
@@ -177,7 +178,8 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -250,8 +252,33 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
 
-        ReaderManagement manage = new ReaderManagement("Delete");
-        manage.setVisible(true);
+          int row = tblQuanLyDocGia.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(null, "Vui lòng chọn một độc giả để xóa.");
+        return;
+    }
+
+    int column = 0;
+    int id = Integer.parseInt(String.valueOf(tblQuanLyDocGia.getModel().getValueAt(row, column)));
+
+    // Hiển thị hộp thoại xác nhận
+    int confirm = JOptionPane.showConfirmDialog(
+        null, 
+        "Bạn có chắc chắn muốn xóa độc giả này không?", 
+        "Xác nhận xóa", 
+        JOptionPane.YES_NO_OPTION, 
+        JOptionPane.WARNING_MESSAGE
+    );
+
+    // Xử lý theo lựa chọn của người dùng
+    if (confirm == JOptionPane.YES_OPTION) {
+        if (dao.deleteReader(id)) {
+            JOptionPane.showMessageDialog(null, "Xóa độc giả thành công!");
+            dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia); // Cập nhật bảng sau khi xóa
+        } else {
+            JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi xóa độc giả. Vui lòng thử lại.");
+        }
+    }
     }//GEN-LAST:event_btnXoaActionPerformed
 
 

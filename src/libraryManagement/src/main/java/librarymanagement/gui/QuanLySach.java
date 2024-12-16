@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import librarymanagement.pojo.QuanLySachPOJO;
 import librarymanagement.dao.QuanLySachDAO;
+import static librarymanagement.gui.QuanLyThuThu.tblEmployee;
 
 
 /**
@@ -97,11 +98,11 @@ public class QuanLySach extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(0, 39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,10 +155,10 @@ public class QuanLySach extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80)
-                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(113, 113, 113)
+                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -264,9 +265,33 @@ public class QuanLySach extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // Mở cửa sổ BookManagement với chế độ "Xóa"
-        BookManagement manage = new BookManagement("Delete");
-        manage.setVisible(true);
+            int row = tblQuanLySach.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(null, "Vui lòng chọn một sách để xóa.");
+        return;
+    }
+
+    int column = 0;
+    int id = Integer.parseInt(String.valueOf(tblQuanLySach.getModel().getValueAt(row, column)));
+
+    // Hiển thị hộp thoại xác nhận
+    int confirm = JOptionPane.showConfirmDialog(
+        null, 
+        "Bạn có chắc chắn muốn xóa sách này không?", 
+        "Xác nhận xóa", 
+        JOptionPane.YES_NO_OPTION, 
+        JOptionPane.WARNING_MESSAGE
+    );
+
+    // Xử lý theo lựa chọn của người dùng
+    if (confirm == JOptionPane.YES_OPTION) {
+        if (dao.deleteBook(id)) {
+            JOptionPane.showMessageDialog(null, "Xóa sách thành công!");
+            dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach); // Cập nhật bảng sau khi xóa
+        } else {
+            JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi xóa sách. Vui lòng thử lại.");
+        }
+    }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtQueryMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtQueryMouseReleased

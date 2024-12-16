@@ -85,59 +85,48 @@ public class QuanLySachDAO {
     }
 
     // Thêm sách mới
-    public Boolean addBook(QuanLySachPOJO book) {
-        Boolean isSuccess = false;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    util.dbConnect, util.username, util.password);
-            String sql = "insert into book(title, author, category, publishYear, totalQuantity, availableQty) values(?,?,?,?,?,?)";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, book.getTitle());
-            stmt.setString(2, book.getAuthor());
-            stmt.setString(3, book.getCategory());
-            stmt.setInt(4, book.getPublishYear());
-            stmt.setInt(5, book.getTotalQuantity());
-            stmt.setInt(6, book.getAvailableQty());
-            int rows = stmt.executeUpdate();
-            if (rows > 0) {
-                isSuccess = true;
-            }
+  public Boolean addBook(QuanLySachPOJO book) {
+    Boolean isSuccess = false;
+    String sql = "INSERT INTO book (title, author, category, publishYear, totalQuantity, availableQty) VALUES (?, ?, ?, ?, ?, ?)";
+    try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
+         PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setString(1, book.getTitle());
+        stmt.setString(2, book.getAuthor());
+        stmt.setString(3, book.getCategory());
+        stmt.setInt(4, book.getPublishYear());
+        stmt.setInt(5, book.getTotalQuantity());
+        stmt.setInt(6, book.getAvailableQty());
 
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return isSuccess;
+        int rows = stmt.executeUpdate();
+        isSuccess = rows > 0;
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
     }
+    return isSuccess;
+}
+
 
     // Sửa thông tin sách
     public Boolean editBook(QuanLySachPOJO book) {
-        Boolean isSuccess = false;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    util.dbConnect, util.username, util.password);
-            String sql = "update book set title=?, author=?, category=?, publishYear=?, totalQuantity=?, availableQty=? where bookId=?";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, book.getTitle());
-            stmt.setString(2, book.getAuthor());
-            stmt.setString(3, book.getCategory());
-            stmt.setInt(4, book.getPublishYear());
-            stmt.setInt(5, book.getTotalQuantity());
-            stmt.setInt(6, book.getAvailableQty());
-            stmt.setInt(7, book.getBookId());
-            int rows = stmt.executeUpdate();
-            if (rows > 0) {
-                isSuccess = true;
-            }
+    Boolean isSuccess = false;
+    String sql = "UPDATE book SET title = ?, author = ?, category = ?, publishYear = ?, totalQuantity = ?, availableQty = ? WHERE bookId = ?";
+    try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
+         PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setString(1, book.getTitle());
+        stmt.setString(2, book.getAuthor());
+        stmt.setString(3, book.getCategory());
+        stmt.setInt(4, book.getPublishYear());
+        stmt.setInt(5, book.getTotalQuantity());
+        stmt.setInt(6, book.getAvailableQty());
+        stmt.setInt(7, book.getBookId());
 
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return isSuccess;
+        int rows = stmt.executeUpdate();
+        isSuccess = rows > 0;
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
     }
+    return isSuccess;
+}
 
     // Xóa sách (đánh dấu là đã xóa)
     public Boolean deleteBook(int bookId) {
@@ -204,7 +193,6 @@ public class QuanLySachDAO {
         }
     }
     
-  
     
      // Tìm kiếm sách theo tên (sử dụng LIKE để tìm tên gần giống)
 public List<QuanLySachPOJO> searchBookByName(String bookName) {
@@ -247,5 +235,24 @@ public List<QuanLySachPOJO> searchBookByName(String bookName) {
             }
         }
     }
+    
+    // Kiểm tra sách trùng
+private boolean isBookDuplicate(String title, String author) {
+    boolean isDuplicate = false;
+    String sql = "SELECT COUNT(*) FROM book WHERE title = ? AND author = ?";
+    try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
+         PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setString(1, title);
+        stmt.setString(2, author);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next() && rs.getInt(1) > 0) {
+                isDuplicate = true;
+            }
+        }
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    return isDuplicate;
+}
 }
 	
