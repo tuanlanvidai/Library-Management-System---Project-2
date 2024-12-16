@@ -21,9 +21,10 @@ import librarymanagement.pojo.Employee;
  */
 public class ManageEmployee extends javax.swing.JFrame {
 
-    EmployeeDAO dao;
-    String keyword;
+    private EmployeeDAO dao;
+    private String keyword;
     private DefaultTableModel model;
+    public static Employee employee;
 
     /**
      * Creates new form ManageBook
@@ -55,13 +56,17 @@ public class ManageEmployee extends javax.swing.JFrame {
         AddItemToCBX();
         dao.addDataFromDB(model, tblDisplay);
         if (type.equals("Thêm ")) {
-            labelId.setVisible(false);
             txtId.setVisible(false);
-            btnCheck.setVisible(false);
         } else if (type.equals("Sửa ")) {
-            labelId.setVisible(true);
             txtId.setVisible(true);
-            btnCheck.setVisible(true);
+            if(!employee.getName().isEmpty()){
+                txtId.setText(String.valueOf(employee.getId()));
+                txtName.setText(employee.getName());
+                txtEmail.setText(employee.getEmail());
+                txtPassword.setText(employee.getPassword());
+                txtPhone.setText(employee.getPhoneNumber());
+                cbxRole.setSelectedItem(employee.getRole());
+            }
         }
     }
 
@@ -81,6 +86,7 @@ public class ManageEmployee extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtId = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         Title = new javax.swing.JLabel();
@@ -96,12 +102,16 @@ public class ManageEmployee extends javax.swing.JFrame {
         cbxRole = new javax.swing.JComboBox<>();
         btnConfirm = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        labelId = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
-        btnCheck = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDisplay = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+
+        txtId.addActionListener(this::txtIdActionPerformed);
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdKeyPressed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -230,7 +240,7 @@ public class ManageEmployee extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblDisplay);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Thủ thư");
 
@@ -291,38 +301,33 @@ public class ManageEmployee extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(25, 25, 25)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCheck)
-                            .addComponent(labelId))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelName))
-                        .addGap(18, 18, 18)
+                            .addComponent(labelName)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelRole)
                             .addComponent(cbxRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(26, 26, 26)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelPhone))
-                        .addGap(22, 22, 22)
+                            .addComponent(labelPhone)
+                            .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelEmail)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelPassWord))
-                        .addGap(133, 133, 133)
+                            .addComponent(labelPassWord)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -390,21 +395,6 @@ public class ManageEmployee extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
-    private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
-        // TODO add your handling code here:
-        if (!txtId.getText().isEmpty()) {
-            int id = Integer.parseInt(txtId.getText());
-            Employee employee = dao.getEmployeeById(id);
-            if (employee != null) {
-                txtName.setText(employee.getName());
-                txtEmail.setText(employee.getEmail());
-                txtPassword.setText(employee.getPassword());
-                txtPhone.setText(employee.getPhoneNumber());
-                cbxRole.setSelectedItem(employee.getRole());
-            }
-        }
-    }//GEN-LAST:event_btnCheckActionPerformed
-
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -424,8 +414,7 @@ public class ManageEmployee extends javax.swing.JFrame {
             int row = tblDisplay.getSelectedRow();
             int colum = 0;
             int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
-
-            Employee employee = dao.getEmployeeById(id);
+            employee = dao.getEmployeeById(id);
             if (employee != null) {
                 txtId.setText(String.valueOf(employee.getId()));
                 txtName.setText(employee.getName());
@@ -545,7 +534,6 @@ public class ManageEmployee extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnCheck;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JComboBox<String> cbxRole;
@@ -553,7 +541,6 @@ public class ManageEmployee extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelEmail;
-    private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelPassWord;
     private javax.swing.JLabel labelPhone;

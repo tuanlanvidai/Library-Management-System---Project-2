@@ -27,6 +27,7 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
         dao = new EmployeeDAO();
+        txtEmail.requestFocus();
     }
 
     /**
@@ -211,20 +212,40 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btn_dangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dangnhapActionPerformed
         // TODO add your handling code here:
-        String email = txtEmail.getText();
-        String passWord = txtPassWord.getText();
-        Matcher matcher = pattern.matcher(email);
-        if (matcher.matches()) {
-            Employee employee= dao.getEmployee(email, passWord);
-            if (employee != null) {
-                LayoutMain main = new LayoutMain(employee.getRole());
-                main.setVisible(true);
-                this.dispose();
+        if (txtEmail.getText().isEmpty() && txtPassWord.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+            txtEmail.requestFocus();
+        } else if (txtEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập Email");
+            txtEmail.requestFocus();
+        } else if (txtPassWord.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập mật khẩu");
+            txtPassWord.requestFocus();
+        } else {
+            String email = txtEmail.getText();
+            String passWord = txtPassWord.getText();
+            Matcher matcher = pattern.matcher(email);
+            if (matcher.matches()) {
+               if(dao.checkEmail(email)){
+                    Employee employee = dao.getEmployee(email, passWord);
+                if (employee != null) {
+                    LayoutMain main = new LayoutMain(employee.getRole());
+                    main.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Sai mật khẩu");
+                    txtPassWord.requestFocus();
+                }
+               }
+               else{
+                   JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại");
+                   txtEmail.requestFocus();
+               }
+            } else if(!txtEmail.getText().isEmpty() && !txtPassWord.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Lỗi định dạng Email");
             }
         }
-        else {
-                JOptionPane.showMessageDialog(null, "Wrong Email Format");
-            }
     }//GEN-LAST:event_btn_dangnhapActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
@@ -240,21 +261,41 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void txtPassWordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassWordKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+           if (txtEmail.getText().isEmpty() && txtPassWord.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+            txtEmail.requestFocus();
+        } else if (txtEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập Email");
+            txtEmail.requestFocus();
+        } else if (txtPassWord.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập mật khẩu");
+            txtPassWord.requestFocus();
+        } else {
             String email = txtEmail.getText();
-        String passWord = txtPassWord.getText();
-        Matcher matcher = pattern.matcher(email);
-        if (matcher.matches()) {
-            Employee employee= dao.getEmployee(email, passWord);
-            if (employee != null) {
-                LayoutMain main = new LayoutMain(employee.getRole());
-                main.setVisible(true);
-                this.dispose();
+            String passWord = txtPassWord.getText();
+            Matcher matcher = pattern.matcher(email);
+            if (matcher.matches()) {
+               if(dao.checkEmail(email)){
+                    Employee employee = dao.getEmployee(email, passWord);
+                if (employee != null) {
+                    LayoutMain main = new LayoutMain(employee.getRole());
+                    main.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Sai mật khẩu");
+                    txtPassWord.requestFocus();
+                }
+               }
+               else{
+                   JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại");
+                   txtEmail.requestFocus();
+               }
+            } else if(!txtEmail.getText().isEmpty() && !txtPassWord.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Lỗi định dạng Email");
             }
         }
-        else {
-                JOptionPane.showMessageDialog(null, "Wrong Email Format");
-            }
         }
     }//GEN-LAST:event_txtPassWordKeyPressed
 
