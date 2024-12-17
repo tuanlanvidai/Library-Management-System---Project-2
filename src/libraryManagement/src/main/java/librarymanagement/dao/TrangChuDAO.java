@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import librarymanagement.pojo.BorrowedBook;
+import librarymanagement.pojo.OverdueBook;
 
 public class TrangChuDAO {
     ConfigUtils util = new ConfigUtils();
@@ -202,20 +203,24 @@ public class TrangChuDAO {
     int overdueBooks = 0;
     try {
         Connection con = DriverManager.getConnection(ConfigUtils.dbConnect, ConfigUtils.username, ConfigUtils.password);
-        String sql = "select count(*) as total from ReturnFine where lateDays > 0 and isDeleted = 0";
+        
+        String sql = "SELECT COUNT(*) AS total " +
+                     "FROM BorrowBook bb " +
+                     "WHERE bb.isDeleted = 0 " +
+                     "AND DATEDIFF(CURRENT_DATE, bb.dueDate) > 0 ";
+
         PreparedStatement stmt = con.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
 
         if (rs.next()) {
-            overdueBooks = rs.getInt("total");
+            overdueBooks = rs.getInt("total"); 
         }
         con.close();
     } catch (Exception e) {
         System.out.println(e);
     }
     return overdueBooks;
-    }
-
+}
 
     public int getTotalReaders() {
         int totalReaders = 0;
@@ -236,34 +241,41 @@ public class TrangChuDAO {
         return totalReaders;
     }
     
-     public List<BorrowedBook> getOverdueOrDamagedReaders() {
-        List<BorrowedBook> overdueOrDamagedReaders = new ArrayList<>();
-        String sql = "select bb.readerId, bb.bookId, bb.borrowId, rb.bookStatus, "
-                   + "rf.lateDays, rf.FineMoney "
-                   + "from BorrowBook bb "
-                   + "join ReturnBook rb ON bb.borrowId = rb.borrowId "
-                   + "left JOIN ReturnFine rf ON rb.returnId = rf.returnId "
-                   + "where (rf.lateDays > 0 OR rb.bookStatus = 'Damaged') "
-                   + "and bb.isDeleted = 0 AND rb.isDeleted = 0 AND rf.isDeleted = 0";
+    public List<OverdueBook> getListOverDueReaders() {
+        List<OverdueBook> overdueBooks = new ArrayList<>();
+        String query = "SELECT " +
+                       "    bb.readerId AS readerId, " +
+                       "    bb.bookId AS bookId, " +
+                       "    bb.borrowId AS borrowId, " +
+                       "    DATEDIFF(CURRENT_DATE, bb.dueDate) AS overdueDays, " +
+                       "    COALESCE(rf.fineMoney, DATEDIFF(CURRENT_DATE, bb.dueDate) * 2000) AS fineMoney " +
+                       "FROM BorrowBook bb " +
+                       "LEFT JOIN ReturnBook rb ON rb.borrowId = bb.borrowId " +
+                       "LEFT JOIN ReturnFine rf ON rf.returnId = rb.returnId " +
+                       "WHERE bb.isDeleted = 0 " +
+                       "AND DATEDIFF(CURRENT_DATE, bb.dueDate) > 0 " +
+                       "AND (rb.returnId IS NULL OR rb.isDeleted = 0)";
 
         try (Connection connection = DriverManager.getConnection(ConfigUtils.dbConnect, ConfigUtils.username, ConfigUtils.password);
-             PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                int readerId = rs.getInt("readerId");
-                int bookId = rs.getInt("bookId");
-                int borrowId = rs.getInt("borrowId");
-                String bookStatus = rs.getString("bookStatus");
-                int lateDays = rs.getInt("lateDays");
-                int fineMoney = rs.getInt("FineMoney");
-                BorrowedBook borrowedBook = new BorrowedBook(readerId, bookId, borrowId, bookStatus, lateDays, fineMoney);
-                overdueOrDamagedReaders.add(borrowedBook);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                int readerId = resultSet.getInt("readerId");
+                int bookId = resultSet.getInt("bookId");
+                int borrowId = resultSet.getInt("borrowId");
+                int overdueDays = resultSet.getInt("overdueDays");
+                int fineMoney = resultSet.getInt("fineMoney");
+
+                // Add the retrieved information to the overdueBooks list
+                overdueBooks.add(new OverdueBook(readerId, bookId, borrowId, overdueDays, fineMoney));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return overdueOrDamagedReaders;
+        return overdueBooks;  // Return the list of overdue books
     }
+
 
 }

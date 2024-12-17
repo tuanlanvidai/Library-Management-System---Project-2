@@ -4,15 +4,13 @@
  */
 package librarymanagement.gui;
 
-import java.time.LocalDate;
 import java.util.List;
-import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 import librarymanagement.dao.BookDAO;
-import librarymanagement.dao.ReaderDAO;
 import librarymanagement.dao.TrangChuDAO;
 import librarymanagement.pojo.Book;
 import librarymanagement.pojo.BorrowedBook;
+import librarymanagement.pojo.OverdueBook;
 
 /**
  *
@@ -25,7 +23,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
     initComponents();
     loadSummary();
     loadRecentBooks();
-    loadOverdueOrDamagedData();
+    loadOverdueData();
     }
     
     private void loadSummary() {
@@ -50,16 +48,15 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         });
     }}
     
-     private void loadOverdueOrDamagedData() {
+     private void loadOverdueData() {
         DefaultTableModel model = (DefaultTableModel) tblMuonQuaHan.getModel();
-        List<BorrowedBook> overdueOrDamagedReaders = dao.getOverdueOrDamagedReaders();
+        List<OverdueBook> overdueReaders = dao.getListOverDueReaders();
         model.setRowCount(0);
-        for (BorrowedBook borrowedBook : overdueOrDamagedReaders) {
+        for (OverdueBook borrowedBook : overdueReaders) {
             model.addRow(new Object[]{
                 borrowedBook.getReaderId(),
                 borrowedBook.getBookId(),
                 borrowedBook.getBorrowId(),
-                borrowedBook.getBookStatus(),
                 borrowedBook.getLateDays(),
                 borrowedBook.getFineMoney()
             });
@@ -133,26 +130,28 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel4)
-                .addGap(48, 48, 48)
+                .addGap(42, 42, 42)
                 .addComponent(txtTSoSach)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(102, 102, 102)
+                .addGap(0, 112, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(80, 80, 80))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(45, 45, 45))
-            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addGap(35, 35, 35)
-                .addComponent(txtTSoSach)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(txtTSoSach))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel4)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -161,7 +160,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sachdamuon.png"))); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel9.setText("Sách đã mượn");
+        jLabel9.setText("Số sách đang mượn");
 
         txtSachDMuon.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         txtSachDMuon.setText("01");
@@ -174,25 +173,25 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel5)
                 .addGap(52, 52, 52)
                 .addComponent(txtSachDMuon)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGap(64, 64, 64))
+                .addGap(0, 108, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel5))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel9)
-                        .addGap(35, 35, 35)
+                        .addGap(27, 27, 27)
                         .addComponent(txtSachDMuon)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -216,7 +215,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addComponent(txtSachQHan)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
+                .addContainerGap(86, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addGap(79, 79, 79))
         );
@@ -271,7 +270,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(txtTSoDocGia)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -286,18 +285,18 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         jPanel10.setBackground(new java.awt.Color(0, 153, 153));
@@ -315,7 +314,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(896, Short.MAX_VALUE))
+                .addContainerGap(891, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,6 +395,10 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(tblMuonQuaHan);
+        if (tblMuonQuaHan.getColumnModel().getColumnCount() > 0) {
+            tblMuonQuaHan.getColumnModel().getColumn(3).setResizable(false);
+            tblMuonQuaHan.getColumnModel().getColumn(3).setHeaderValue("Tình Trạng");
+        }
 
         jLabel12.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
