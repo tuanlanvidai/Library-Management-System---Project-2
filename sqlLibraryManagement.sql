@@ -40,7 +40,7 @@ CREATE TABLE BookStatus (
 );
 
 CREATE TABLE BorrowBook (
-    borrowId INT PRIMARY KEY,
+    borrowId INT PRIMARY KEY AUTO_INCREMENT,
     readerId INT,
     bookId INT,
     borrowDate DATE NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE BorrowBook (
 );
 
 CREATE TABLE ReturnBook (
-    returnId INT PRIMARY KEY,
+    returnId INT PRIMARY KEY AUTO_INCREMENT,
     borrowId INT,
     returnDate DATE NOT NULL,
     statusId INT,
@@ -145,7 +145,8 @@ INSERT INTO BookStatus (statusName) VALUES
 ('Hư hại'),
 ('Mất sách');
 
-INSERT INTO BorrowBook (borrowId, readerId, bookId, borrowDate, dueDate, isDeleted) VALUES
+INSERT INTO BorrowBook (borrowId, readerId, bookId, borrowDate, dueDate, isDeleted)
+VALUES
 (11111, 1, 1, '2024-11-01', '2024-11-15', 0),
 (11112, 1, 2, '2024-11-02', '2024-11-16', 0),
 (11113, 1, 3, '2024-11-05', '2024-11-19', 0),
@@ -163,36 +164,12 @@ INSERT INTO BorrowBook (borrowId, readerId, bookId, borrowDate, dueDate, isDelet
 (66662, 9, 15, '2024-12-02', '2024-12-16', 0),
 (66663, 9, 16, '2024-12-03', '2024-12-17', 0);
 
-INSERT INTO ReturnBook (returnId, borrowId, returnDate, statusId, isDeleted) VALUES
-(20005, 11111, '2024-11-15', 1, 0), 
-(20006, 11112, '2024-11-15', 3, 0), 
-(20007, 11113, '2024-11-21', 2, 0),
+INSERT INTO ReturnBook (returnId, borrowId, returnDate, statusId, isDeleted)
+VALUES
 (20001, 22221, '2024-11-22', 1, 0),
-(20008, 22222, '2024-11-24', 1, 0), 
-(20009, 22223, '2024-11-30', 1, 0),
-(20010, 33331, '2024-11-30', 2, 0),
-(20011, 33332, '2024-11-30', 1, 0), 
-(20002, 44441, '2024-12-01', 2, 0),
-(20003, 44442, '2024-12-02', 1, 0),
-(20012, 44443, '2024-12-11', 2, 0),
-(20004, 55551, '2024-12-11', 1, 0),
-(20013, 55552, '2024-12-14', 1, 0);
-
-INSERT INTO ReturnFine (returnId, lateDays, statusId, fineMoney) VALUES
-(20005, 0, 1, 0),
-(20006, 0, 3, 50000),
-(20007, 3, 2, 11000),
-(20001, 1, 1, 2000),
-(20008, 0, 1, 0),
-(20009, 4, 1, 8000),
-(20010, 1, 2, 7000),
-(20011, 0, 1, 0),  
-(20002, 0, 2, 5000),  
-(20003, 0, 1, 0),  
-(20012, 2, 2, 9000),  
-(20004, 0, 1, 0),
-(20013, 0, 1, 0);
-
+(20002, 44441, '2024-12-03', 2, 0),
+(20003, 44442, '2024-12-05', 1, 0),
+(20004, 55551, '2024-12-12', 1, 0);
 
 
 INSERT INTO Role (roleName) VALUES 
