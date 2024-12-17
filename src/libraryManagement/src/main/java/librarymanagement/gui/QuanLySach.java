@@ -196,26 +196,20 @@ public class QuanLySach extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQueryActionPerformed
-        // TODO add your handling code here:
-         btnSearchActionPerformed(evt);
+            btnSearchActionPerformed(evt);
     }//GEN-LAST:event_txtQueryActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-                // Lấy giá trị từ ô tìm kiếm
     String query = txtQuery.getText().trim();
-
-    // Kiểm tra nếu ô tìm kiếm trống
     if (query.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin để tìm kiếm.");
-        btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm khi ô tìm kiếm trống
+        btnCancelSearch.setVisible(false); 
         return;
     }
-
     try {
-        // Kiểm tra nếu chuỗi nhập vào là một số -> tìm kiếm theo ID
-        if (query.matches("\\d+")) {  // Kiểm tra xem có phải số nguyên không
-            int bookId = Integer.parseInt(query);  // Chuyển đổi chuỗi thành số nguyên
-
+        
+        if (query.matches("\\d+")) {  
+            int bookId = Integer.parseInt(query);  
             // Gọi phương thức tìm kiếm sách theo ID
             List<QuanLySachPOJO> books = dao.searchBookById(bookId);
 
@@ -245,6 +239,7 @@ public class QuanLySach extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Có lỗi khi tìm kiếm sách.");
     }
 
+
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnCancelSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelSearchActionPerformed
@@ -264,9 +259,34 @@ public class QuanLySach extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // Mở cửa sổ BookManagement với chế độ "Xóa"
-        BookManagement manage = new BookManagement("Delete");
-        manage.setVisible(true);
+                int row = tblQuanLySach.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(null, "Vui lòng chọn một sách để xóa.");
+        return;
+    }
+
+    int column = 0;
+    int id = Integer.parseInt(String.valueOf(tblQuanLySach.getModel().getValueAt(row, column)));
+
+    // Hiển thị hộp thoại xác nhận
+    int confirm = JOptionPane.showConfirmDialog(
+        null, 
+        "Bạn có chắc chắn muốn xóa sách này không?", 
+        "Xác nhận xóa", 
+        JOptionPane.YES_NO_OPTION, 
+        JOptionPane.WARNING_MESSAGE
+    );
+
+    // Xử lý theo lựa chọn của người dùng
+    if (confirm == JOptionPane.YES_OPTION) {
+        if (dao.deleteBook(id)) {
+            JOptionPane.showMessageDialog(null, "Xóa sách thành công!");
+            dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach); // Cập nhật bảng sau khi xóa
+        } else {
+            JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi xóa sách. Vui lòng thử lại.");
+        }
+    }
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtQueryMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtQueryMouseReleased
