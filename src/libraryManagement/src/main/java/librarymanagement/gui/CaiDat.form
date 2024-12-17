@@ -115,7 +115,7 @@
                           <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="96" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -160,7 +160,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="maxBorrowDays_txt" min="-2" pref="258" max="-2" attributes="0"/>
                           <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                          <Component id="maxBorrowDays_txt1" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
+                          <Component id="bookDamageFee_txt" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
                           <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="166" max="32767" attributes="0"/>
@@ -176,7 +176,7 @@
                                   <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="maxBorrowDays_txt2" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
+                          <Component id="lostBookFee_txt" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
                           <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -202,12 +202,12 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                              <Component id="maxBorrowDays_txt1" min="-2" pref="42" max="-2" attributes="0"/>
+                              <Component id="bookDamageFee_txt" min="-2" pref="42" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                              <Component id="maxBorrowDays_txt2" min="-2" pref="42" max="-2" attributes="0"/>
+                              <Component id="lostBookFee_txt" min="-2" pref="42" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="16" max="32767" attributes="0"/>
@@ -240,6 +240,9 @@
             <Component class="javax.swing.JTextField" name="lateFeePerDay_txt">
             </Component>
             <Component class="javax.swing.JTextField" name="maxBooksBorrowed_txt">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="maxBooksBorrowed_txtActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
@@ -257,9 +260,9 @@
                 <Property name="text" type="java.lang.String" value="S&#x1ed1; ti&#x1ec1;n ph&#x1ea3;i n&#x1ed9;p khi s&#xe1;ch b&#x1ecb; h&#x1b0; h&#x1ea1;i :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="maxBorrowDays_txt1">
+            <Component class="javax.swing.JTextField" name="bookDamageFee_txt">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="maxBorrowDays_txt1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bookDamageFee_txtActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel21">
@@ -270,9 +273,9 @@
                 <Property name="text" type="java.lang.String" value="S&#x1ed1; ti&#x1ec1;n ph&#x1ea3;i n&#x1ed9;p khi m&#x1ea5;t s&#xe1;ch :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="maxBorrowDays_txt2">
+            <Component class="javax.swing.JTextField" name="lostBookFee_txt">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="maxBorrowDays_txt2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lostBookFee_txtActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

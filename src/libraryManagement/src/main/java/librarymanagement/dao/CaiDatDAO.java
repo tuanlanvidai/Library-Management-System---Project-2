@@ -33,18 +33,22 @@ public class CaiDatDAO {
             return new Setting(
                 rs.getInt("maxBorrowDays"),
                 rs.getInt("lateFeePerDay"),
+                rs.getInt("bookDamageFee"),
+                rs.getInt("lostBookFee"),
                 rs.getInt("maxBooksBorrowed")
             );
         }
         return null;
     }
 
-    public void updateSetting(int maxBorrowDays, int lateFeePerDay, int maxBooksBorrowed) throws SQLException {
-        String query = "UPDATE Setting SET maxBorrowDays = ?, lateFeePerDay = ?, maxBooksBorrowed = ? WHERE settingId = 1";
+    public void updateSetting(int maxBorrowDays, int lateFeePerDay, int maxBooksBorrowed, int bookDamageFee, int lostBookFee) throws SQLException {
+        String query = "UPDATE Setting SET maxBorrowDays = ?, lateFeePerDay = ?, bookDamageFee = ?, lostBookFee = ?, maxBooksBorrowed = ? WHERE settingId = 1";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, maxBorrowDays);
         stmt.setInt(2, lateFeePerDay);
-        stmt.setInt(3, maxBooksBorrowed);
+        stmt.setInt(3, bookDamageFee);
+        stmt.setInt(4, lostBookFee);
+        stmt.setInt(5, maxBooksBorrowed);
         stmt.executeUpdate();
     }
 

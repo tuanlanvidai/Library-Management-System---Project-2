@@ -50,6 +50,8 @@ public class CaiDat extends javax.swing.JPanel {
             if (setting != null) {
                 maxBorrowDays_txt.setText(String.valueOf(setting.getMaxBorrowDays()));
                 lateFeePerDay_txt.setText(String.valueOf(setting.getLateFeePerDay()));
+                bookDamageFee_txt.setText(String.valueOf(setting.getBookDamageFee()));
+                lostBookFee_txt.setText(String.valueOf(setting.getLostBookFee()));
                 maxBooksBorrowed_txt.setText(String.valueOf(setting.getMaxBooksBorrowed()));
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu cài đặt!");
@@ -96,9 +98,9 @@ public class CaiDat extends javax.swing.JPanel {
         maxBooksBorrowed_txt = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        maxBorrowDays_txt1 = new javax.swing.JTextField();
+        bookDamageFee_txt = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        maxBorrowDays_txt2 = new javax.swing.JTextField();
+        lostBookFee_txt = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         settingSaveBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -157,18 +159,20 @@ public class CaiDat extends javax.swing.JPanel {
 
         maxBorrowDays_txt.addActionListener(this::maxBorrowDays_txtActionPerformed);
 
+        maxBooksBorrowed_txt.addActionListener(this::maxBooksBorrowed_txtActionPerformed);
+
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Số ngày độc giả mượn tối đa :");
 
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Số tiền phải nộp khi sách bị hư hại :");
 
-        maxBorrowDays_txt1.addActionListener(this::maxBorrowDays_txt1ActionPerformed);
+        bookDamageFee_txt.addActionListener(this::bookDamageFee_txtActionPerformed);
 
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Số tiền phải nộp khi mất sách :");
 
-        maxBorrowDays_txt2.addActionListener(this::maxBorrowDays_txt2ActionPerformed);
+        lostBookFee_txt.addActionListener(this::lostBookFee_txtActionPerformed);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -179,7 +183,7 @@ public class CaiDat extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(maxBorrowDays_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
-                    .addComponent(maxBorrowDays_txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bookDamageFee_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +195,7 @@ public class CaiDat extends javax.swing.JPanel {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(maxBooksBorrowed_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16)))
-                    .addComponent(maxBorrowDays_txt2, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lostBookFee_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)))
         );
         jPanel5Layout.setVerticalGroup(
@@ -212,11 +216,11 @@ public class CaiDat extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addGap(13, 13, 13)
-                        .addComponent(maxBorrowDays_txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bookDamageFee_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel21)
                         .addGap(13, 13, 13)
-                        .addComponent(maxBorrowDays_txt2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lostBookFee_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -254,7 +258,7 @@ public class CaiDat extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,7 +455,9 @@ public class CaiDat extends javax.swing.JPanel {
         // Kiểm tra dữ liệu từ các ô nhập liệu
         if (maxBorrowDays_txt.getText().trim().isEmpty() ||
             lateFeePerDay_txt.getText().trim().isEmpty() ||
-            maxBooksBorrowed_txt.getText().trim().isEmpty()) {
+            maxBooksBorrowed_txt.getText().trim().isEmpty() ||
+            bookDamageFee_txt.getText().trim().isEmpty() ||
+            lostBookFee_txt.getText().trim().isEmpty()) {
             
             // Hiển thị lỗi nếu bất kỳ ô nào bị trống
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ tất cả các trường!", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -461,10 +467,12 @@ public class CaiDat extends javax.swing.JPanel {
         // Chuyển đổi dữ liệu từ các ô nhập liệu
         int maxBorrowDays = Integer.parseInt(maxBorrowDays_txt.getText().trim());
         int lateFeePerDay = Integer.parseInt(lateFeePerDay_txt.getText().trim());
+        int bookDamageFee = Integer.parseInt(bookDamageFee_txt.getText().trim());
+        int lostBookFee = Integer.parseInt(lostBookFee_txt.getText().trim());
         int maxBooksBorrowed = Integer.parseInt(maxBooksBorrowed_txt.getText().trim());
 
         // Gọi DAO để cập nhật dữ liệu vào cơ sở dữ liệu
-        caiDatDAO.updateSetting(maxBorrowDays, lateFeePerDay, maxBooksBorrowed);
+        caiDatDAO.updateSetting(maxBorrowDays, lateFeePerDay, maxBooksBorrowed, bookDamageFee, lostBookFee);
 
         // Cập nhật lại dữ liệu trên giao diện
         loadSettings();
@@ -558,17 +566,22 @@ public class CaiDat extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_deleteCategoryActionPerformed
 
-    private void maxBorrowDays_txt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxBorrowDays_txt1ActionPerformed
+    private void bookDamageFee_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookDamageFee_txtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_maxBorrowDays_txt1ActionPerformed
+    }//GEN-LAST:event_bookDamageFee_txtActionPerformed
 
-    private void maxBorrowDays_txt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxBorrowDays_txt2ActionPerformed
+    private void lostBookFee_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lostBookFee_txtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_maxBorrowDays_txt2ActionPerformed
+    }//GEN-LAST:event_lostBookFee_txtActionPerformed
+
+    private void maxBooksBorrowed_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxBooksBorrowed_txtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_maxBooksBorrowed_txtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCategory;
+    private javax.swing.JTextField bookDamageFee_txt;
     private javax.swing.JTextField categoryName_txt;
     private javax.swing.JTable categoryTbl;
     private javax.swing.JButton deleteCategory;
@@ -592,10 +605,9 @@ public class CaiDat extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lateFeePerDay_txt;
+    private javax.swing.JTextField lostBookFee_txt;
     private javax.swing.JTextField maxBooksBorrowed_txt;
     private javax.swing.JTextField maxBorrowDays_txt;
-    private javax.swing.JTextField maxBorrowDays_txt1;
-    private javax.swing.JTextField maxBorrowDays_txt2;
     private javax.swing.JButton settingSaveBtn;
     // End of variables declaration//GEN-END:variables
 }
