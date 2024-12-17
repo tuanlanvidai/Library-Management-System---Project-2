@@ -4,12 +4,17 @@
  */
 package librarymanagement.gui;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import librarymanagement.dao.CaiDatDAO;
+import librarymanagement.dao.ConfigUtils;
 import librarymanagement.dao.TheLoaiDAO;
 import librarymanagement.pojo.Setting;
 import librarymanagement.util.DatabaseConnection;
@@ -23,7 +28,10 @@ public class CaiDat extends javax.swing.JPanel {
     /**
      * Creates new form CaiDat
      */
-    
+    String Location = null;
+    String filename;
+    String username = ConfigUtils.username;
+    String password = ConfigUtils.password;
     private CaiDatDAO caiDatDAO;
     private TheLoaiDAO theLoaiDAO;
 
@@ -60,23 +68,22 @@ public class CaiDat extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu: " + e.getMessage());
         }
     }
-   
+
     private void loadTheLoai() {
-    try {
-        List<String> theLoaiList = theLoaiDAO.getAllTheLoai();
-        DefaultTableModel model = new DefaultTableModel(new String[]{"Tên thể loại"}, 0);
-        categoryTbl.setModel(model);
-        model.setRowCount(0); // Xóa dữ liệu cũ trên bảng
+        try {
+            List<String> theLoaiList = theLoaiDAO.getAllTheLoai();
+            DefaultTableModel model = new DefaultTableModel(new String[]{"Tên thể loại"}, 0);
+            categoryTbl.setModel(model);
+            model.setRowCount(0); // Xóa dữ liệu cũ trên bảng
 
-        for (String theLoai : theLoaiList) {
-            model.addRow(new Object[]{theLoai});
+            for (String theLoai : theLoaiList) {
+                model.addRow(new Object[]{theLoai});
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi tải danh sách thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Lỗi khi tải danh sách thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-}
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,6 +122,10 @@ public class CaiDat extends javax.swing.JPanel {
         addCategory = new javax.swing.JButton();
         categoryName_txt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        btnBackup = new javax.swing.JButton();
+        btnBrowser = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        txtPath = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setPreferredSize(new java.awt.Dimension(900, 706));
@@ -258,7 +269,7 @@ public class CaiDat extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,8 +401,18 @@ public class CaiDat extends javax.swing.JPanel {
                 .addComponent(deleteCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(editCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btnBackup.setText("Sao Lưu");
+        btnBackup.addActionListener(this::btnBackupActionPerformed);
+
+        btnBrowser.setText("Đường dẫn");
+        btnBrowser.addActionListener(this::btnBrowserActionPerformed);
+
+        jLabel10.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Sao lưu");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -401,15 +422,24 @@ public class CaiDat extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(btnBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPath, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -423,9 +453,21 @@ public class CaiDat extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addGap(9, 9, 9)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(36, 36, 36))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(36, 36, 36))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(jLabel10)
+                        .addGap(29, 29, 29)
+                        .addComponent(txtPath, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBackup))
+                        .addGap(104, 104, 104))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -452,40 +494,40 @@ public class CaiDat extends javax.swing.JPanel {
 
     private void settingSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingSaveBtnActionPerformed
         try {
-        // Kiểm tra dữ liệu từ các ô nhập liệu
-        if (maxBorrowDays_txt.getText().trim().isEmpty() ||
-            lateFeePerDay_txt.getText().trim().isEmpty() ||
-            maxBooksBorrowed_txt.getText().trim().isEmpty() ||
-            bookDamageFee_txt.getText().trim().isEmpty() ||
-            lostBookFee_txt.getText().trim().isEmpty()) {
-            
-            // Hiển thị lỗi nếu bất kỳ ô nào bị trống
-            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ tất cả các trường!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
+            // Kiểm tra dữ liệu từ các ô nhập liệu
+            if (maxBorrowDays_txt.getText().trim().isEmpty()
+                    || lateFeePerDay_txt.getText().trim().isEmpty()
+                    || maxBooksBorrowed_txt.getText().trim().isEmpty()
+                    || bookDamageFee_txt.getText().trim().isEmpty()
+                    || lostBookFee_txt.getText().trim().isEmpty()) {
+
+                // Hiển thị lỗi nếu bất kỳ ô nào bị trống
+                JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ tất cả các trường!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Chuyển đổi dữ liệu từ các ô nhập liệu
+            int maxBorrowDays = Integer.parseInt(maxBorrowDays_txt.getText().trim());
+            int lateFeePerDay = Integer.parseInt(lateFeePerDay_txt.getText().trim());
+            int bookDamageFee = Integer.parseInt(bookDamageFee_txt.getText().trim());
+            int lostBookFee = Integer.parseInt(lostBookFee_txt.getText().trim());
+            int maxBooksBorrowed = Integer.parseInt(maxBooksBorrowed_txt.getText().trim());
+
+            // Gọi DAO để cập nhật dữ liệu vào cơ sở dữ liệu
+            caiDatDAO.updateSetting(maxBorrowDays, lateFeePerDay, maxBooksBorrowed, bookDamageFee, lostBookFee);
+
+            // Cập nhật lại dữ liệu trên giao diện
+            loadSettings();
+
+            // Thông báo thành công
+            JOptionPane.showMessageDialog(this, "Cập nhật cài đặt thành công!");
+        } catch (NumberFormatException ex) {
+            // Xử lý lỗi khi nhập không phải số
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            // Xử lý lỗi kết nối cơ sở dữ liệu
+            JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-
-        // Chuyển đổi dữ liệu từ các ô nhập liệu
-        int maxBorrowDays = Integer.parseInt(maxBorrowDays_txt.getText().trim());
-        int lateFeePerDay = Integer.parseInt(lateFeePerDay_txt.getText().trim());
-        int bookDamageFee = Integer.parseInt(bookDamageFee_txt.getText().trim());
-        int lostBookFee = Integer.parseInt(lostBookFee_txt.getText().trim());
-        int maxBooksBorrowed = Integer.parseInt(maxBooksBorrowed_txt.getText().trim());
-
-        // Gọi DAO để cập nhật dữ liệu vào cơ sở dữ liệu
-        caiDatDAO.updateSetting(maxBorrowDays, lateFeePerDay, maxBooksBorrowed, bookDamageFee, lostBookFee);
-
-        // Cập nhật lại dữ liệu trên giao diện
-        loadSettings();
-
-        // Thông báo thành công
-        JOptionPane.showMessageDialog(this, "Cập nhật cài đặt thành công!");
-    } catch (NumberFormatException ex) {
-        // Xử lý lỗi khi nhập không phải số
-        JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-    } catch (SQLException ex) {
-        // Xử lý lỗi kết nối cơ sở dữ liệu
-        JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_settingSaveBtnActionPerformed
 
     private void maxBorrowDays_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxBorrowDays_txtActionPerformed
@@ -494,19 +536,19 @@ public class CaiDat extends javax.swing.JPanel {
 
     private void addCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryActionPerformed
         try {
-        String newTheLoai = categoryName_txt.getText().trim();
+            String newTheLoai = categoryName_txt.getText().trim();
 
-        if (newTheLoai.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
+            if (newTheLoai.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            theLoaiDAO.addTheLoai(newTheLoai); // Thêm thể loại vào cơ sở dữ liệu
+            loadTheLoai(); // Cập nhật lại bảng
+            JOptionPane.showMessageDialog(this, "Thêm thể loại thành công!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi thêm thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-
-        theLoaiDAO.addTheLoai(newTheLoai); // Thêm thể loại vào cơ sở dữ liệu
-        loadTheLoai(); // Cập nhật lại bảng
-        JOptionPane.showMessageDialog(this, "Thêm thể loại thành công!");
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Lỗi khi thêm thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_addCategoryActionPerformed
 
     private void categoryName_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryName_txtActionPerformed
@@ -578,15 +620,60 @@ public class CaiDat extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_maxBooksBorrowed_txtActionPerformed
 
+    private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
+        // TODO add your handling code here:
+        Process p = null;
+        try {
+            if (!txtPath.getText().isEmpty()) {
+                String txt;
+                Runtime run = Runtime.getRuntime();
+                if (password.equals("")) {
+                    txt = "C://xampp//mysql//bin/mysqldump.exe -u" + username + " --add-drop-database -B aptlibrary -r" + filename;
+                } else {
+                    txt = "C://xampp//mysql//bin/mysqldump.exe -u+" + username + "+ -p" + password + "+ --add-drop-database -B aptlibrary -r" + filename;
+                }
+                p = run.exec(txt);
+                int ProcessComplete = p.waitFor();
+                if (ProcessComplete == 0) {
+                    JOptionPane.showMessageDialog(null, "Sao lưu thành công");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Lỗi");
+                }
+            }
+            else{
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn đường dẫn cho file sao lưu");
+                }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnBackupActionPerformed
+
+    private void btnBrowserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowserActionPerformed
+        // TODO add your handling code here:
+        JFileChooser path = new JFileChooser();
+        path.showOpenDialog(this);
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        File file = path.getSelectedFile();
+        if (file != null) {
+            Location = file.getAbsolutePath();
+            Location = Location.replace('\\', '/');
+            filename = Location + "_" + date + ".sql";
+            txtPath.setText(filename);
+        }
+    }//GEN-LAST:event_btnBrowserActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCategory;
     private javax.swing.JTextField bookDamageFee_txt;
+    private javax.swing.JButton btnBackup;
+    private javax.swing.JButton btnBrowser;
     private javax.swing.JTextField categoryName_txt;
     private javax.swing.JTable categoryTbl;
     private javax.swing.JButton deleteCategory;
     private javax.swing.JButton editCategory;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
@@ -609,5 +696,6 @@ public class CaiDat extends javax.swing.JPanel {
     private javax.swing.JTextField maxBooksBorrowed_txt;
     private javax.swing.JTextField maxBorrowDays_txt;
     private javax.swing.JButton settingSaveBtn;
+    private javax.swing.JTextField txtPath;
     // End of variables declaration//GEN-END:variables
 }
