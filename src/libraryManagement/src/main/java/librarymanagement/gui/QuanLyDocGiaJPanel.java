@@ -241,13 +241,13 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelSearchActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        ReaderManagement manage = new ReaderManagement("Add");
+        ReaderManagement manage = new ReaderManagement("Thêm ");
         manage.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        ReaderManagement manage = new ReaderManagement("Edit");
+        ReaderManagement manage = new ReaderManagement("Sửa ");
         manage.setVisible(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 

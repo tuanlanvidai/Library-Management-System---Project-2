@@ -31,7 +31,7 @@ public class BookManagement extends javax.swing.JFrame {
     public BookManagement(String type) {
         initComponents();
         keyword = type;
-        Title.setText(" Quản lý sách");
+        Title.setText(type + "" + "sách");
         dao = new QuanLySachDAO();
         AddItemToCBX();
         dao.addDataToTable(model, tblDisplay); 
@@ -75,7 +75,6 @@ public class BookManagement extends javax.swing.JFrame {
         labelPhone = new javax.swing.JLabel();
         btnConfirm = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        btnCheck = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDisplay = new javax.swing.JTable();
@@ -174,9 +173,6 @@ public class BookManagement extends javax.swing.JFrame {
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(this::btnCancelActionPerformed);
 
-        btnCheck.setText("find");
-        btnCheck.addActionListener(this::btnCheckActionPerformed);
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -205,23 +201,16 @@ public class BookManagement extends javax.swing.JFrame {
                     .addComponent(cbxCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtTotalQuantity)
                     .addComponent(txtAvailableQuantity))
-                .addGap(18, 18, 18)
-                .addComponent(btnCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(84, 84, 84))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnCheck)
-                                .addGap(20, 20, 20))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(labelId)
-                                .addGap(18, 18, 18)))
+                        .addComponent(labelId)
+                        .addGap(18, 18, 18)
                         .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(labelPhone1)
@@ -347,28 +336,6 @@ public class BookManagement extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
-    try {
-        int bookId = Integer.parseInt(txtMaSach.getText());  // Bắt lỗi nếu người dùng nhập không phải số
-        QuanLySachPOJO book = dao.getBookById(bookId);
-
-        if (book != null) {
-            // Điền thông tin sách vào các trường
-            txtTitle.setText(book.getTitle());
-            txtAuthor.setText(book.getAuthor());
-            cbxCategory.setSelectedItem(book.getCategory());
-            txtPublishYear.setText(String.valueOf(book.getPublishYear()));
-            txtTotalQuantity.setText(String.valueOf(book.getTotalQuantity()));
-            txtAvailableQuantity.setText(String.valueOf(book.getAvailableQty()));
-        } else {
-            JOptionPane.showMessageDialog(null, "Book not found");
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Invalid book ID. Please enter a valid number.");
-    }
-
-    }//GEN-LAST:event_btnCheckActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
@@ -523,7 +490,6 @@ try {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnCheck;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JComboBox<String> cbxCategory;

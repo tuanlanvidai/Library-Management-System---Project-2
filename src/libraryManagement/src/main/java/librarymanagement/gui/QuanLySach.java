@@ -248,13 +248,13 @@ public class QuanLySach extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelSearchActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        BookManagement manage = new BookManagement("Add");
+        BookManagement manage = new BookManagement("Thêm ");
         manage.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        BookManagement manage = new BookManagement("Edit");
+        BookManagement manage = new BookManagement("Sửa ");
         manage.setVisible(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
