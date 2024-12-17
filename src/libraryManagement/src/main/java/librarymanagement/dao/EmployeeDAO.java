@@ -42,6 +42,27 @@ public class EmployeeDAO {
         }
         return result;
     }
+     public Boolean checkEmail(String email) {
+        Boolean isSuccess = false;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    util.dbConnect, util.username, util.password);
+            String sql = "select employeeId from employee where email = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                if (!rs.getString(1).isEmpty()) {
+                    isSuccess = true;
+                }
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return isSuccess;
+    }
 
     public Employee getEmployee(String email, String passWord) {
         Employee employee = null;
