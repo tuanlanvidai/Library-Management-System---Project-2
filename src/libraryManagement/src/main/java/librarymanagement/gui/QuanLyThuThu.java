@@ -274,8 +274,20 @@ public class QuanLyThuThu extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        ManageEmployee manage = new ManageEmployee("Sửa ");
-        manage.setVisible(true);
+        try {
+            int row = tblEmployee.getSelectedRow();
+            int colum = 0;
+            if (row != -1) {
+                int id = Integer.parseInt(tblEmployee.getModel().getValueAt(row, colum).toString());
+                Employee employee = dao.getEmployeeById(id);
+                ManageEmployee.employee = employee;
+            }
+
+            ManageEmployee manage = new ManageEmployee("Sửa ");
+            manage.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -362,11 +374,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
 
     private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
         // TODO add your handling code here:
-        int row = tblEmployee.getSelectedRow();
-        int colum = 0;
-        int id = Integer.parseInt(tblEmployee.getModel().getValueAt(row, colum).toString());
-        Employee employee = dao.getEmployeeById(id);
-        ManageEmployee.employee = employee;
+
     }//GEN-LAST:event_tblEmployeeMouseClicked
 
 
