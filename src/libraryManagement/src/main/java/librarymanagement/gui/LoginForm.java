@@ -240,7 +240,7 @@ public class LoginForm extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại");
                     txtEmail.requestFocus();
                 }
-            } else if (!txtEmail.getText().isEmpty() && !txtPassWord.getText().isEmpty()) {
+            } else {
                 JOptionPane.showMessageDialog(null, "Lỗi định dạng Email");
             }
         }

@@ -55,13 +55,15 @@ public class ManageEmployee extends javax.swing.JFrame {
         dao = new EmployeeDAO();
         AddItemToCBX();
         dao.addDataFromDB(model, tblDisplay);
-        if (!employee.getName().isEmpty()) {
+        if(keyword.equals("Sửa ")){
+            if (!employee.getName().isEmpty()) {
             txtId.setText(String.valueOf(employee.getId()));
             txtName.setText(employee.getName());
             txtEmail.setText(employee.getEmail());
             txtPassword.setText(employee.getPassword());
             txtPhone.setText(employee.getPhoneNumber());
             cbxRole.setSelectedItem(employee.getRole());
+        }
         }
     }
 
