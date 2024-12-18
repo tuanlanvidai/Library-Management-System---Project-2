@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -21,6 +23,8 @@ import librarymanagement.pojo.Employee;
  */
 public class ManageEmployee extends javax.swing.JFrame {
 
+    String regex = "^(.+)@(.+)$";
+    Pattern pattern = Pattern.compile(regex);
     private EmployeeDAO dao;
     private String keyword;
     private DefaultTableModel model;
@@ -323,6 +327,8 @@ public class ManageEmployee extends javax.swing.JFrame {
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
         //check input
+        String email = txtEmail.getText();
+        Matcher matcher = pattern.matcher(email);
         if (txtName.getText().isEmpty() && txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty() && txtPassword.getText().isEmpty()
                 || txtName.getText().isEmpty() && txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty()
                 || txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty() && txtPassword.getText().isEmpty()
@@ -342,11 +348,15 @@ public class ManageEmployee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập vào Email");
         } else if (txtPassword.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập vào mật khẩu");
-        } //confirm btn handle
+        } 
+        else if(!matcher.matches()){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đúng định dạng email");
+        }
+//confirm btn handle
         else {
             String name = txtName.getText();
             String role = cbxRole.getSelectedItem().toString();
-            String email = txtEmail.getText();
+            email = txtEmail.getText();
             String phone = txtPhone.getText();
             String password = txtPassword.getText();
             int id = 0;

@@ -294,7 +294,8 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblEmployee.getSelectedRow();
         int column = 0;
-        int id = Integer.parseInt(String.valueOf(tblEmployee.getModel().getValueAt(row, column)));
+        int id=0;
+         id = Integer.parseInt(String.valueOf(tblEmployee.getModel().getValueAt(row, column)));
         if (id != 0) {
            if( dao.deleteEmployee(id)){
                 dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
