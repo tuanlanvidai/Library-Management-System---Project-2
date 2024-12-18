@@ -4,6 +4,7 @@
  */
 package librarymanagement.gui;
 
+import java.time.Month;
 import librarymanagement.dao.BaoCaoDAO;
 import librarymanagement.pojo.BaoCa0;
 import javax.swing.*;
@@ -30,7 +31,20 @@ public class BaoCao extends javax.swing.JPanel {
         baoCaoDAO = new BaoCaoDAO();
         baoCa0List = new ArrayList<>();
         model = (DefaultTableModel) tblBaoCao.getModel();
+        addMonthList();
         loadSummary();
+    }
+    private void addMonthList(){
+       Month month = Month.JANUARY;
+       Boolean stop =false;
+       cbxMonth.addItem("Chọn Tháng");
+        while(!stop){
+            cbxMonth.addItem(month.toString());
+            if(month.equals(Month.DECEMBER)){
+                stop =true;
+            }
+            month= month.plus(1);
+        }
     }
 
     /**
@@ -49,9 +63,9 @@ public class BaoCao extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         chserDay = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
-        chserMonth = new com.toedter.calendar.JMonthChooser();
         btnSearch = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        cbxMonth = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBaoCao = new javax.swing.JTable();
@@ -120,12 +134,11 @@ public class BaoCao extends javax.swing.JPanel {
                     .addComponent(chserDay, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(56, 56, 56)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(chserMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxMonth, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -142,14 +155,14 @@ public class BaoCao extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(chserMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                            .addComponent(chserDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxBaoCao)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(chserDay, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                            .addComponent(cbxBaoCao)
+                            .addComponent(cbxMonth))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -258,13 +271,8 @@ public class BaoCao extends javax.swing.JPanel {
     
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         Date selectedDate = chserDay.getDate();
-        int selectedMonth = chserMonth.getMonth() + 1; // Tháng bắt đầu từ 0, nên phải cộng 1
-
-        // Kiểm tra xem người dùng có chọn cả ngày và tháng không
-        if (selectedDate != null && selectedMonth > 0) {
-            JOptionPane.showMessageDialog(this, "Chỉ chọn một trong hai: ngày hoặc tháng", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+         int selectedMonth = cbxMonth.getSelectedIndex();// Tháng bắt đầu từ 0, nên phải cộng 1
+        
 
         // Nếu người dùng chọn ngày, tìm theo ngày
         if (selectedDate != null) {
@@ -305,8 +313,8 @@ public class BaoCao extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cbxBaoCao;
+    private javax.swing.JComboBox<String> cbxMonth;
     private com.toedter.calendar.JDateChooser chserDay;
-    private com.toedter.calendar.JMonthChooser chserMonth;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

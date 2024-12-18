@@ -37,9 +37,9 @@ public class BaoCaoDAO {    //Khai báo phương thức. Ngày cụ thể hoặc
 
     // Nếu có ngày cụ thể, thêm điều kiện lọc ngày trả sách
     if (selectedDate != null) {
-        sql += " AND rf.returnDate = ? ";
+        sql += " AND rt.returnDate = ? ";
     } else if (selectedMonth > 0) {
-        sql += " AND MONTH(rf.returnDate) = ? ";
+        sql += " AND MONTH(rt.returnDate) = ? ";
     }
 
     sql += "ORDER BY r.name ASC;";  // Đảm bảo truy vấn luôn sắp xếp theo tên người mượn
@@ -55,11 +55,11 @@ public class BaoCaoDAO {    //Khai báo phương thức. Ngày cụ thể hoặc
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            String bookName = rs.getString("BookName");
-            String name = rs.getString("Name");
-            String status = rs.getString("Status");
-            int exDates = rs.getInt("ExDates");
-            double values = rs.getDouble("Values");  // Sử dụng double đúng cách
+            String bookName = rs.getString(1);
+            String name = rs.getString(2);
+            String status = rs.getString(3);
+            int exDates = rs.getInt(4);
+            double values = rs.getDouble(5);  // Sử dụng double đúng cách
 
             BaoCa0 baoCa0 = new BaoCa0(name, bookName, status, exDates, (int) values);
             baoCa0List.add(baoCa0);
