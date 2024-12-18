@@ -19,7 +19,7 @@ public class QuanLySachDAO {
     List<QuanLySachPOJO> bookList = new ArrayList<>();
     ConfigUtils util = new ConfigUtils();
 
-    // Lấy danh sách thể loại sách
+    
     public List<String> getCategoryNames() {
         List<String> result = new ArrayList<>();
         try {
@@ -39,7 +39,6 @@ public class QuanLySachDAO {
         return result;
     }
 
-    // Lấy thông tin sách theo ID
     public QuanLySachPOJO getBookById(int bookId) {
         QuanLySachPOJO book = null;
         try {
@@ -61,7 +60,6 @@ public class QuanLySachDAO {
         return book;
     }
 
-    // Lấy danh sách tất cả sách
     public List<QuanLySachPOJO> getAllBooks() {
         bookList = new ArrayList<>();
         QuanLySachPOJO book;
@@ -84,7 +82,7 @@ public class QuanLySachDAO {
         return bookList;
     }
 
-    // Thêm sách mới
+    // Thêm 
   public Boolean addBook(QuanLySachPOJO book) {
     Boolean isSuccess = false;
     String sql = "INSERT INTO book (title, author, category, publishYear, totalQuantity, availableQty) VALUES (?, ?, ?, ?, ?, ?)";
@@ -106,7 +104,7 @@ public class QuanLySachDAO {
 }
 
 
-    // Sửa thông tin sách
+    // Sửa 
     public Boolean editBook(QuanLySachPOJO book) {
     Boolean isSuccess = false;
     String sql = "UPDATE book SET title = ?, author = ?, category = ?, publishYear = ?, totalQuantity = ?, availableQty = ? WHERE bookId = ?";
@@ -128,7 +126,7 @@ public class QuanLySachDAO {
     return isSuccess;
 }
 
-    // Xóa sách (đánh dấu là đã xóa)
+    // Xóa sách 
     public Boolean deleteBook(int bookId) {
         Boolean isSuccess = false;
         try {
@@ -192,9 +190,8 @@ public class QuanLySachDAO {
             }
         }
     }
-    
-    
-     // Tìm kiếm sách theo tên (sử dụng LIKE để tìm tên gần giống)
+      
+     // Tìm kiếm sách theo tên 
 public List<QuanLySachPOJO> searchBookByName(String bookName) {
     List<QuanLySachPOJO> bookList = new ArrayList<>();
     String sql = "SELECT * FROM book WHERE title LIKE ?";

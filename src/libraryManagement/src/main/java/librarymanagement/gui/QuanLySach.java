@@ -28,9 +28,9 @@ public class QuanLySach extends javax.swing.JPanel {
     public QuanLySach() {
         initComponents();
         dao = new QuanLySachDAO();
-        model = (DefaultTableModel) tblQuanLySach.getModel();  // Khởi tạo model cho bảng
+        model = (DefaultTableModel) tblQuanLySach.getModel(); 
         btnCancelSearch.setVisible(false);
-        dao.addDataToTable(model, tblQuanLySach); // Lấy dữ liệu sách từ cơ sở dữ liệu và thêm vào bảng
+        dao.addDataToTable(model, tblQuanLySach); 
     }
 
     /**
@@ -215,27 +215,24 @@ public class QuanLySach extends javax.swing.JPanel {
 
             // Kiểm tra kết quả tìm kiếm
             if (books != null && !books.isEmpty()) {
-                dao.addDataFromSearch(books, model, tblQuanLySach);  // Thêm dữ liệu vào bảng
-                btnCancelSearch.setVisible(true);  // Hiển thị nút hủy tìm kiếm
+                dao.addDataFromSearch(books, model, tblQuanLySach); 
+                btnCancelSearch.setVisible(true); 
             } else {
                 JOptionPane.showMessageDialog(null, "Không tìm thấy sách với ID: " + bookId);
-                btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm nếu không có kết quả
+                btnCancelSearch.setVisible(false); 
             }
         } else {
-            // Tìm kiếm theo tên sách (nếu chuỗi nhập vào không phải là số)
             List<QuanLySachPOJO> books = dao.searchBookByName(query);
 
-            // Kiểm tra kết quả tìm kiếm
             if (books != null && !books.isEmpty()) {
-                dao.addDataFromSearch(books, model, tblQuanLySach);  // Thêm dữ liệu vào bảng
-                btnCancelSearch.setVisible(true);  // Hiển thị nút hủy tìm kiếm
+                dao.addDataFromSearch(books, model, tblQuanLySach);  
+                btnCancelSearch.setVisible(true);  
             } else {
                 JOptionPane.showMessageDialog(null, "Không tìm thấy sách với tên: " + query);
-                btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm nếu không có kết quả
+                btnCancelSearch.setVisible(false);  
             }
         }
     } catch (Exception e) {
-        // Nếu có lỗi xảy ra
         JOptionPane.showMessageDialog(null, "Có lỗi khi tìm kiếm sách.");
     }
 
@@ -264,11 +261,8 @@ public class QuanLySach extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Vui lòng chọn một sách để xóa.");
         return;
     }
-
     int column = 0;
     int id = Integer.parseInt(String.valueOf(tblQuanLySach.getModel().getValueAt(row, column)));
-
-    // Hiển thị hộp thoại xác nhận
     int confirm = JOptionPane.showConfirmDialog(
         null, 
         "Bạn có chắc chắn muốn xóa sách này không?", 
@@ -276,8 +270,6 @@ public class QuanLySach extends javax.swing.JPanel {
         JOptionPane.YES_NO_OPTION, 
         JOptionPane.WARNING_MESSAGE
     );
-
-    // Xử lý theo lựa chọn của người dùng
     if (confirm == JOptionPane.YES_OPTION) {
         if (dao.deleteBook(id)) {
             JOptionPane.showMessageDialog(null, "Xóa sách thành công!");
@@ -290,15 +282,11 @@ public class QuanLySach extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtQueryMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtQueryMouseReleased
-        // TODO add your handling code here:
-        // Khi người dùng nhấp chuột vào ô tìm kiếm
+ 
     String query = txtQuery.getText().trim();
-
-    // Nếu ô tìm kiếm trống, tải lại toàn bộ sách và ẩn nút hủy tìm kiếm
     if (query.isEmpty()) {
-        // Tải lại toàn bộ sách
         loadAllBooks();
-        btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm
+        btnCancelSearch.setVisible(false); 
     }
     }//GEN-LAST:event_txtQueryMouseReleased
 
@@ -306,10 +294,9 @@ public class QuanLySach extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelSearchMouseReleased
 
-    // Phương thức tải lại toàn bộ sách
     private void loadAllBooks() {
-    List<QuanLySachPOJO> books = dao.getAllBooks();  // Lấy toàn bộ sách
-    dao.addDataFromSearch(books, model, tblQuanLySach);  // Thêm dữ liệu vào bảng
+    List<QuanLySachPOJO> books = dao.getAllBooks();
+    dao.addDataFromSearch(books, model, tblQuanLySach); 
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

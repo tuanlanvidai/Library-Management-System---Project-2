@@ -11,15 +11,14 @@ package librarymanagement.pojo;
  * @author abc
  */
 public class QuanLyDocGia {
-    private int maDocGia;        // Mã độc giả
-    private String tenDocGia;    // Tên độc giả
-    private String diaChi;       // Địa chỉ độc giả
-    private String soDienThoai;  // Số điện thoại
-    private String email;        // Email
-    private String ngayDangKy;   // Ngày đăng ký
-    private boolean daXoa;       // Trạng thái đã xóa
+    private int maDocGia;      
+    private String tenDocGia;    
+    private String diaChi;      
+    private String soDienThoai; 
+    private String email;       
+    private String ngayDangKy;   
+    private boolean daXoa;       
 
-    // Constructor không tham số
     public QuanLyDocGia() {
         this.maDocGia = 0;
         this.tenDocGia = "";
@@ -60,7 +59,6 @@ public class QuanLyDocGia {
     }
     
     
-    // Getter và Setter
     public int getMaDocGia() {
         return maDocGia;
     }
@@ -117,7 +115,6 @@ public class QuanLyDocGia {
         this.daXoa = daXoa;
     }
 
-    // Override toString để hiển thị thông tin độc giả
     @Override
     public String toString() {
         return "QuanLyDocGia{" +

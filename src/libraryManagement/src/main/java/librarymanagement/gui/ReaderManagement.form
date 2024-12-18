@@ -168,41 +168,34 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="labelId" min="-2" pref="95" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelName" min="-2" pref="85" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="btnConfirm" min="-2" pref="120" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
-                                          <Component id="bttCancel" min="-2" pref="120" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="labelPhone" min="-2" max="-2" attributes="0"/>
-                                              <Component id="labelPhone1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="labelRole" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
-                                              <Component id="labelRole1" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtReaderId" max="32767" attributes="0"/>
-                                              <Component id="txtName" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txtAddress" max="32767" attributes="0"/>
-                                              <Component id="txtPhone" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txtEmail" max="32767" attributes="0"/>
-                                              <Component id="txtRegisterDay" pref="271" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                          <Component id="labelName" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnConfirm" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
+                                  <Component id="bttCancel" min="-2" pref="120" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="labelPhone" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelPhone1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelRole" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
+                                      <Component id="labelRole1" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtName" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtAddress" max="32767" attributes="0"/>
+                                      <Component id="txtPhone" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtEmail" max="32767" attributes="0"/>
+                                      <Component id="txtRegisterDay" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="txtReaderId" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="618" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -219,10 +212,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="labelId" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtReaderId" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="txtReaderId" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="labelName" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
@@ -267,6 +257,12 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtReaderId">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtReaderIdActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtAddress">
             </Component>
@@ -364,20 +360,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttCancelActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="labelId">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="M&#xe3; &#x111;&#x1ed9;c gi&#x1ea3;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblDisplayMouseClicked"/>
               </Events>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="txtRegisterDay">

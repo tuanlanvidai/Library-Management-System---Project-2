@@ -10,7 +10,6 @@ public class QuanLySachPOJO {
     private int availableQty;
     private boolean isDeleted;
 
-    // Constructor sử dụng thông tin mà bạn có
     public QuanLySachPOJO(String title, String author, String category, int publishYear, int totalQuantity, int availableQty) {
         this.title = title;
         this.author = author;
@@ -18,10 +17,9 @@ public class QuanLySachPOJO {
         this.publishYear = publishYear;
         this.totalQuantity = totalQuantity;
         this.availableQty = availableQty;
-        this.isDeleted = false; // Mặc định là chưa bị xóa
+        this.isDeleted = false; 
     }
 
-    // Constructor với đầy đủ tham số (nếu bạn cần sử dụng)
     public QuanLySachPOJO(int bookId, String title, String author, String category, int publishYear, int totalQuantity, int availableQty, boolean isDeleted) {
         this.bookId = bookId;
         this.title = title;
@@ -32,8 +30,6 @@ public class QuanLySachPOJO {
         this.availableQty = availableQty;
         this.isDeleted = isDeleted;
     }
-
-    // Getter và Setter cho các thuộc tính
     public int getBookId() {
         return bookId;
     }
@@ -98,7 +94,6 @@ public class QuanLySachPOJO {
         isDeleted = deleted;
     }
 
-    // Override phương thức toString để hiển thị thông tin sách
     @Override
     public String toString() {
         return "QuanLySach{" +

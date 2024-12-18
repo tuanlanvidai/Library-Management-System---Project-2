@@ -20,17 +20,14 @@ public class ReaderManagement extends javax.swing.JFrame {
     QuanLyDocGiaDAO dao;
     String keyword;
     private DefaultTableModel model;
-
-    
-    // Constructor không có tham số (mặc định)
+ 
     public ReaderManagement() {
         initComponents();
         dao = new QuanLyDocGiaDAO();
-        model = (DefaultTableModel) tblDisplay.getModel();  // Khởi tạo model
-        dao.addDataToTable(model, tblDisplay);  // Hiển thị danh sách độc giả
+        model = (DefaultTableModel) tblDisplay.getModel();  
+        dao.addDataToTable(model, tblDisplay); 
     }
 
-    // Constructor với tham số actionType (Add, Edit, Delete)
     public ReaderManagement(String type) {
         initComponents();
         keyword = type;
@@ -67,7 +64,6 @@ public class ReaderManagement extends javax.swing.JFrame {
         btnConfirm = new javax.swing.JButton();
         txtEmail = new javax.swing.JTextField();
         bttCancel = new javax.swing.JButton();
-        labelId = new javax.swing.JLabel();
         txtRegisterDay = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDisplay = new javax.swing.JTable();
@@ -129,6 +125,9 @@ public class ReaderManagement extends javax.swing.JFrame {
 
         txtName.addActionListener(this::txtNameActionPerformed);
 
+        txtReaderId.setEditable(false);
+        txtReaderId.addActionListener(this::txtReaderIdActionPerformed);
+
         labelPhone1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPhone1.setForeground(new java.awt.Color(255, 255, 255));
         labelPhone1.setText("Địa chỉ");
@@ -162,15 +161,6 @@ public class ReaderManagement extends javax.swing.JFrame {
         bttCancel.setForeground(new java.awt.Color(255, 255, 255));
         bttCancel.setText("Hủy");
         bttCancel.addActionListener(this::bttCancelActionPerformed);
-
-        labelId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelId.setForeground(new java.awt.Color(255, 255, 255));
-        labelId.setText("Mã độc giả");
-        labelId.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblDisplayMouseClicked(evt);
-            }
-        });
 
         tblDisplay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -209,32 +199,28 @@ public class ReaderManagement extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(194, 194, 194)
-                                    .addComponent(bttCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(labelPhone)
-                                        .addComponent(labelPhone1)
-                                        .addComponent(labelRole, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(labelRole1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(71, 71, 71)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtReaderId)
-                                        .addComponent(txtName)
-                                        .addComponent(txtAddress)
-                                        .addComponent(txtPhone)
-                                        .addComponent(txtEmail)
-                                        .addComponent(txtRegisterDay, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(194, 194, 194)
+                            .addComponent(bttCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(labelPhone)
+                                .addComponent(labelPhone1)
+                                .addComponent(labelRole, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelRole1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtName)
+                                .addComponent(txtAddress)
+                                .addComponent(txtPhone)
+                                .addComponent(txtEmail)
+                                .addComponent(txtRegisterDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(txtReaderId)))
+                .addGap(159, 159, 159)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -248,9 +234,7 @@ public class ReaderManagement extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelId)
-                            .addComponent(txtReaderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtReaderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -310,60 +294,54 @@ public class ReaderManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_bttCancelActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        String name = txtName.getText();
-        String address = txtAddress.getText();
-        String phone = txtPhone.getText();
-        String email = txtEmail.getText();
+            String name = txtName.getText();
+String address = txtAddress.getText();
+String phone = txtPhone.getText();
+String email = txtEmail.getText();
 
-        // Kiểm tra các trường thông tin không để trống
-        if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "All fields are required.");
-            return;
+if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Tất cả các trường đều là bắt buộc.");
+    return;
+}
+
+try {
+    QuanLyDocGia reader;
+    if (keyword.equals("Thêm ")) {
+        Date date = txtRegisterDay.getDate();
+        String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
+
+        reader = new QuanLyDocGia(name, address, phone, email, registerDay, false);
+
+    
+        if (dao.addReader(reader)) {
+            dao.addDataToTable(model, tblDisplay);
+            dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
+            JOptionPane.showMessageDialog(null, "Thêm độc giả thành công!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Thêm độc giả thất bại.");
         }
+    } else if (keyword.equals("Sửa ")) {
+      
+        Date date = txtRegisterDay.getDate();
+        String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
 
-        try {
-            int readerId = Integer.parseInt(txtReaderId.getText());  // Lấy ID độc giả
-            
-            QuanLyDocGia reader = new QuanLyDocGia(name, address, phone, email, false);
+        // Lấy ID độc giả từ giao diện
+        int readerId = Integer.parseInt(txtReaderId.getText());
 
-            // Xử lý theo loại hành động (Add, Edit, Delete)
-            if (keyword.equals("Add")) {
-                // Thêm độc giả mới
-               Date date = txtRegisterDay.getDate();
-                String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
-                reader = new QuanLyDocGia(readerId, name, address, phone, email, registerDay, false);
-                if (dao.addReader(reader)) {
-                    dao.addDataToTable(model, tblDisplay);
-                    dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
-                    JOptionPane.showMessageDialog(null, "Reader added successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error adding reader.");
-                }
-            } else if (keyword.equals("Edit")) {
-                Date date = txtRegisterDay.getDate();
-                String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
-                reader = new QuanLyDocGia(readerId, name, address, phone, email, registerDay, false);
-        
-                // Sửa thông tin độc giả
-                if (dao.editReader(reader)) {
-                    dao.addDataToTable(model, tblDisplay);
-                    dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
-                    JOptionPane.showMessageDialog(null, "Reader updated successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error updating reader.");
-                }
-            } else if (keyword.equals("Delete")) {
-                // Xóa độc giả
-                if (dao.deleteReader(readerId)) {
-                    dao.addDataToTable(model, tblDisplay);  // Cập nhật bảng
-                    JOptionPane.showMessageDialog(null, "Reader deleted successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error deleting reader.");
-                }
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid input. Please check your entries.");
+        // Tạo đối tượng QuanLyDocGia với ID
+        reader = new QuanLyDocGia(readerId, name, address, phone, email, registerDay, false);     
+        if (dao.editReader(reader)) {
+            dao.addDataToTable(model, tblDisplay);
+            dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
+            JOptionPane.showMessageDialog(null, "Chỉnh sửa thành công!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Chỉnh sửa thất bại.");
         }
+    }
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(null, "Đầu vào không hợp lệ. Vui lòng kiểm tra lại mục nhập của bạn.");
+}
+
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
@@ -396,10 +374,9 @@ public class ReaderManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
-    private void tblDisplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_tblDisplayMouseClicked
+    private void txtReaderIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReaderIdActionPerformed
+                    txtReaderId.setVisible(false);
+    }//GEN-LAST:event_txtReaderIdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,7 +399,6 @@ public class ReaderManagement extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelPhone;
     private javax.swing.JLabel labelPhone1;

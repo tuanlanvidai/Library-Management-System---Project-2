@@ -24,7 +24,7 @@ public class BookManagement extends javax.swing.JFrame {
     public BookManagement() {
         initComponents();
         dao = new QuanLySachDAO();
-        model = (DefaultTableModel) tblDisplay.getModel(); // Khởi tạo model
+        model = (DefaultTableModel) tblDisplay.getModel(); 
         dao.addDataToTable(model, tblDisplay);
     }
 
@@ -73,8 +73,8 @@ public class BookManagement extends javax.swing.JFrame {
         labelName = new javax.swing.JLabel();
         labelRole = new javax.swing.JLabel();
         labelPhone = new javax.swing.JLabel();
-        btnConfirm = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
+        btnXacNhan = new javax.swing.JButton();
+        btnHuybo = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDisplay = new javax.swing.JTable();
@@ -161,46 +161,50 @@ public class BookManagement extends javax.swing.JFrame {
         labelPhone.setForeground(new java.awt.Color(255, 255, 255));
         labelPhone.setText("Năm xuất bản");
 
-        btnConfirm.setBackground(new java.awt.Color(0, 204, 204));
-        btnConfirm.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirm.setText("Confirm");
-        btnConfirm.addActionListener(this::btnConfirmActionPerformed);
+        btnXacNhan.setBackground(new java.awt.Color(0, 204, 204));
+        btnXacNhan.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        btnXacNhan.setForeground(new java.awt.Color(255, 255, 255));
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.addActionListener(this::btnXacNhanActionPerformed);
 
-        btnCancel.setBackground(new java.awt.Color(0, 204, 204));
-        btnCancel.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(this::btnCancelActionPerformed);
+        btnHuybo.setBackground(new java.awt.Color(0, 204, 204));
+        btnHuybo.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        btnHuybo.setForeground(new java.awt.Color(255, 255, 255));
+        btnHuybo.setText("Hủy bỏ");
+        btnHuybo.addActionListener(this::btnHuyboActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPhone1)
-                    .addComponent(labelRole, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPassWord, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(labelEmail)
-                        .addComponent(labelPhone)))
-                .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtPublishYear)
-                    .addComponent(txtTitle)
-                    .addComponent(txtMaSach)
-                    .addComponent(txtAuthor)
-                    .addComponent(cbxCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTotalQuantity)
-                    .addComponent(txtAvailableQuantity))
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPhone1)
+                            .addComponent(labelRole, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPassWord, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(labelEmail)
+                                .addComponent(labelPhone)))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPublishYear)
+                            .addComponent(txtTitle)
+                            .addComponent(txtMaSach)
+                            .addComponent(txtAuthor)
+                            .addComponent(cbxCategory, 0, 318, Short.MAX_VALUE)
+                            .addComponent(txtTotalQuantity)
+                            .addComponent(txtAvailableQuantity)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnHuybo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)))
                 .addGap(84, 84, 84))
         );
         jPanel3Layout.setVerticalGroup(
@@ -236,10 +240,10 @@ public class BookManagement extends javax.swing.JFrame {
                             .addComponent(labelEmail))
                         .addGap(28, 28, 28)
                         .addComponent(txtAvailableQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHuybo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -337,81 +341,75 @@ public class BookManagement extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+    private void btnHuyboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyboActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_btnCancelActionPerformed
+    }//GEN-LAST:event_btnHuyboActionPerformed
 
-    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-       // TODO add your handling code here:
-                String title = txtTitle.getText().trim();
-String author = txtAuthor.getText().trim();
-String category = cbxCategory.getSelectedItem().toString().trim();
-
-// Kiểm tra nếu Title hoặc Author bị bỏ trống
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
+          String title = txtTitle.getText().trim();
+            String author = txtAuthor.getText().trim();
+            String category = cbxCategory.getSelectedItem().toString().trim();
 if (title.isEmpty() || author.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Title and Author cannot be empty.");
+    JOptionPane.showMessageDialog(null, "Tên sách và tác giả không được để trống.");
     return;
 }
-
 try {
     int publishYear = Integer.parseInt(txtPublishYear.getText().trim());
     int totalQuantity = Integer.parseInt(txtTotalQuantity.getText().trim());
     int availableQty = Integer.parseInt(txtAvailableQuantity.getText().trim());
 
-    // Kiểm tra số lượng và năm xuất bản phải hợp lệ
     if (publishYear <= 0 || totalQuantity <= 0 || availableQty < 0) {
-        JOptionPane.showMessageDialog(null, "Please enter valid numbers for quantity and year.");
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập số hợp lệ cho số lượng và năm.");
         return;
     }
 
     QuanLySachPOJO book = new QuanLySachPOJO(title, author, category, publishYear, totalQuantity, availableQty);
 
-    if (keyword.equals("Add")) {
-        // Kiểm tra xem sách có trùng tiêu đề không
+    if (keyword.equals("Thêm ")) {
+       
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thêm sách này không??", 
+                                                    "Confirm Add", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) return;
+
+     
         List<QuanLySachPOJO> existingBooks = dao.searchBookByName(title);
         if (existingBooks != null && !existingBooks.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên sách hoặc tác giả đã tồn tại vui lòng nhập lại!.");
+            JOptionPane.showMessageDialog(null, "Tên sách hoặc tác giả đã tồn tại, vui lòng nhập lại!");
             return;
         }
-
-        // Thêm sách mới
-        if (dao.addBook(book)) {
+        if (dao.addBook(book)== true) {
+            dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
             dao.addDataToTable(model, tblDisplay);
-            JOptionPane.showMessageDialog(null, "Book added successfully!");
+            JOptionPane.showMessageDialog(null, "Đã thêm sách thành công!");
         } else {
-            JOptionPane.showMessageDialog(null, "Error adding book.");
+            JOptionPane.showMessageDialog(null, "Có lỗi khi thêm sách.");
         }
-    } else if (keyword.equals("Edit")) {
-        int bookId = Integer.parseInt(txtMaSach.getText().trim());  // Lấy ID sách để chỉnh sửa
+
+    } else if (keyword.equals("Sửa ")) {
+        int bookId = Integer.parseInt(txtMaSach.getText().trim()); // Lấy ID sách để chỉnh sửa
         book.setBookId(bookId);
 
-        // Sửa sách hiện có
-        if (dao.editBook(book)) {
-            dao.addDataToTable(model, tblDisplay);
-            JOptionPane.showMessageDialog(null, "Book updated successfully!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Error updating book.");
-        }
-    } else if (keyword.equals("Delete")) {
-        int bookId = Integer.parseInt(txtMaSach.getText().trim());  // Lấy ID sách để xóa
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn chỉnh sửa cuốn sách này không?", 
+                                                    "Xác nhận chỉnh sửa", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) return;
 
-        // Xóa sách
-        if (dao.deleteBook(bookId)) {
+        if (dao.editBook(book)== true) {
+            dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
             dao.addDataToTable(model, tblDisplay);
-            JOptionPane.showMessageDialog(null, "Book deleted successfully!");
+            JOptionPane.showMessageDialog(null, "Sách đã được cập nhật thành công!");
         } else {
-            JOptionPane.showMessageDialog(null, "Error deleting book.");
+            JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật sách.");
         }
-    }
+    } 
 } catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(null, "Invalid input. Please check your entries.");
+    JOptionPane.showMessageDialog(null, "Đầu vào không hợp lệ. Vui lòng kiểm tra lại mục nhập của bạn.");
 } catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "An unexpected error occurred.");
+    JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi không mong muốn.");
     e.printStackTrace();
 }
   
-    }//GEN-LAST:event_btnConfirmActionPerformed
+    }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void cbxCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCategoryActionPerformed
         // TODO add your handling code here:
@@ -489,9 +487,9 @@ try {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
-    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnClose;
-    private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton btnHuybo;
+    private javax.swing.JButton btnXacNhan;
     private javax.swing.JComboBox<String> cbxCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

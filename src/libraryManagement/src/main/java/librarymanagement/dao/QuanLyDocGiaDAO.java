@@ -62,14 +62,12 @@ public class QuanLyDocGiaDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();  // Log lỗi nếu có
+            e.printStackTrace(); 
         }
-        return reader;  // Trả về đối tượng độc giả hoặc null nếu không tìm thấy
+        return reader;  
     }
     
-
-
-    // Thêm độc giả mới
+    // Thêm 
     public boolean addReader(QuanLyDocGia reader) {
         boolean isSuccess = false;
         String sql = "INSERT INTO reader (name, address, phoneNumber, email, registerDay) VALUES (?, ?, ?, ?, ?)";
@@ -91,7 +89,7 @@ public class QuanLyDocGiaDAO {
         return isSuccess;
     }
 
-    // Sửa thông tin độc giả
+    // Sửa 
     public boolean editReader(QuanLyDocGia reader) {
         boolean isSuccess = false;
         String sql = "UPDATE reader SET name = ?, address = ?, phoneNumber = ?, email = ?, registerDay = ? WHERE readerId = ?";
@@ -114,7 +112,7 @@ public class QuanLyDocGiaDAO {
         return isSuccess;
     }
 
-    // Xóa độc giả (đánh dấu là đã xóa)
+    // Xóa 
     public boolean deleteReader(int maDocGia) {
         boolean isSuccess = false;
         String sql = "UPDATE reader SET isDeleted = 1 WHERE readerId = ?";
@@ -155,7 +153,7 @@ public class QuanLyDocGiaDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();  // Log đầy đủ lỗi
+            e.printStackTrace(); 
         }
         return readers;
     }
@@ -166,7 +164,7 @@ public class QuanLyDocGiaDAO {
         String sql = "SELECT * FROM reader WHERE readerId = ? AND isDeleted = 0";  // Lọc bỏ độc giả đã xóa
         try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
              PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);  // Tìm theo mã độc giả
+            stmt.setInt(1, id);  
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -183,7 +181,7 @@ public class QuanLyDocGiaDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();  // Log đầy đủ lỗi
+            e.printStackTrace();  
         }
         return readers;
     }
@@ -191,7 +189,7 @@ public class QuanLyDocGiaDAO {
     // Thêm dữ liệu vào bảng
     public void addDataToTable(DefaultTableModel model, JTable table) {
         readerList = this.getAllReaders();
-        model.setRowCount(0);  // Clear existing data
+        model.setRowCount(0);  
         for (QuanLyDocGia reader : readerList) {
             model.addRow(new Object[]{
                     reader.getMaDocGia(),
@@ -215,11 +213,10 @@ public class QuanLyDocGiaDAO {
         // Câu truy vấn SQL để lấy thông tin độc giả theo ID
         String sql = "SELECT * FROM reader WHERE readerId = ?";
         PreparedStatement stmt = con.prepareStatement(sql);
-        stmt.setInt(1, id);  // Gán giá trị ID vào câu truy vấn
+        stmt.setInt(1, id); 
 
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            // Khởi tạo đối tượng QuanLyDocGia từ kết quả truy vấn
             reader = new QuanLyDocGia(
                 rs.getInt("readerId"),
                 rs.getString("name"),
@@ -231,17 +228,15 @@ public class QuanLyDocGiaDAO {
             );
         }
 
-        con.close();  // Đóng kết nối cơ sở dữ liệu
+        con.close(); 
     } catch (Exception e) {
-        // In thông báo lỗi nếu có ngoại lệ xảy ra
         System.out.println("Lỗi: " + e.getMessage());
     }
-    return reader;  // Trả về thông tin độc giả hoặc null nếu không tìm thấy
+    return reader;  
 }
-
     // Thêm dữ liệu từ tìm kiếm vào bảng
     public void addDataFromSearch(List<QuanLyDocGia> readers, DefaultTableModel model, JTable table) {
-        model.setRowCount(0);  // Xóa các dòng hiện tại trong bảng
+        model.setRowCount(0);
         for (QuanLyDocGia reader : readers) {
             model.addRow(new Object[]{
                     reader.getMaDocGia(),
