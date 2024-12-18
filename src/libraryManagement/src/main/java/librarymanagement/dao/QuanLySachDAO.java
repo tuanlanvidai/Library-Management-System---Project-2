@@ -236,43 +236,42 @@ public List<QuanLySachPOJO> searchBookByName(String bookName) {
     }
     
     // Kiểm tra sách trùng
-private boolean isBookDuplicate(String title, String author) {
+public boolean isBookDuplicate(String title) {
     boolean isDuplicate = false;
-    String sql = "SELECT COUNT(*) FROM book WHERE title = ? AND author = ?";
+    String sql = "SELECT COUNT(*) FROM book WHERE title = ?";
     try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
          PreparedStatement stmt = con.prepareStatement(sql)) {
         stmt.setString(1, title);
-        stmt.setString(2, author);
         try (ResultSet rs = stmt.executeQuery()) {
             if (rs.next() && rs.getInt(1) > 0) {
                 isDuplicate = true;
             }
         }
     } catch (Exception e) {
-        System.out.println(e);
+        System.out.println("Error checking duplicate title: " + e.getMessage());
     }
     return isDuplicate;
 }
 
-public boolean isDuplicateTitleAndAuthor(String title, String author, int bookId) {
+public boolean isBookDuplicateForEdit(String title, int bookId) {
     boolean isDuplicate = false;
-    String sql = "SELECT * FROM book WHERE title = ? AND author = ? AND bookId != ?";
+    String sql = "SELECT COUNT(*) FROM book WHERE title = ? AND bookId != ?";
     try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password);
          PreparedStatement stmt = con.prepareStatement(sql)) {
-
         stmt.setString(1, title);
-        stmt.setString(2, author);
-        stmt.setInt(3, bookId);
+        stmt.setInt(2, bookId);
         try (ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
+            if (rs.next() && rs.getInt(1) > 0) {
                 isDuplicate = true;
             }
         }
     } catch (Exception e) {
-        System.out.println("Error checking duplicate: " + e.getMessage());
+        System.out.println("Error checking duplicate title for edit: " + e.getMessage());
     }
     return isDuplicate;
 }
+
+
 
 }
 	

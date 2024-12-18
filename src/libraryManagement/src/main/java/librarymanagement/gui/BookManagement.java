@@ -34,9 +34,18 @@ public class BookManagement extends javax.swing.JFrame {
         Title.setText(type + "" + "sách");
         dao = new QuanLySachDAO();
         AddItemToCBX();
-        dao.addDataToTable(model, tblDisplay); 
-        
+        dao.addDataToTable(model, tblDisplay);  
     }
+    
+    public void emptyInp() {
+    txtTitle.setText("");
+    txtAuthor.setText("");
+    txtPublishYear.setText("");
+    txtTotalQuantity.setText("");
+    txtAvailableQuantity.setText("");
+    cbxCategory.setSelectedIndex(0);
+}
+
 
     private void AddItemToCBX() {
          List<String> item = dao.getCategoryNames(); 
@@ -332,74 +341,73 @@ public class BookManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyboActionPerformed
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-            String title = txtTitle.getText().trim();
-    String author = txtAuthor.getText().trim();
-    String category = cbxCategory.getSelectedItem().toString().trim();
-
-    if (title.isEmpty() || author.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Tên sách và tác giả không được để trống.");
-        return;
-    }
-
-    try {
+            if (txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty() && txtAvailableQuantity.getText().isEmpty()
+            || txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty()
+            || txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
+            || txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
+            || txtTitle.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
+            || txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() || txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
+            || txtTitle.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
+            || txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty()
+            || txtTitle.getText().isEmpty() && txtPublishYear.getText().isEmpty()
+            || txtTotalQuantity.getText().isEmpty() && txtPublishYear.getText().isEmpty()
+            || txtAvailableQuantity.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+    } else if (txtTitle.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập tên sách");
+    } else if (txtAuthor.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập tên tác giả");
+    } else if (txtPublishYear.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập năm xuất bản");
+    } else if (txtTotalQuantity.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập số lượng tổng");
+    } else if (txtAvailableQuantity.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập số lượng hiện có");
+    } // Confirm action handling
+    else {
+        String title = txtTitle.getText().trim();
+        String author = txtAuthor.getText().trim();
+        String category = cbxCategory.getSelectedItem().toString().trim();
         int publishYear = Integer.parseInt(txtPublishYear.getText().trim());
         int totalQuantity = Integer.parseInt(txtTotalQuantity.getText().trim());
         int availableQty = Integer.parseInt(txtAvailableQuantity.getText().trim());
 
-        if (publishYear <= 0 || totalQuantity <= 0 || availableQty < 0) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập số hợp lệ cho số lượng và năm.");
-            return;
-        }
-
         QuanLySachPOJO book = new QuanLySachPOJO(title, author, category, publishYear, totalQuantity, availableQty);
-
-        if (keyword.equals("Thêm ")) {
-            int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thêm sách này không?",
-                                                        "Confirm Add", JOptionPane.YES_NO_OPTION);
-            if (confirm != JOptionPane.YES_OPTION) return;
-            List<QuanLySachPOJO> existingBooks = dao.searchBookByName(title);
-            boolean isDuplicate = existingBooks.stream().anyMatch(b -> b.getTitle().equalsIgnoreCase(title));
-            if (isDuplicate) {
-                JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
-                return;
-            }
-
-            if (dao.addBook(book)) {
-                dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
-                dao.addDataToTable(model, tblDisplay);
-                JOptionPane.showMessageDialog(null, "Đã thêm sách thành công!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Có lỗi khi thêm sách.");
-            }
-        } else if (keyword.equals("Sửa ")) {
-            int selectedRow = tblDisplay.getSelectedRow();
-            if (selectedRow == -1) {
-                JOptionPane.showMessageDialog(null, "Vui lòng chọn cuốn sách cần chỉnh sửa.");
-                return;
-            }
-            int bookId = (int) model.getValueAt(selectedRow, 0);
-            book.setBookId(bookId);
-            int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn chỉnh sửa cuốn sách này không?",
-                                                        "Xác nhận chỉnh sửa", JOptionPane.YES_NO_OPTION);
-            if (confirm != JOptionPane.YES_OPTION) return;
-            boolean isDuplicate = dao.isDuplicateTitleAndAuthor(title, author, bookId);
-            if (isDuplicate) {
-                JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
-                return;
-            }
-            if (dao.editBook(book)) {
-                dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
-                dao.addDataToTable(model, tblDisplay);
-                JOptionPane.showMessageDialog(null, "Sách đã được cập nhật thành công!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật sách.");
-            }
+        switch (keyword) {
+            case "Thêm ":
+                if (dao.isBookDuplicate(title)) { // Kiểm tra trùng tên sách khi thêm
+                    JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
+                    return;
+                }
+                if (dao.addBook(book)) {
+                    dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
+                    dao.addDataToTable(model, tblDisplay);
+                    JOptionPane.showMessageDialog(null, "Đã thêm sách thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Có lỗi khi thêm sách.");
+                }
+                break;
+            case "Sửa ":
+                int selectedRow = tblDisplay.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn cuốn sách cần chỉnh sửa.");
+                    return;
+                }
+                DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+                int bookId = (int) model.getValueAt(selectedRow, 0);
+                book.setBookId(bookId);
+                if (dao.editBook(book)) {
+                    dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
+                    dao.addDataToTable(model, tblDisplay);
+                    JOptionPane.showMessageDialog(null, "Sách đã được cập nhật thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật sách.");
+                }
+                break;
+            default:
+                throw new AssertionError();
         }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Đầu vào không hợp lệ. Vui lòng kiểm tra lại mục nhập của bạn.");
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi không mong muốn.");
-        e.printStackTrace();
+        emptyInp();
     }
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
