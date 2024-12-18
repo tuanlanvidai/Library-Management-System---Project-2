@@ -12,11 +12,15 @@ public class Setting {
     private int maxBorrowDays;
     private int lateFeePerDay;
     private int maxBooksBorrowed;
+    private int lostBookFee;
+    private int bookDamageFee;
 
     // Constructor
-    public Setting(int maxBorrowDays, int lateFeePerDay, int maxBooksBorrowed) {
+    public Setting(int maxBorrowDays, int lateFeePerDay, int bookDamageFee, int lostBookFee, int maxBooksBorrowed) {
         this.maxBorrowDays = maxBorrowDays;
         this.lateFeePerDay = lateFeePerDay;
+        this.lostBookFee = lostBookFee;
+        this.bookDamageFee = bookDamageFee;
         this.maxBooksBorrowed = maxBooksBorrowed;
     }
 
@@ -43,5 +47,21 @@ public class Setting {
 
     public void setMaxBooksBorrowed(int maxBooksBorrowed) {
         this.maxBooksBorrowed = maxBooksBorrowed;
+    }
+
+    public int getLostBookFee() {
+        return lostBookFee;
+    }
+
+    public void setLostBookFee(int lostBookFee) {
+        this.lostBookFee = lostBookFee;
+    }
+
+    public int getBookDamageFee() {
+        return bookDamageFee;
+    }
+
+    public void setBookDamageFee(int bookDamageFee) {
+        this.bookDamageFee = bookDamageFee;
     }
 }

@@ -55,15 +55,15 @@ public class ManageEmployee extends javax.swing.JFrame {
         dao = new EmployeeDAO();
         AddItemToCBX();
         dao.addDataFromDB(model, tblDisplay);
-        if(keyword.equals("Sửa ")){
-            if (!employee.getName().isEmpty()) {
-            txtId.setText(String.valueOf(employee.getId()));
-            txtName.setText(employee.getName());
-            txtEmail.setText(employee.getEmail());
-            txtPassword.setText(employee.getPassword());
-            txtPhone.setText(employee.getPhoneNumber());
-            cbxRole.setSelectedItem(employee.getRole());
-        }
+        if (keyword.equals("Sửa ")) {
+            if (employee!=null) {
+                txtId.setText(String.valueOf(employee.getId()));
+                txtName.setText(employee.getName());
+                txtEmail.setText(employee.getEmail());
+                txtPassword.setText(employee.getPassword());
+                txtPhone.setText(employee.getPhoneNumber());
+                cbxRole.setSelectedItem(employee.getRole());
+            } 
         }
     }
 
@@ -454,7 +454,9 @@ public class ManageEmployee extends javax.swing.JFrame {
                     }
                     break;
                 case "Sửa ":
-                    id = Integer.parseInt(txtId.getText());
+                    if(!String.valueOf(txtId.getText()).isEmpty()){
+                        id = Integer.parseInt(txtId.getText());
+                    }
                     employee.setId(id);
                     if (dao.editEmployee(employee) == true) {
                         dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);

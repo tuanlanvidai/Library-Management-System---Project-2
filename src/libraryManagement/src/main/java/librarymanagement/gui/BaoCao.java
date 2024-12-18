@@ -4,12 +4,13 @@
  */
 package librarymanagement.gui;
 
-import java.util.Date;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import librarymanagement.dao.BaoCaoDAO;
 import librarymanagement.pojo.BaoCa0;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
 
 
 /**
@@ -17,14 +18,19 @@ import librarymanagement.pojo.BaoCa0;
  * @author CuongVu
  */
 public class BaoCao extends javax.swing.JPanel {
-    BaoCaoDAO baoCaoDAO = new BaoCaoDAO();  // Khởi tạo DAO
-    DefaultTableModel model;
+    private BaoCaoDAO baoCaoDAO;
+    private List<BaoCa0> baoCa0List;
+    public static DefaultTableModel model;
+
     /**
      * Creates new form BaoCao
      */
     public BaoCao() {
         initComponents();
+        baoCaoDAO = new BaoCaoDAO();
+        baoCa0List = new ArrayList<>();
         model = (DefaultTableModel) tblBaoCao.getModel();
+        loadSummary();
     }
 
     /**
@@ -51,8 +57,8 @@ public class BaoCao extends javax.swing.JPanel {
         tblBaoCao = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         txtTotalBorowed = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setPreferredSize(new java.awt.Dimension(1000, 705));
@@ -195,33 +201,32 @@ public class BaoCao extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
 
-        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Tổng số lượt mượn :");
-
         txtTotalBorowed.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txtTotalBorowed.setForeground(new java.awt.Color(255, 255, 255));
         txtTotalBorowed.setText("01");
+
+        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Tổng số lượt mượn :");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(340, 340, 340)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTotalBorowed)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(242, 242, 242))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtTotalBorowed))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtTotalBorowed)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -233,7 +238,9 @@ public class BaoCao extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(224, 224, 224))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,55 +252,56 @@ public class BaoCao extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    private void updateTable(List<BaoCa0> baoCa0List) {
-       model.setRowCount(0);
-
-       if (baoCa0List.isEmpty()) {
-           JOptionPane.showMessageDialog(this, "Không có kết quả phù hợp", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-           return;
-       }
-
-       int index = 1;  
-       for (BaoCa0 baoCa0 : baoCa0List) {
-           Object[] row = new Object[6];
-           row[0] = index++;
-           row[1] = baoCa0.getName();
-           row[2] = baoCa0.getBookName();
-           row[3] = baoCa0.getStatus();
-           row[4] = baoCa0.getExDates(); 
-           row[5] = baoCa0.getValues();
-
-           model.addRow(row);
-       }
-   }
-
+    
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
         Date selectedDate = chserDay.getDate();
-        int selectedMonth = chserMonth.getMonth() + 1;
+        int selectedMonth = chserMonth.getMonth() + 1; // Tháng bắt đầu từ 0, nên phải cộng 1
 
+        // Kiểm tra xem người dùng có chọn cả ngày và tháng không
         if (selectedDate != null && selectedMonth > 0) {
             JOptionPane.showMessageDialog(this, "Chỉ chọn một trong hai: ngày hoặc tháng", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
+        // Nếu người dùng chọn ngày, tìm theo ngày
         if (selectedDate != null) {
             java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
-            List<BaoCa0> baoCa0List = baoCaoDAO.getBaoCaoByDate(sqlDate, -1);
-            updateTable(baoCa0List);
-        } else if (selectedMonth > 0) {
-            List<BaoCa0> baoCa0List = baoCaoDAO.getBaoCaoByDate(null, selectedMonth);
-            updateTable(baoCa0List);
-        } else {
+            baoCa0List = baoCaoDAO.getBaoCaoByDate(sqlDate, -1);  // Tìm kiếm theo ngày
+        } 
+        // Nếu người dùng chọn tháng, tìm theo tháng
+        else if (selectedMonth > 0) {
+            baoCa0List = baoCaoDAO.getBaoCaoByDate(null, selectedMonth);  // Tìm kiếm theo tháng
+        } 
+        else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày hoặc tháng để tìm kiếm", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
+        // Cập nhật bảng nếu có dữ liệu
+        if (baoCa0List != null && !baoCa0List.isEmpty()) {
+            model.setRowCount(0);  // Xóa dữ liệu cũ trong bảng
+
+            // Thêm các dữ liệu mới vào bảng
+            for (BaoCa0 baoCa0 : baoCa0List) {
+                model.addRow(new Object[]{
+                    baoCa0.getName(),        // Tên người mượn
+                    baoCa0.getBookName(),    // Tên sách
+                    baoCa0.getStatus(),      // Trạng thái
+                    baoCa0.getExDates(),     // Số ngày quá hạn
+                    baoCa0.getValues()       // Giá trị (tiền phạt)
+            });
+        }
+        } else {
+            JOptionPane.showMessageDialog(this, "Không có kết quả", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
-
-
+    
+    private void loadSummary() {
+       txtTotalBorowed.setText(String.valueOf(baoCaoDAO.getTotalBooksBorrowed()));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cbxBaoCao;
