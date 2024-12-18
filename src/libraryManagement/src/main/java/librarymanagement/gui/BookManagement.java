@@ -347,13 +347,15 @@ public class BookManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyboActionPerformed
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-          String title = txtTitle.getText().trim();
-            String author = txtAuthor.getText().trim();
-            String category = cbxCategory.getSelectedItem().toString().trim();
+            String title = txtTitle.getText().trim();
+String author = txtAuthor.getText().trim();
+String category = cbxCategory.getSelectedItem().toString().trim();
+
 if (title.isEmpty() || author.isEmpty()) {
     JOptionPane.showMessageDialog(null, "Tên sách và tác giả không được để trống.");
     return;
 }
+
 try {
     int publishYear = Integer.parseInt(txtPublishYear.getText().trim());
     int totalQuantity = Integer.parseInt(txtTotalQuantity.getText().trim());
@@ -367,18 +369,19 @@ try {
     QuanLySachPOJO book = new QuanLySachPOJO(title, author, category, publishYear, totalQuantity, availableQty);
 
     if (keyword.equals("Thêm ")) {
-       
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thêm sách này không??", 
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thêm sách này không?", 
                                                     "Confirm Add", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) return;
 
-     
+        // Kiểm tra xem sách có trùng tên không
         List<QuanLySachPOJO> existingBooks = dao.searchBookByName(title);
-        if (existingBooks != null && !existingBooks.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên sách hoặc tác giả đã tồn tại, vui lòng nhập lại!");
+        boolean isDuplicate = existingBooks.stream().anyMatch(b -> b.getTitle().equalsIgnoreCase(title));
+        if (isDuplicate) {
+            JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
             return;
         }
-        if (dao.addBook(book)== true) {
+
+        if (dao.addBook(book)) {
             dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
             dao.addDataToTable(model, tblDisplay);
             JOptionPane.showMessageDialog(null, "Đã thêm sách thành công!");
@@ -394,7 +397,14 @@ try {
                                                     "Xác nhận chỉnh sửa", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) return;
 
-        if (dao.editBook(book)== true) {
+        // Kiểm tra xem tên sách có trùng (trừ sách đang chỉnh sửa)
+        boolean isDuplicate = dao.isDuplicateTitleAndAuthor(title, author, bookId);
+        if (isDuplicate) {
+            JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
+            return;
+        }
+
+        if (dao.editBook(book)) {
             dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
             dao.addDataToTable(model, tblDisplay);
             JOptionPane.showMessageDialog(null, "Sách đã được cập nhật thành công!");
@@ -408,6 +418,7 @@ try {
     JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi không mong muốn.");
     e.printStackTrace();
 }
+
   
     }//GEN-LAST:event_btnXacNhanActionPerformed
 

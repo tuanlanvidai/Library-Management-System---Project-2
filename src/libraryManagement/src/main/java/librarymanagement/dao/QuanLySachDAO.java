@@ -177,7 +177,7 @@ public class QuanLySachDAO {
         bookList = this.getAllBooks();
         model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        Object columns[] = new Object[6];
+        Object columns[] = new Object[7];
         for (QuanLySachPOJO book : bookList) {
             if (!book.isDeleted()) {
                 columns[0] = book.getBookId();
@@ -186,6 +186,7 @@ public class QuanLySachDAO {
                 columns[3] = book.getCategory();
                 columns[4] = book.getPublishYear();
                 columns[5] = book.getTotalQuantity();
+                columns[6] = book.getAvailableQty();
                 model.addRow(columns);
             }
         }
@@ -219,7 +220,7 @@ public List<QuanLySachPOJO> searchBookByName(String bookName) {
     public void addDataFromSearch(List<QuanLySachPOJO> books, DefaultTableModel model, JTable table) {
         model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        Object columns[] = new Object[6];
+        Object columns[] = new Object[7];
         for (QuanLySachPOJO book : books) {
             if (!book.isDeleted()) {
                 columns[0] = book.getBookId();
@@ -228,6 +229,7 @@ public List<QuanLySachPOJO> searchBookByName(String bookName) {
                 columns[3] = book.getCategory();
                 columns[4] = book.getPublishYear();
                 columns[5] = book.getTotalQuantity();
+                columns[6] = book.getAvailableQty();
                 model.addRow(columns);
             }
         }
