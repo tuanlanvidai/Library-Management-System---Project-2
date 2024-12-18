@@ -190,47 +190,34 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtQueryActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-            // Lấy giá trị từ ô tìm kiếm
-    String query = txtQuery.getText().trim();
-
-    // Kiểm tra nếu ô tìm kiếm trống
+String query = txtQuery.getText().trim();
     if (query.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin để tìm kiếm.");
-        btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm khi ô tìm kiếm trống
+        btnCancelSearch.setVisible(false); 
         return;
     }
-
     try {
-        // Kiểm tra nếu chuỗi nhập vào là một số -> tìm kiếm theo ID
-        if (query.matches("\\d+")) {  // Kiểm tra xem có phải số nguyên không
-            int readerId = Integer.parseInt(query);  // Chuyển đổi chuỗi thành số nguyên
-
-            // Gọi phương thức tìm kiếm độc giả theo ID
+        if (query.matches("\\d+")) {  
+            int readerId = Integer.parseInt(query); 
             List<QuanLyDocGia> readers = dao.searchReaderById(readerId);
-
-            // Kiểm tra kết quả tìm kiếm
             if (readers != null && !readers.isEmpty()) {
-                dao.addDataFromSearch(readers, model, tblQuanLyDocGia);  // Thêm dữ liệu vào bảng
-                btnCancelSearch.setVisible(true);  // Hiển thị nút hủy tìm kiếm
+                dao.addDataFromSearch(readers, model, tblQuanLyDocGia);  
+                btnCancelSearch.setVisible(true); 
             } else {
                 JOptionPane.showMessageDialog(null, "Không tìm thấy độc giả với ID: " + readerId);
-                btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm nếu không có kết quả
+                btnCancelSearch.setVisible(false);
             }
         } else {
-            // Tìm kiếm theo tên độc giả (nếu chuỗi nhập vào không phải là số)
             List<QuanLyDocGia> readers = dao.searchReader(query);
-
-            // Kiểm tra kết quả tìm kiếm
             if (readers != null && !readers.isEmpty()) {
-                dao.addDataFromSearch(readers, model, tblQuanLyDocGia);  // Thêm dữ liệu vào bảng
-                btnCancelSearch.setVisible(true);  // Hiển thị nút hủy tìm kiếm
+                dao.addDataFromSearch(readers, model, tblQuanLyDocGia);  
+                btnCancelSearch.setVisible(true); 
             } else {
                 JOptionPane.showMessageDialog(null, "Không tìm thấy độc giả với tên: " + query);
-                btnCancelSearch.setVisible(false);  // Ẩn nút hủy tìm kiếm nếu không có kết quả
+                btnCancelSearch.setVisible(false); 
             }
         }
     } catch (Exception e) {
-        // Nếu có lỗi xảy ra
         JOptionPane.showMessageDialog(null, "Có lỗi khi tìm kiếm độc giả.");
     }
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -246,15 +233,12 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
-        ReaderManagement manage = new ReaderManagement("Sửa ");
+ReaderManagement manage = new ReaderManagement("Sửa ");
         manage.setVisible(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-
-            
-          int row = tblQuanLyDocGia.getSelectedRow();
+ int row = tblQuanLyDocGia.getSelectedRow();
     if (row == -1) {
         JOptionPane.showMessageDialog(null, "Vui lòng chọn một độc giả để xóa.");
         return;
@@ -262,8 +246,6 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
 
     int column = 0;
     int id = Integer.parseInt(String.valueOf(tblQuanLyDocGia.getModel().getValueAt(row, column)));
-
-    // Hiển thị hộp thoại xác nhận
     int confirm = JOptionPane.showConfirmDialog(
         null, 
         "Bạn có chắc chắn muốn xóa độc giả này không?", 
@@ -271,12 +253,10 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
         JOptionPane.YES_NO_OPTION, 
         JOptionPane.WARNING_MESSAGE
     );
-
-    // Xử lý theo lựa chọn của người dùng
     if (confirm == JOptionPane.YES_OPTION) {
         if (dao.deleteReader(id)) {
             JOptionPane.showMessageDialog(null, "Xóa độc giả thành công!");
-            dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia); // Cập nhật bảng sau khi xóa
+            dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia); 
         } else {
             JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi xóa độc giả. Vui lòng thử lại.");
         }

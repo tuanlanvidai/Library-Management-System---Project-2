@@ -290,8 +290,6 @@ public class ReaderManagement extends javax.swing.JFrame {
 String address = txtAddress.getText();
 String phone = txtPhone.getText();
 String email = txtEmail.getText();
-
-// Kiểm tra các trường thông tin không được để trống
 if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty()) {
     JOptionPane.showMessageDialog(null, "Tất cả các trường đều là bắt buộc.");
     return;
@@ -302,8 +300,6 @@ try {
     if (keyword.equals("Thêm ")) {
         Date date = txtRegisterDay.getDate();
         String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
-
-        // Tạo đối tượng QuanLyDocGia không có ID
         reader = new QuanLyDocGia(name, address, phone, email, registerDay, false);
 
         // Thêm độc giả mới
@@ -315,18 +311,14 @@ try {
             JOptionPane.showMessageDialog(null, "Thêm độc giả thất bại.");
         }
     } else if (keyword.equals("Sửa ")) {
-        // Lấy ID độc giả từ bảng hiển thị
         int selectedRow = tblDisplay.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn độc giả cần chỉnh sửa.");
             return;
         }
         int readerId = (int) model.getValueAt(selectedRow, 0); // Lấy ID từ cột đầu tiên của bảng
-
         Date date = txtRegisterDay.getDate();
         String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
-
-        // Tạo đối tượng QuanLyDocGia với ID
         reader = new QuanLyDocGia(readerId, name, address, phone, email, registerDay, false);
 
         // Sửa thông tin độc giả
@@ -348,8 +340,7 @@ try {
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-     // TODO add your handling code here:
-        this.dispose();
+  this.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void tblDisplayMouseClicked1(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked1

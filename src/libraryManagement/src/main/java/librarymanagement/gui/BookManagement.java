@@ -357,8 +357,6 @@ public class BookManagement extends javax.swing.JFrame {
             int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thêm sách này không?",
                                                         "Confirm Add", JOptionPane.YES_NO_OPTION);
             if (confirm != JOptionPane.YES_OPTION) return;
-
-            // Kiểm tra xem sách có trùng tên không
             List<QuanLySachPOJO> existingBooks = dao.searchBookByName(title);
             boolean isDuplicate = existingBooks.stream().anyMatch(b -> b.getTitle().equalsIgnoreCase(title));
             if (isDuplicate) {
@@ -373,28 +371,22 @@ public class BookManagement extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Có lỗi khi thêm sách.");
             }
-
         } else if (keyword.equals("Sửa ")) {
-            // Lấy ID sách từ bảng hiển thị
             int selectedRow = tblDisplay.getSelectedRow();
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn cuốn sách cần chỉnh sửa.");
                 return;
             }
-            int bookId = (int) model.getValueAt(selectedRow, 0); // Lấy ID từ cột đầu tiên của bảng
+            int bookId = (int) model.getValueAt(selectedRow, 0);
             book.setBookId(bookId);
-
             int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn chỉnh sửa cuốn sách này không?",
                                                         "Xác nhận chỉnh sửa", JOptionPane.YES_NO_OPTION);
             if (confirm != JOptionPane.YES_OPTION) return;
-
-            // Kiểm tra xem tên sách có trùng (trừ sách đang chỉnh sửa)
             boolean isDuplicate = dao.isDuplicateTitleAndAuthor(title, author, bookId);
             if (isDuplicate) {
                 JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
                 return;
             }
-
             if (dao.editBook(book)) {
                 dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
                 dao.addDataToTable(model, tblDisplay);
@@ -409,8 +401,6 @@ public class BookManagement extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi không mong muốn.");
         e.printStackTrace();
     }
-
-  
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void cbxCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCategoryActionPerformed
