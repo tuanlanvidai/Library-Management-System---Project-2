@@ -187,7 +187,7 @@ public class EmployeeDAO {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     util.dbConnect, util.username, util.password);
-            String sql = "update employee set isDeleted = 1 where employeeId = ?";
+            String sql = "update employee set isDeleted = 1 where employeeId = ? and role!='Admin'";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             int row = stmt.executeUpdate();
