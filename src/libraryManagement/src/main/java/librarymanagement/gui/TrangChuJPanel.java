@@ -9,7 +9,6 @@ import javax.swing.table.DefaultTableModel;
 import librarymanagement.dao.BookDAO;
 import librarymanagement.dao.TrangChuDAO;
 import librarymanagement.pojo.Book;
-import librarymanagement.pojo.BorrowedBook;
 import librarymanagement.pojo.OverdueBook;
 
 /**
@@ -377,17 +376,17 @@ public class TrangChuJPanel extends javax.swing.JPanel {
 
         tblMuonQuaHan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Mã độc giả", "Mã sách", "Mã phiếu mượn", "Tình Trạng", "Quá hạn (ngày)", "Tiền phạt"
+                "Mã độc giả", "Mã sách", "Mã phiếu mượn", "Quá hạn (ngày)", "Tiền phạt"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -395,10 +394,6 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(tblMuonQuaHan);
-        if (tblMuonQuaHan.getColumnModel().getColumnCount() > 0) {
-            tblMuonQuaHan.getColumnModel().getColumn(3).setResizable(false);
-            tblMuonQuaHan.getColumnModel().getColumn(3).setHeaderValue("Tình Trạng");
-        }
 
         jLabel12.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));

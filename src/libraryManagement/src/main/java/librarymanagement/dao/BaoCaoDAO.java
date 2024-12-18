@@ -18,7 +18,7 @@ import librarymanagement.pojo.BaoCa0;
  *
  * @author CuongVu
  */
-public class BaoCaoDAO {    //Khai báo phương thức. Ngày cụ thể hoặc Tháng cụ thể  để lọc theo ngày trả sách
+public class BaoCaoDAO {
     public List<BaoCa0> getBaoCaoByDate(java.sql.Date selectedDate, int selectedMonth) {
     List<BaoCa0> baoCa0List = new ArrayList<>();
     
@@ -33,16 +33,14 @@ public class BaoCaoDAO {    //Khai báo phương thức. Ngày cụ thể hoặc
                  "JOIN BookStatus s ON rt.statusId = s.statusId " + 
                  "JOIN ReturnFine rf ON rt.returnId = rf.returnId " + 
                  "JOIN Reader r ON bb.readerId = r.readerId " + 
-                 "WHERE rf.isDeleted = 0 AND rt.isDeleted = 0 ";
+                 "WHERE rf.isDeleted = 0 AND rt.isDeleted = 0 " +
+                 "ORDER BY r.name ASC;";
 
-    // Nếu có ngày cụ thể, thêm điều kiện lọc ngày trả sách
     if (selectedDate != null) {
         sql += " AND rt.returnDate = ? ";
     } else if (selectedMonth > 0) {
         sql += " AND MONTH(rt.returnDate) = ? ";
     }
-
-    sql += "ORDER BY r.name ASC;";  // Đảm bảo truy vấn luôn sắp xếp theo tên người mượn
 
     try (Connection con = DriverManager.getConnection(ConfigUtils.dbConnect, ConfigUtils.username, ConfigUtils.password);
          PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -59,7 +57,7 @@ public class BaoCaoDAO {    //Khai báo phương thức. Ngày cụ thể hoặc
             String name = rs.getString(2);
             String status = rs.getString(3);
             int exDates = rs.getInt(4);
-            double values = rs.getDouble(5);  // Sử dụng double đúng cách
+            double values = rs.getDouble(5);
 
             BaoCa0 baoCa0 = new BaoCa0(name, bookName, status, exDates, (int) values);
             baoCa0List.add(baoCa0);

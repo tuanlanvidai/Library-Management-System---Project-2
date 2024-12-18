@@ -120,6 +120,8 @@ public class BaoCao extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Tìm kiếm theo tháng");
 
+        cbxMonth.addActionListener(this::cbxMonthActionPerformed);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -271,45 +273,45 @@ public class BaoCao extends javax.swing.JPanel {
     
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         Date selectedDate = chserDay.getDate();
-         int selectedMonth = cbxMonth.getSelectedIndex();// Tháng bắt đầu từ 0, nên phải cộng 1
+         int selectedMonth = cbxMonth.getSelectedIndex();
         
 
-        // Nếu người dùng chọn ngày, tìm theo ngày
         if(selectedDate!=null&&selectedMonth>0){
             JOptionPane.showMessageDialog(null, "Vui lòng chỉ chọn 1 mục");
             cbxMonth.setSelectedIndex(0);
         }
         if (selectedDate != null) {
             java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
-            baoCa0List = baoCaoDAO.getBaoCaoByDate(sqlDate, -1);  // Tìm kiếm theo ngày
+            baoCa0List = baoCaoDAO.getBaoCaoByDate(sqlDate, -1);  
         } 
-        // Nếu người dùng chọn tháng, tìm theo tháng
         else if (selectedMonth > 0) {
-            baoCa0List = baoCaoDAO.getBaoCaoByDate(null, selectedMonth);  // Tìm kiếm theo tháng
+            baoCa0List = baoCaoDAO.getBaoCaoByDate(null, selectedMonth);  
         } 
         else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày hoặc tháng để tìm kiếm", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Cập nhật bảng nếu có dữ liệu
         if (baoCa0List != null && !baoCa0List.isEmpty()) {
-            model.setRowCount(0);  // Xóa dữ liệu cũ trong bảng
+            model.setRowCount(0); 
 
-            // Thêm các dữ liệu mới vào bảng
             for (BaoCa0 baoCa0 : baoCa0List) {
                 model.addRow(new Object[]{
-                    baoCa0.getName(),        // Tên người mượn
-                    baoCa0.getBookName(),    // Tên sách
-                    baoCa0.getStatus(),      // Trạng thái
-                    baoCa0.getExDates(),     // Số ngày quá hạn
-                    baoCa0.getValues()       // Giá trị (tiền phạt)
+                    baoCa0.getName(),      
+                    baoCa0.getBookName(),  
+                    baoCa0.getStatus(),   
+                    baoCa0.getExDates(),    
+                    baoCa0.getValues() 
             });
         }
         } else {
             JOptionPane.showMessageDialog(this, "Không có kết quả", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void cbxMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMonthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxMonthActionPerformed
     
     private void loadSummary() {
        txtTotalBorowed.setText(String.valueOf(baoCaoDAO.getTotalBooksBorrowed()));

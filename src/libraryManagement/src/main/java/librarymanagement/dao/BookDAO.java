@@ -46,7 +46,7 @@ public class BookDAO {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(ConfigUtils.dbConnect, ConfigUtils.username, ConfigUtils.password);
-            String sql = "select * from Book where isDeleted = 0 and publishYear >=2023";
+            String sql = "select * from Book where isDeleted = 0 and publishYear >=2023 order by publishYear ASC;";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 

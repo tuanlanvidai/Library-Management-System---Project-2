@@ -11,7 +11,6 @@ package librarymanagement.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import librarymanagement.pojo.BorrowedBook;
 import librarymanagement.pojo.OverdueBook;
 
 public class TrangChuDAO {
@@ -267,14 +266,13 @@ public class TrangChuDAO {
                 int overdueDays = resultSet.getInt("overdueDays");
                 int fineMoney = resultSet.getInt("fineMoney");
 
-                // Add the retrieved information to the overdueBooks list
                 overdueBooks.add(new OverdueBook(readerId, bookId, borrowId, overdueDays, fineMoney));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return overdueBooks;  // Return the list of overdue books
+        return overdueBooks;
     }
 
 
