@@ -275,6 +275,10 @@ public class BaoCao extends javax.swing.JPanel {
         
 
         // Nếu người dùng chọn ngày, tìm theo ngày
+        if(selectedDate!=null&&selectedMonth>0){
+            JOptionPane.showMessageDialog(null, "Vui lòng chỉ chọn 1 mục");
+            cbxMonth.setSelectedIndex(0);
+        }
         if (selectedDate != null) {
             java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
             baoCa0List = baoCaoDAO.getBaoCaoByDate(sqlDate, -1);  // Tìm kiếm theo ngày
