@@ -48,7 +48,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         });
     }}
     
-     private void loadOverdueData() {
+    private void loadOverdueData() {
         DefaultTableModel model = (DefaultTableModel) tblMuonQuaHan.getModel();
         List<OverdueBook> overdueReaders = dao.getListOverDueReaders();
         model.setRowCount(0);

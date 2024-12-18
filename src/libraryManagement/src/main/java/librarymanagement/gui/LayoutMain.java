@@ -20,7 +20,7 @@ public class LayoutMain extends javax.swing.JFrame {
      */
     public LayoutMain() {
         initComponents();
-        setTitle("Quản Lý Học Viên ");
+        setTitle("Quản Lý Thư viện");
         ChuyenManHinhDAO chuyenmanhinhDAO = new ChuyenManHinhDAO(jpnView);
         chuyenmanhinhDAO.setView(jpntrangchu, jlbtrangchu);
         

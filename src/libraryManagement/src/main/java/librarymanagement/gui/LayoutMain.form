@@ -88,10 +88,8 @@
                               <Component id="jpnRoot" alignment="0" max="32767" attributes="0"/>
                               <Component id="jpntrangchu" alignment="0" pref="334" max="32767" attributes="0"/>
                               <Component id="jpnquanlydocgia" alignment="0" pref="334" max="32767" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jpncaidat" alignment="0" pref="327" max="32767" attributes="0"/>
-                                  <Component id="jpnbaocao" alignment="0" pref="327" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jpncaidat" alignment="0" pref="327" max="32767" attributes="0"/>
+                              <Component id="jpnbaocao" alignment="0" pref="327" max="32767" attributes="0"/>
                               <Component id="jpnquanlysach" alignment="0" max="32767" attributes="0"/>
                               <Component id="jpnmuontrasach" alignment="0" pref="334" max="32767" attributes="0"/>
                               <Component id="jpnquanlythuthu" alignment="0" pref="334" max="32767" attributes="0"/>
@@ -140,7 +138,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="jLabel1" pref="261" max="32767" attributes="0"/>
+                          <Component id="jLabel1" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -467,7 +465,7 @@
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="68" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jlbcaidat" min="-2" pref="201" max="-2" attributes="0"/>
