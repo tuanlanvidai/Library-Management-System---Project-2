@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
-
 /**
  *
  * @author CuongVu
  */
 public class BaoCao extends javax.swing.JPanel {
+
     private BaoCaoDAO baoCaoDAO;
     private List<BaoCa0> baoCa0List;
     public static DefaultTableModel model;
@@ -34,16 +34,17 @@ public class BaoCao extends javax.swing.JPanel {
         addMonthList();
         loadSummary();
     }
-    private void addMonthList(){
-       Month month = Month.JANUARY;
-       Boolean stop =false;
-       cbxMonth.addItem("Chọn Tháng");
-        while(!stop){
+
+    private void addMonthList() {
+        Month month = Month.JANUARY;
+        Boolean stop = false;
+        cbxMonth.addItem("Chọn Tháng");
+        while (!stop) {
             cbxMonth.addItem(month.toString());
-            if(month.equals(Month.DECEMBER)){
-                stop =true;
+            if (month.equals(Month.DECEMBER)) {
+                stop = true;
             }
-            month= month.plus(1);
+            month = month.plus(1);
         }
     }
 
@@ -268,51 +269,52 @@ public class BaoCao extends javax.swing.JPanel {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         Date selectedDate = chserDay.getDate();
-         int selectedMonth = cbxMonth.getSelectedIndex();// Tháng bắt đầu từ 0, nên phải cộng 1
-        
+        Boolean con = true;
+        int selectedMonth = cbxMonth.getSelectedIndex();// Tháng bắt đầu từ 0, nên phải cộng 1
 
         // Nếu người dùng chọn ngày, tìm theo ngày
-        if(selectedDate!=null&&selectedMonth>0){
+        if (selectedDate != null && selectedMonth > 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chỉ chọn 1 mục");
             cbxMonth.setSelectedIndex(0);
+            con = false;
         }
-        if (selectedDate != null) {
-            java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
-            baoCa0List = baoCaoDAO.getBaoCaoByDate(sqlDate, -1);  // Tìm kiếm theo ngày
-        } 
-        // Nếu người dùng chọn tháng, tìm theo tháng
-        else if (selectedMonth > 0) {
-            baoCa0List = baoCaoDAO.getBaoCaoByDate(null, selectedMonth);  // Tìm kiếm theo tháng
-        } 
-        else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày hoặc tháng để tìm kiếm", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        if (con) {
+            if (selectedDate != null) {
+                java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
+                baoCa0List = baoCaoDAO.getBaoCaoByDate(sqlDate, -1);  // Tìm kiếm theo ngày
+            } // Nếu người dùng chọn tháng, tìm theo tháng
+            else if (selectedMonth > 0) {
+                baoCa0List = baoCaoDAO.getBaoCaoByDate(null, selectedMonth);  // Tìm kiếm theo tháng
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày hoặc tháng để tìm kiếm", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-        // Cập nhật bảng nếu có dữ liệu
-        if (baoCa0List != null && !baoCa0List.isEmpty()) {
-            model.setRowCount(0);  // Xóa dữ liệu cũ trong bảng
+            // Cập nhật bảng nếu có dữ liệu
+            if (baoCa0List != null && !baoCa0List.isEmpty()) {
+                model.setRowCount(0);  // Xóa dữ liệu cũ trong bảng
 
-            // Thêm các dữ liệu mới vào bảng
-            for (BaoCa0 baoCa0 : baoCa0List) {
-                model.addRow(new Object[]{
-                    baoCa0.getName(),        // Tên người mượn
-                    baoCa0.getBookName(),    // Tên sách
-                    baoCa0.getStatus(),      // Trạng thái
-                    baoCa0.getExDates(),     // Số ngày quá hạn
-                    baoCa0.getValues()       // Giá trị (tiền phạt)
-            });
-        }
-        } else {
-            JOptionPane.showMessageDialog(this, "Không có kết quả", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                // Thêm các dữ liệu mới vào bảng
+                for (BaoCa0 baoCa0 : baoCa0List) {
+                    model.addRow(new Object[]{
+                        baoCa0.getName(), // Tên người mượn
+                        baoCa0.getBookName(), // Tên sách
+                        baoCa0.getStatus(), // Trạng thái
+                        baoCa0.getExDates(), // Số ngày quá hạn
+                        baoCa0.getValues() // Giá trị (tiền phạt)
+                    });
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Không có kết quả", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
-    
+
     private void loadSummary() {
-       txtTotalBorowed.setText(String.valueOf(baoCaoDAO.getTotalBooksBorrowed()));
+        txtTotalBorowed.setText(String.valueOf(baoCaoDAO.getTotalBooksBorrowed()));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
