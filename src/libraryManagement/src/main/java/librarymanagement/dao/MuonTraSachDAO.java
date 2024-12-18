@@ -386,20 +386,35 @@ public class MuonTraSachDAO {
     }
 
     public int createReturnBook(int borrowId, java.sql.Date returnDate, int statusId) {
-        String sql = "INSERT INTO ReturnBook (borrowId, returnDate, statusId, isDeleted) VALUES (?, ?, ?, 0)";
+        String insertReturnSQL = """
+        INSERT INTO ReturnBook (borrowId, returnDate, statusId, isDeleted)
+        VALUES (?, ?, ?, 0);
+        """;
+
+        String updateBookSQL = """
+        UPDATE Book
+        SET availableQty = availableQty + 1
+        WHERE bookId = (SELECT bookId FROM BorrowBook WHERE borrowId = ?)
+          AND ? = 1; -- Chỉ tăng số lượng sách nếu statusId = 1 (Bình thường)
+        """;
+
         int returnId = -1;
 
-        try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement stmt = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try (Connection con = DriverManager.getConnection(util.dbConnect, util.username, util.password); PreparedStatement insertStmt = con.prepareStatement(insertReturnSQL, PreparedStatement.RETURN_GENERATED_KEYS); PreparedStatement updateStmt = con.prepareStatement(updateBookSQL)) {
 
-            stmt.setInt(1, borrowId);
-            stmt.setDate(2, returnDate);
-            stmt.setInt(3, statusId);
-            stmt.executeUpdate();
+            insertStmt.setInt(1, borrowId);
+            insertStmt.setDate(2, returnDate);
+            insertStmt.setInt(3, statusId);
+            insertStmt.executeUpdate();
 
-            ResultSet rs = stmt.getGeneratedKeys();
+            ResultSet rs = insertStmt.getGeneratedKeys();
             if (rs.next()) {
                 returnId = rs.getInt(1);
             }
+
+            updateStmt.setInt(1, borrowId);
+            updateStmt.setInt(2, statusId);
+            updateStmt.executeUpdate();
 
         } catch (Exception e) {
             System.out.println("Error creating return book: " + e.getMessage());
