@@ -173,7 +173,7 @@ public class BaoCao extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Tên", "Tên Sách", "Tình Trạng", "Số ngày hạn", "Thông số"
+                "Tên", "Tên Sách", "Tình Trạng", "Số ngày hạn", "Tiền phạt"
             }
         ) {
             Class[] types = new Class [] {

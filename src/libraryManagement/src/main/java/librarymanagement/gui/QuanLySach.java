@@ -69,7 +69,7 @@ public class QuanLySach extends javax.swing.JPanel {
         txtQuery.addActionListener(this::txtQueryActionPerformed);
 
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearch.setText("Search");
+        btnSearch.setText("Tìm kiếm");
         btnSearch.setBorder(null);
         btnSearch.setBorderPainted(false);
         btnSearch.setContentAreaFilled(false);
@@ -135,14 +135,17 @@ public class QuanLySach extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblQuanLySach);
 
         btnThem.setBackground(new java.awt.Color(0, 204, 204));
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setText("Thêm");
         btnThem.addActionListener(this::btnThemActionPerformed);
 
         btnSua.setBackground(new java.awt.Color(0, 204, 204));
+        btnSua.setForeground(new java.awt.Color(255, 255, 255));
         btnSua.setText("Sửa");
         btnSua.addActionListener(this::btnSuaActionPerformed);
 
         btnXoa.setBackground(new java.awt.Color(0, 204, 204));
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(this::btnXoaActionPerformed);
 
