@@ -67,8 +67,6 @@ public class BookManagement extends javax.swing.JFrame {
         cbxCategory = new javax.swing.JComboBox<>();
         txtTitle = new javax.swing.JTextField();
         txtAuthor = new javax.swing.JTextField();
-        labelId = new javax.swing.JLabel();
-        txtMaSach = new javax.swing.JTextField();
         txtPublishYear = new javax.swing.JTextField();
         labelName = new javax.swing.JLabel();
         labelRole = new javax.swing.JLabel();
@@ -142,13 +140,6 @@ public class BookManagement extends javax.swing.JFrame {
 
         txtTitle.addActionListener(this::txtTitleActionPerformed);
 
-        labelId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelId.setForeground(new java.awt.Color(255, 255, 255));
-        labelId.setText("Mã sách");
-
-        txtMaSach.setEditable(false);
-        txtMaSach.addActionListener(this::txtMaSachActionPerformed);
-
         labelName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName.setForeground(new java.awt.Color(255, 255, 255));
         labelName.setText("Tên sách");
@@ -182,7 +173,6 @@ public class BookManagement extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelPhone1)
                             .addComponent(labelRole, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,7 +184,6 @@ public class BookManagement extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPublishYear)
                             .addComponent(txtTitle)
-                            .addComponent(txtMaSach)
                             .addComponent(txtAuthor)
                             .addComponent(cbxCategory, 0, 318, Short.MAX_VALUE)
                             .addComponent(txtTotalQuantity)
@@ -210,19 +199,15 @@ public class BookManagement extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addGap(49, 49, 49)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(labelId)
-                        .addGap(18, 18, 18)
                         .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(labelPhone1)
                         .addGap(159, 159, 159)
                         .addComponent(labelPassWord, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtMaSach, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
                         .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addComponent(txtAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,76 +333,82 @@ public class BookManagement extends javax.swing.JFrame {
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
             String title = txtTitle.getText().trim();
-String author = txtAuthor.getText().trim();
-String category = cbxCategory.getSelectedItem().toString().trim();
+    String author = txtAuthor.getText().trim();
+    String category = cbxCategory.getSelectedItem().toString().trim();
 
-if (title.isEmpty() || author.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Tên sách và tác giả không được để trống.");
-    return;
-}
-
-try {
-    int publishYear = Integer.parseInt(txtPublishYear.getText().trim());
-    int totalQuantity = Integer.parseInt(txtTotalQuantity.getText().trim());
-    int availableQty = Integer.parseInt(txtAvailableQuantity.getText().trim());
-
-    if (publishYear <= 0 || totalQuantity <= 0 || availableQty < 0) {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập số hợp lệ cho số lượng và năm.");
+    if (title.isEmpty() || author.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Tên sách và tác giả không được để trống.");
         return;
     }
 
-    QuanLySachPOJO book = new QuanLySachPOJO(title, author, category, publishYear, totalQuantity, availableQty);
+    try {
+        int publishYear = Integer.parseInt(txtPublishYear.getText().trim());
+        int totalQuantity = Integer.parseInt(txtTotalQuantity.getText().trim());
+        int availableQty = Integer.parseInt(txtAvailableQuantity.getText().trim());
 
-    if (keyword.equals("Thêm ")) {
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thêm sách này không?", 
-                                                    "Confirm Add", JOptionPane.YES_NO_OPTION);
-        if (confirm != JOptionPane.YES_OPTION) return;
-
-        // Kiểm tra xem sách có trùng tên không
-        List<QuanLySachPOJO> existingBooks = dao.searchBookByName(title);
-        boolean isDuplicate = existingBooks.stream().anyMatch(b -> b.getTitle().equalsIgnoreCase(title));
-        if (isDuplicate) {
-            JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
+        if (publishYear <= 0 || totalQuantity <= 0 || availableQty < 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập số hợp lệ cho số lượng và năm.");
             return;
         }
 
-        if (dao.addBook(book)) {
-            dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
-            dao.addDataToTable(model, tblDisplay);
-            JOptionPane.showMessageDialog(null, "Đã thêm sách thành công!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Có lỗi khi thêm sách.");
+        QuanLySachPOJO book = new QuanLySachPOJO(title, author, category, publishYear, totalQuantity, availableQty);
+
+        if (keyword.equals("Thêm ")) {
+            int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thêm sách này không?",
+                                                        "Confirm Add", JOptionPane.YES_NO_OPTION);
+            if (confirm != JOptionPane.YES_OPTION) return;
+
+            // Kiểm tra xem sách có trùng tên không
+            List<QuanLySachPOJO> existingBooks = dao.searchBookByName(title);
+            boolean isDuplicate = existingBooks.stream().anyMatch(b -> b.getTitle().equalsIgnoreCase(title));
+            if (isDuplicate) {
+                JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
+                return;
+            }
+
+            if (dao.addBook(book)) {
+                dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
+                dao.addDataToTable(model, tblDisplay);
+                JOptionPane.showMessageDialog(null, "Đã thêm sách thành công!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Có lỗi khi thêm sách.");
+            }
+
+        } else if (keyword.equals("Sửa ")) {
+            // Lấy ID sách từ bảng hiển thị
+            int selectedRow = tblDisplay.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn cuốn sách cần chỉnh sửa.");
+                return;
+            }
+            int bookId = (int) model.getValueAt(selectedRow, 0); // Lấy ID từ cột đầu tiên của bảng
+            book.setBookId(bookId);
+
+            int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn chỉnh sửa cuốn sách này không?",
+                                                        "Xác nhận chỉnh sửa", JOptionPane.YES_NO_OPTION);
+            if (confirm != JOptionPane.YES_OPTION) return;
+
+            // Kiểm tra xem tên sách có trùng (trừ sách đang chỉnh sửa)
+            boolean isDuplicate = dao.isDuplicateTitleAndAuthor(title, author, bookId);
+            if (isDuplicate) {
+                JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
+                return;
+            }
+
+            if (dao.editBook(book)) {
+                dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
+                dao.addDataToTable(model, tblDisplay);
+                JOptionPane.showMessageDialog(null, "Sách đã được cập nhật thành công!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật sách.");
+            }
         }
-
-    } else if (keyword.equals("Sửa ")) {
-        int bookId = Integer.parseInt(txtMaSach.getText().trim()); // Lấy ID sách để chỉnh sửa
-        book.setBookId(bookId);
-
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn chỉnh sửa cuốn sách này không?", 
-                                                    "Xác nhận chỉnh sửa", JOptionPane.YES_NO_OPTION);
-        if (confirm != JOptionPane.YES_OPTION) return;
-
-        // Kiểm tra xem tên sách có trùng (trừ sách đang chỉnh sửa)
-        boolean isDuplicate = dao.isDuplicateTitleAndAuthor(title, author, bookId);
-        if (isDuplicate) {
-            JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
-            return;
-        }
-
-        if (dao.editBook(book)) {
-            dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
-            dao.addDataToTable(model, tblDisplay);
-            JOptionPane.showMessageDialog(null, "Sách đã được cập nhật thành công!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật sách.");
-        }
-    } 
-} catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(null, "Đầu vào không hợp lệ. Vui lòng kiểm tra lại mục nhập của bạn.");
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi không mong muốn.");
-    e.printStackTrace();
-}
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Đầu vào không hợp lệ. Vui lòng kiểm tra lại mục nhập của bạn.");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi không mong muốn.");
+        e.printStackTrace();
+    }
 
   
     }//GEN-LAST:event_btnXacNhanActionPerformed
@@ -425,10 +416,6 @@ try {
     private void cbxCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCategoryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxCategoryActionPerformed
-
-    private void txtMaSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaSachActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaSachActionPerformed
 
     private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
         // TODO add your handling code here:
@@ -450,7 +437,6 @@ try {
         int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
         QuanLySachPOJO book = dao.getBookById(id);
         if (book != null) {
-            txtMaSach.setText(String.valueOf(book.getBookId()));
             txtTitle.setText(book.getTitle());
             txtAuthor.setText(book.getAuthor());
             cbxCategory.setSelectedItem(book.getCategory());
@@ -509,7 +495,6 @@ try {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelEmail;
-    private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelPassWord;
     private javax.swing.JLabel labelPhone;
@@ -518,7 +503,6 @@ try {
     public static javax.swing.JTable tblDisplay;
     private javax.swing.JTextField txtAuthor;
     private javax.swing.JTextField txtAvailableQuantity;
-    private javax.swing.JTextField txtMaSach;
     private javax.swing.JTextField txtPublishYear;
     private javax.swing.JTextField txtTitle;
     private javax.swing.JTextField txtTotalQuantity;

@@ -209,11 +209,8 @@ public class QuanLySach extends javax.swing.JPanel {
     try {
         
         if (query.matches("\\d+")) {  
-            int bookId = Integer.parseInt(query);  
-            // Gọi phương thức tìm kiếm sách theo ID
+            int bookId = Integer.parseInt(query);    
             List<QuanLySachPOJO> books = dao.searchBookById(bookId);
-
-            // Kiểm tra kết quả tìm kiếm
             if (books != null && !books.isEmpty()) {
                 dao.addDataFromSearch(books, model, tblQuanLySach); 
                 btnCancelSearch.setVisible(true); 
