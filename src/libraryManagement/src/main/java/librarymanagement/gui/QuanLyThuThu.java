@@ -296,10 +296,15 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         int column = 0;
         int id = Integer.parseInt(String.valueOf(tblEmployee.getModel().getValueAt(row, column)));
         if (id != 0) {
-            if (id != 0) {
-                dao.deleteEmployee(id);
+           if( dao.deleteEmployee(id)){
                 dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
-            }
+           }
+           else{
+               JOptionPane.showMessageDialog(null, "Không thể xóa admin");
+           }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản để xóa");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
