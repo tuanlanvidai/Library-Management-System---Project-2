@@ -48,8 +48,6 @@ public class ManageEmployee extends javax.swing.JFrame {
 
     public ManageEmployee(String type) {
         initComponents();
-        JTableHeader THeader = tblDisplay.getTableHeader();
-        THeader.setBackground(Color.red);
         keyword = type;
         Title.setText(type + "Thủ Thư");
         dao = new EmployeeDAO();

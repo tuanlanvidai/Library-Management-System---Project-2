@@ -107,19 +107,19 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
 
         btnEdit.setBackground(new java.awt.Color(0, 204, 204));
-        btnEdit.setFont(new java.awt.Font("Segoe UI Semibold", 1, 20)); // NOI18N
+        btnEdit.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Sửa");
         btnEdit.addActionListener(this::btnEditActionPerformed);
 
         btnAdd1.setBackground(new java.awt.Color(0, 204, 204));
-        btnAdd1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 20)); // NOI18N
+        btnAdd1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         btnAdd1.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd1.setText("Thêm");
         btnAdd1.addActionListener(this::btnAdd1ActionPerformed);
 
         btnDelete.setBackground(new java.awt.Color(0, 204, 204));
-        btnDelete.setFont(new java.awt.Font("Segoe UI Semibold", 1, 20)); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Xoá");
         btnDelete.addActionListener(this::btnDeleteActionPerformed);
@@ -262,7 +262,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
