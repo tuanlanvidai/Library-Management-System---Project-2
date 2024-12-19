@@ -54,7 +54,7 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/quanlydocgia.png"))); // NOI18N
-        jLabel1.setText("Quản lý độc giả");
+        jLabel1.setText("Reader Management");
 
         txtQuery.setToolTipText("");
         txtQuery.setBorder(null);
@@ -62,7 +62,7 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
 
         btnSearch.setBackground(new java.awt.Color(204, 204, 204));
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearch.setText("Tìm kiếm");
+        btnSearch.setText("Search");
         btnSearch.setBorder(null);
         btnSearch.setBorderPainted(false);
         btnSearch.setContentAreaFilled(false);
@@ -82,8 +82,8 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addComponent(txtQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,17 +124,17 @@ public class QuanLyDocGiaJPanel extends javax.swing.JPanel {
 
         btnThem.setBackground(new java.awt.Color(0, 204, 204));
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
-        btnThem.setText("Thêm");
+        btnThem.setText("Add");
         btnThem.addActionListener(this::btnThemActionPerformed);
 
         btnSua.setBackground(new java.awt.Color(0, 204, 204));
         btnSua.setForeground(new java.awt.Color(255, 255, 255));
-        btnSua.setText("Sửa");
+        btnSua.setText("Edit");
         btnSua.addActionListener(this::btnSuaActionPerformed);
 
         btnXoa.setBackground(new java.awt.Color(0, 204, 204));
         btnXoa.setForeground(new java.awt.Color(255, 255, 255));
-        btnXoa.setText("Xóa");
+        btnXoa.setText("Delete");
         btnXoa.addActionListener(this::btnXoaActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

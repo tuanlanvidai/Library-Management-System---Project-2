@@ -62,14 +62,14 @@ public class QuanLySach extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book.png"))); // NOI18N
-        jLabel1.setText("Quản lý Sách");
+        jLabel1.setText("Book Management");
 
         txtQuery.setToolTipText("");
         txtQuery.setBorder(null);
         txtQuery.addActionListener(this::txtQueryActionPerformed);
 
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearch.setText("Tìm kiếm");
+        btnSearch.setText("Search");
         btnSearch.setBorder(null);
         btnSearch.setBorderPainted(false);
         btnSearch.setContentAreaFilled(false);
@@ -136,17 +136,17 @@ public class QuanLySach extends javax.swing.JPanel {
 
         btnThem.setBackground(new java.awt.Color(0, 204, 204));
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
-        btnThem.setText("Thêm");
+        btnThem.setText("Add");
         btnThem.addActionListener(this::btnThemActionPerformed);
 
         btnSua.setBackground(new java.awt.Color(0, 204, 204));
         btnSua.setForeground(new java.awt.Color(255, 255, 255));
-        btnSua.setText("Sửa");
+        btnSua.setText("Edit");
         btnSua.addActionListener(this::btnSuaActionPerformed);
 
         btnXoa.setBackground(new java.awt.Color(0, 204, 204));
         btnXoa.setForeground(new java.awt.Color(255, 255, 255));
-        btnXoa.setText("Xóa");
+        btnXoa.setText("Delete");
         btnXoa.addActionListener(this::btnXoaActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

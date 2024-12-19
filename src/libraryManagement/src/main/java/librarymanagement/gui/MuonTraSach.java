@@ -158,7 +158,7 @@ public class MuonTraSach extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/docgia.png"))); // NOI18N
-        jLabel1.setText("Quản lý sách mượn/ trả");
+        jLabel1.setText("Manage borrowed/returned books");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,7 +196,7 @@ public class MuonTraSach extends javax.swing.JPanel {
         jScrollPane3.setViewportView(tblBorrowerName);
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Danh sách độc giả đang mượn sách");
+        jLabel4.setText("List of readers borrowing books");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -241,11 +241,11 @@ public class MuonTraSach extends javax.swing.JPanel {
         jScrollPane4.setViewportView(tblBorrowBooks);
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Tìm kiếm");
+        jLabel5.setText("Search");
 
-        cmbTimTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên độc giả", "Mã độc giả" }));
+        cmbTimTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reader Name", "Reader Code" }));
 
-        btnTim.setText("Tìm");
+        btnTim.setText("Sarch");
         btnTim.addActionListener(this::btnTimActionPerformed);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -304,12 +304,12 @@ public class MuonTraSach extends javax.swing.JPanel {
 
         btnAddBorrow.setBackground(new java.awt.Color(0, 204, 204));
         btnAddBorrow.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddBorrow.setText("Tạo phiếu mượn");
+        btnAddBorrow.setText("Create a loan slip");
         btnAddBorrow.addActionListener(this::btnAddBorrowActionPerformed);
 
         btnAddReturn.setBackground(new java.awt.Color(0, 204, 204));
         btnAddReturn.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddReturn.setText("Tạo phiếu trả");
+        btnAddReturn.setText("Create a payment slip");
         btnAddReturn.addActionListener(this::btnAddReturnActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -318,7 +318,7 @@ public class MuonTraSach extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAddBorrow, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                .addComponent(btnAddBorrow, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAddReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -351,7 +351,7 @@ public class MuonTraSach extends javax.swing.JPanel {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

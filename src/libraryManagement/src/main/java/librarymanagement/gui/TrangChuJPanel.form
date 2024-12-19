@@ -33,7 +33,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" pref="1065" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="228" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,7 +101,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel6" min="-2" pref="259" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel7" pref="264" max="32767" attributes="0"/>
+                      <Component id="jPanel7" pref="259" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -142,7 +142,7 @@
                           <EmptySpace min="0" pref="112" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="104" max="32767" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
@@ -181,7 +181,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Helvetica Neue" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="T&#x1ed5;ng s&#x1ed1; s&#xe1;ch"/>
+                    <Property name="text" type="java.lang.String" value="Total Book"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="txtTSoSach">
@@ -250,7 +250,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Helvetica Neue" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="S&#x1ed1; s&#xe1;ch &#x111;ang m&#x1b0;&#x1ee3;n"/>
+                    <Property name="text" type="java.lang.String" value="Number of books borrowed"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="txtSachDMuon">
@@ -283,7 +283,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="86" max="32767" attributes="0"/>
+                          <EmptySpace pref="77" max="32767" attributes="0"/>
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                       </Group>
@@ -304,7 +304,7 @@
                                   <Component id="txtSachQHan" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="46" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -322,7 +322,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Helvetica Neue" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="S&#xe1;ch qu&#xe1; h&#x1ea1;n"/>
+                    <Property name="text" type="java.lang.String" value="Overdue books"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="txtSachQHan">
@@ -354,7 +354,7 @@
                           <Component id="txtTSoDocGia" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="94" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="109" max="32767" attributes="0"/>
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       </Group>
@@ -393,7 +393,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Helvetica Neue" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="T&#x1ed5;ng s&#x1ed1; &#x111;&#x1ed9;c gi&#x1ea3;"/>
+                    <Property name="text" type="java.lang.String" value="Total readers"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="txtTSoDocGia">
@@ -424,7 +424,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="891" max="32767" attributes="0"/>
+                      <EmptySpace pref="936" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -450,7 +450,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/home.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Trang Ch&#x1ee7;"/>
+                <Property name="text" type="java.lang.String" value="Home"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -542,7 +542,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i s&#xe1;ch &#x111;&#x1b0;&#x1ee3;c th&#xea;m g&#x1ea7;n &#x111;&#xe2;y"/>
+                    <Property name="text" type="java.lang.String" value="Recently added book types"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -657,7 +657,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch &#x111;&#x1ed9;c gi&#x1ea3; m&#x1b0;&#x1ee3;n qu&#xe1; h&#x1ea1;n"/>
+                <Property name="text" type="java.lang.String" value="List of overdue readers"/>
               </Properties>
             </Component>
           </SubComponents>

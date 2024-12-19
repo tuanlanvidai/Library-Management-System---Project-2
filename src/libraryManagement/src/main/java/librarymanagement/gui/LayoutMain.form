@@ -86,13 +86,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jpnRoot" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jpntrangchu" alignment="0" pref="334" max="32767" attributes="0"/>
-                              <Component id="jpnquanlydocgia" alignment="0" pref="334" max="32767" attributes="0"/>
-                              <Component id="jpncaidat" alignment="0" pref="327" max="32767" attributes="0"/>
-                              <Component id="jpnbaocao" alignment="0" pref="327" max="32767" attributes="0"/>
+                              <Component id="jpntrangchu" alignment="0" pref="349" max="32767" attributes="0"/>
+                              <Component id="jpnquanlydocgia" alignment="0" pref="349" max="32767" attributes="0"/>
+                              <Component id="jpncaidat" alignment="0" pref="349" max="32767" attributes="0"/>
+                              <Component id="jpnbaocao" alignment="0" pref="349" max="32767" attributes="0"/>
                               <Component id="jpnquanlysach" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jpnmuontrasach" alignment="0" pref="334" max="32767" attributes="0"/>
-                              <Component id="jpnquanlythuthu" alignment="0" pref="334" max="32767" attributes="0"/>
+                              <Component id="jpnmuontrasach" alignment="0" pref="349" max="32767" attributes="0"/>
+                              <Component id="jpnquanlythuthu" alignment="0" pref="349" max="32767" attributes="0"/>
                           </Group>
                           <Component id="btn_dangxuat" min="-2" pref="327" max="-2" attributes="0"/>
                       </Group>
@@ -165,7 +165,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/book.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; Th&#x1b0; Vi&#x1ec7;n"/>
+                    <Property name="text" type="java.lang.String" value="Library Management"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -213,7 +213,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/home.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Trang Ch&#x1ee7;"/>
+                    <Property name="text" type="java.lang.String" value="Home"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -258,7 +258,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/quanlydocgia.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; &#x110;&#x1ed9;c Gi&#x1ea3;"/>
+                    <Property name="text" type="java.lang.String" value="Reader Management"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -301,7 +301,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/muontrasach.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; S&#xe1;ch"/>
+                    <Property name="text" type="java.lang.String" value="Book management"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -346,7 +346,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/muontrasach.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="M&#x1b0;&#x1ee3;n Tr&#x1ea3; S&#xe1;ch"/>
+                    <Property name="text" type="java.lang.String" value="Book return &amp; borrow"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -394,7 +394,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/quanlythuthu.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; Th&#x1ee7; Th&#x1b0;"/>
+                    <Property name="text" type="java.lang.String" value="Librarian Management"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -439,7 +439,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/baocao.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="B&#xe1;o C&#xe1;o"/>
+                    <Property name="text" type="java.lang.String" value="Report"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -502,7 +502,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/caidat.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="C&#xe0;i &#x110;&#x1eb7;t"/>
+                    <Property name="text" type="java.lang.String" value="Setting"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -521,7 +521,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/dangxuat.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng xu&#x1ea5;t"/>
+                <Property name="text" type="java.lang.String" value="Log out"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_dangxuatActionPerformed"/>

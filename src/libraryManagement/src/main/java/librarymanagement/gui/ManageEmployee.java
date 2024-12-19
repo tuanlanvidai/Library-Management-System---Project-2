@@ -159,15 +159,15 @@ public class ManageEmployee extends javax.swing.JFrame {
 
         labelName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName.setForeground(new java.awt.Color(255, 255, 255));
-        labelName.setText("Tên thủ thư");
+        labelName.setText("Librarian Name");
 
         labelRole.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelRole.setForeground(new java.awt.Color(255, 255, 255));
-        labelRole.setText("Vai trò");
+        labelRole.setText("Role");
 
         labelPhone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPhone.setForeground(new java.awt.Color(255, 255, 255));
-        labelPhone.setText("Số điện thoại");
+        labelPhone.setText("Phone");
 
         labelEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelEmail.setForeground(new java.awt.Color(255, 255, 255));
@@ -175,7 +175,7 @@ public class ManageEmployee extends javax.swing.JFrame {
 
         labelPassWord.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPassWord.setForeground(new java.awt.Color(255, 255, 255));
-        labelPassWord.setText("Mật khẩu");
+        labelPassWord.setText("Password");
 
         cbxRole.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -227,7 +227,7 @@ public class ManageEmployee extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Thủ thư");
+        jLabel1.setText("Librarian");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

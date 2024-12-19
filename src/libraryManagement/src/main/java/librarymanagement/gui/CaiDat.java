@@ -135,7 +135,7 @@ public class CaiDat extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/caidat.png"))); // NOI18N
-        jLabel1.setText("Cài đặt");
+        jLabel1.setText("Setting");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -158,30 +158,30 @@ public class CaiDat extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Chỉnh sửa quy định");
+        jLabel2.setText("Edit rules");
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Số tiền phải nộp theo ngày khi trả trễ sách:");
+        jLabel15.setText("Amount to be paid per day when returning books late:");
 
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Số sách độc giả mượn tối đa :");
+        jLabel16.setText("Maximum number of books readers can borrow:");
 
         maxBorrowDays_txt.addActionListener(this::maxBorrowDays_txtActionPerformed);
 
         maxBooksBorrowed_txt.addActionListener(this::maxBooksBorrowed_txtActionPerformed);
 
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("Số ngày độc giả mượn tối đa :");
+        jLabel19.setText("Maximum number of days readers can borrow:");
 
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Số tiền phải nộp khi sách bị hư hại :");
+        jLabel20.setText("Amount to be paid when books are damaged:");
 
         bookDamageFee_txt.addActionListener(this::bookDamageFee_txtActionPerformed);
 
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("Số tiền phải nộp khi mất sách :");
+        jLabel21.setText("Amount to be paid when books are lost:");
 
         lostBookFee_txt.addActionListener(this::lostBookFee_txtActionPerformed);
 
@@ -237,7 +237,7 @@ public class CaiDat extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(0, 153, 153));
 
-        settingSaveBtn.setText("Lưu thông tin");
+        settingSaveBtn.setText("Save");
         settingSaveBtn.addActionListener(this::settingSaveBtnActionPerformed);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -269,7 +269,7 @@ public class CaiDat extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +287,7 @@ public class CaiDat extends javax.swing.JPanel {
 
         jLabel9.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Thể loại");
+        jLabel9.setText("Category");
 
         categoryTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -354,25 +354,25 @@ public class CaiDat extends javax.swing.JPanel {
         jScrollPane1.setViewportView(categoryTbl);
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Danh sách thể loại");
+        jLabel3.setText("List of genres");
 
         jPanel7.setBackground(new java.awt.Color(0, 153, 153));
         jPanel7.setForeground(new java.awt.Color(0, 153, 153));
 
-        deleteCategory.setText("Xoá");
+        deleteCategory.setText("Delete");
         deleteCategory.addActionListener(this::deleteCategoryActionPerformed);
 
-        editCategory.setText("Sửa");
+        editCategory.setText("Edit");
         editCategory.addActionListener(this::editCategoryActionPerformed);
 
-        addCategory.setText("Thêm");
+        addCategory.setText("Add");
         addCategory.addActionListener(this::addCategoryActionPerformed);
 
         categoryName_txt.addActionListener(this::categoryName_txtActionPerformed);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Tên thể loại:");
+        jLabel4.setText("Category");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -404,15 +404,15 @@ public class CaiDat extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnBackup.setText("Sao Lưu");
+        btnBackup.setText("Backup");
         btnBackup.addActionListener(this::btnBackupActionPerformed);
 
-        btnBrowser.setText("Đường dẫn");
+        btnBrowser.setText("Path");
         btnBrowser.addActionListener(this::btnBrowserActionPerformed);
 
         jLabel10.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Sao lưu");
+        jLabel10.setText("Backup");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

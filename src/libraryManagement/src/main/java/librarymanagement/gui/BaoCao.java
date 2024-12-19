@@ -83,7 +83,7 @@ public class BaoCao extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/quanlydocgia.png"))); // NOI18N
-        jLabel2.setText("Báo cáo");
+        jLabel2.setText("Report");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -104,22 +104,23 @@ public class BaoCao extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
 
-        cbxBaoCao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Báo cáo tình trạng trả sách", "" }));
+        cbxBaoCao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Report on book return status", " " }));
+        cbxBaoCao.addActionListener(this::cbxBaoCaoActionPerformed);
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Loại báo cáo");
+        jLabel1.setText("Report Type");
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Tìm kiếm theo ngày");
+        jLabel3.setText("Search By Date ");
 
-        btnSearch.setText("Tìm kiếm");
+        btnSearch.setText("Search");
         btnSearch.addActionListener(this::btnSearchActionPerformed);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Tìm kiếm theo tháng");
+        jLabel4.setText("Search By Month");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -130,7 +131,7 @@ public class BaoCao extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbxBaoCao, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(0, 60, Short.MAX_VALUE)
+                .addGap(0, 75, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chserDay, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -140,7 +141,7 @@ public class BaoCao extends javax.swing.JPanel {
                     .addComponent(cbxMonth, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +175,7 @@ public class BaoCao extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Tên", "Tên Sách", "Tình Trạng", "Số ngày hạn", "Tiền phạt"
+                "Name", "Book Name", "Status", "Number of days due", "Fine"
             }
         ) {
             Class[] types = new Class [] {
@@ -189,7 +190,7 @@ public class BaoCao extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Báo cáo tình trạng mượn trả sách");
+        jLabel5.setText("Report on book borrowing and returning status");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -198,10 +199,10 @@ public class BaoCao extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +222,7 @@ public class BaoCao extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Tổng số lượt mượn :");
+        jLabel6.setText("Total number of loans:");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -312,6 +313,10 @@ public class BaoCao extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void cbxBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBaoCaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxBaoCaoActionPerformed
 
     private void loadSummary() {
         txtTotalBorowed.setText(String.valueOf(baoCaoDAO.getTotalBooksBorrowed()));

@@ -91,7 +91,7 @@ public class ReaderManagement extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Quản lý độc giả");
+        jLabel1.setText("Reader Management");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -104,8 +104,8 @@ public class ReaderManagement extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(439, 439, 439))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(275, 275, 275))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,13 +145,13 @@ public class ReaderManagement extends javax.swing.JFrame {
         btnConfirm.setBackground(new java.awt.Color(0, 204, 204));
         btnConfirm.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirm.setText("Xác nhận");
+        btnConfirm.setText("Save");
         btnConfirm.addActionListener(this::btnConfirmActionPerformed);
 
         bttCancel.setBackground(new java.awt.Color(0, 204, 204));
         bttCancel.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         bttCancel.setForeground(new java.awt.Color(255, 255, 255));
-        bttCancel.setText("Hủy");
+        bttCancel.setText("Close");
         bttCancel.addActionListener(this::bttCancelActionPerformed);
 
         tblDisplay.setModel(new javax.swing.table.DefaultTableModel(

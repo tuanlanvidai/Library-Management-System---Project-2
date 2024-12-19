@@ -120,7 +120,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tongsach.png"))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel8.setText("Tổng số sách");
+        jLabel8.setText("Total Book");
 
         txtTSoSach.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         txtTSoSach.setText("01");
@@ -136,7 +136,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addComponent(txtTSoSach)
                 .addGap(0, 112, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(104, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addGap(80, 80, 80))
         );
@@ -160,7 +160,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sachdamuon.png"))); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel9.setText("Số sách đang mượn");
+        jLabel9.setText("Number of books borrowed");
 
         txtSachDMuon.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         txtSachDMuon.setText("01");
@@ -200,7 +200,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sachdamuon.png"))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel10.setText("Sách quá hạn");
+        jLabel10.setText("Overdue books");
 
         txtSachQHan.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         txtSachQHan.setText("01");
@@ -215,7 +215,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addComponent(txtSachQHan)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(77, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addGap(79, 79, 79))
         );
@@ -231,7 +231,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel10)
                         .addGap(35, 35, 35)
                         .addComponent(txtSachQHan)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
@@ -240,7 +240,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/docgia.png"))); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel11.setText("Tổng số độc giả");
+        jLabel11.setText("Total readers");
 
         txtTSoDocGia.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         txtTSoDocGia.setText("01");
@@ -254,7 +254,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addGap(45, 45, 45)
                 .addComponent(txtTSoDocGia))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(0, 94, Short.MAX_VALUE)
+                .addGap(0, 109, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addGap(60, 60, 60))
         );
@@ -285,7 +285,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,7 +305,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
-        jLabel2.setText("Trang Chủ");
+        jLabel2.setText("Home");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -314,7 +314,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(891, Short.MAX_VALUE))
+                .addContainerGap(936, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,7 +331,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Loại sách được thêm gần đây");
+        jLabel1.setText("Recently added book types");
 
         tblSachDuocThem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -401,7 +401,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
 
         jLabel12.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Danh sách độc giả mượn quá hạn");
+        jLabel12.setText("List of overdue readers");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -459,7 +459,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1065, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

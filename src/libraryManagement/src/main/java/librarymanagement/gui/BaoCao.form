@@ -91,7 +91,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/quanlydocgia.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="B&#xe1;o c&#xe1;o"/>
+            <Property name="text" type="java.lang.String" value="Report"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -112,7 +112,7 @@
                       <Component id="cbxBaoCao" alignment="0" min="-2" pref="252" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="60" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="75" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="chserDay" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -124,7 +124,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="btnSearch" min="-2" pref="132" max="-2" attributes="0"/>
-                  <EmptySpace pref="66" max="32767" attributes="0"/>
+                  <EmptySpace pref="80" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -168,11 +168,14 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
-                <StringItem index="0" value="B&#xe1;o c&#xe1;o t&#xec;nh tr&#x1ea1;ng tr&#x1ea3; s&#xe1;ch"/>
-                <StringItem index="1" value=""/>
+                <StringItem index="0" value="Report on book return status"/>
+                <StringItem index="1" value=" "/>
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxBaoCaoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -185,7 +188,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i b&#xe1;o c&#xe1;o"/>
+            <Property name="text" type="java.lang.String" value="Report Type"/>
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="chserDay">
@@ -198,12 +201,12 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m theo ng&#xe0;y"/>
+            <Property name="text" type="java.lang.String" value="Search By Date "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnSearch">
           <Properties>
-            <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
+            <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>
@@ -217,7 +220,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m theo th&#xe1;ng"/>
+            <Property name="text" type="java.lang.String" value="Search By Month"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbxMonth">
@@ -245,11 +248,11 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane1" pref="988" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="jLabel5" min="-2" pref="309" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLabel5" min="-2" pref="517" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane1" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -278,11 +281,11 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
-                    <Column editable="true" title="T&#xea;n" type="java.lang.String"/>
-                    <Column editable="true" title="T&#xea;n S&#xe1;ch" type="java.lang.String"/>
-                    <Column editable="true" title="T&#xec;nh Tr&#x1ea1;ng" type="java.lang.String"/>
-                    <Column editable="true" title="S&#x1ed1; ng&#xe0;y h&#x1ea1;n" type="java.lang.Integer"/>
-                    <Column editable="true" title="Ti&#x1ec1;n ph&#x1ea1;t" type="java.lang.Integer"/>
+                    <Column editable="true" title="Name" type="java.lang.String"/>
+                    <Column editable="true" title="Book Name" type="java.lang.String"/>
+                    <Column editable="true" title="Status" type="java.lang.String"/>
+                    <Column editable="true" title="Number of days due" type="java.lang.Integer"/>
+                    <Column editable="true" title="Fine" type="java.lang.Integer"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -329,7 +332,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="B&#xe1;o c&#xe1;o t&#xec;nh tr&#x1ea1;ng m&#x1b0;&#x1ee3;n tr&#x1ea3; s&#xe1;ch"/>
+            <Property name="text" type="java.lang.String" value="Report on book borrowing and returning status"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -385,7 +388,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="T&#x1ed5;ng s&#x1ed1; l&#x1b0;&#x1ee3;t m&#x1b0;&#x1ee3;n :"/>
+            <Property name="text" type="java.lang.String" value="Total number of loans:"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -135,15 +135,15 @@ public class BookManagement extends javax.swing.JFrame {
 
         labelPhone1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPhone1.setForeground(new java.awt.Color(255, 255, 255));
-        labelPhone1.setText("Tác giả");
+        labelPhone1.setText("Author");
 
         labelEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelEmail.setForeground(new java.awt.Color(255, 255, 255));
-        labelEmail.setText("Tổng số lượng");
+        labelEmail.setText("Total quantity");
 
         labelPassWord.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPassWord.setForeground(new java.awt.Color(255, 255, 255));
-        labelPassWord.setText("Số lượng hiện có");
+        labelPassWord.setText("Quantity available");
 
         cbxCategory.addActionListener(this::cbxCategoryActionPerformed);
 
@@ -151,26 +151,26 @@ public class BookManagement extends javax.swing.JFrame {
 
         labelName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName.setForeground(new java.awt.Color(255, 255, 255));
-        labelName.setText("Tên sách");
+        labelName.setText("Book Name");
 
         labelRole.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelRole.setForeground(new java.awt.Color(255, 255, 255));
-        labelRole.setText("Thể loại");
+        labelRole.setText("Category");
 
         labelPhone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPhone.setForeground(new java.awt.Color(255, 255, 255));
-        labelPhone.setText("Năm xuất bản");
+        labelPhone.setText("Year of publication");
 
         btnXacNhan.setBackground(new java.awt.Color(0, 204, 204));
         btnXacNhan.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnXacNhan.setForeground(new java.awt.Color(255, 255, 255));
-        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.setText("Save");
         btnXacNhan.addActionListener(this::btnXacNhanActionPerformed);
 
         btnHuybo.setBackground(new java.awt.Color(0, 204, 204));
         btnHuybo.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnHuybo.setForeground(new java.awt.Color(255, 255, 255));
-        btnHuybo.setText("Hủy bỏ");
+        btnHuybo.setText("Cancel");
         btnHuybo.addActionListener(this::btnHuyboActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -183,12 +183,11 @@ public class BookManagement extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelPhone1)
-                            .addComponent(labelRole, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelPassWord, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(labelEmail)
-                                .addComponent(labelPhone)))
+                            .addComponent(labelPhone)
+                            .addComponent(labelRole, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelEmail)
+                            .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPublishYear)
@@ -248,7 +247,7 @@ public class BookManagement extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã sách", "Tên sách", "Tác giả", "Thể loại", "Năm xuất bản", "Tổng số lượng", "Số lượng hiện có"
+                "Book Code", "Book Name", "Author", "Category", "Year Of Publication", "Total Quantity", "Quantity available"
             }
         ) {
             Class[] types = new Class [] {
@@ -275,7 +274,7 @@ public class BookManagement extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Quản lý sách");
+        jLabel1.setText("Number of books available");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDisplayMouseClicked(evt);
@@ -287,12 +286,12 @@ public class BookManagement extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

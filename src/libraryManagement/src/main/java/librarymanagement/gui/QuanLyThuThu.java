@@ -85,7 +85,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/quanlythuthu.png"))); // NOI18N
-        jLabel1.setText("Quản lý thủ thư");
+        jLabel1.setText("Librarian Management");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,7 +93,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -109,27 +109,27 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         btnEdit.setBackground(new java.awt.Color(0, 204, 204));
         btnEdit.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
-        btnEdit.setText("Sửa");
+        btnEdit.setText("Edit");
         btnEdit.addActionListener(this::btnEditActionPerformed);
 
         btnAdd1.setBackground(new java.awt.Color(0, 204, 204));
         btnAdd1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         btnAdd1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd1.setText("Thêm");
+        btnAdd1.setText("Add");
         btnAdd1.addActionListener(this::btnAdd1ActionPerformed);
 
         btnDelete.setBackground(new java.awt.Color(0, 204, 204));
         btnDelete.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("Xoá");
+        btnDelete.setText("Delete");
         btnDelete.addActionListener(this::btnDeleteActionPerformed);
 
-        cbxSearchType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên thủ thư", "Mã thủ thư" }));
+        cbxSearchType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Librarian Name", "Librarian Code" }));
         cbxSearchType.addActionListener(this::cbxSearchTypeActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Danh sách thủ thư");
+        jLabel2.setText("List of librarians");
 
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -183,12 +183,12 @@ public class QuanLyThuThu extends javax.swing.JPanel {
             }
         });
 
-        btnSearch.setText("tìm");
+        btnSearch.setText("Search");
         btnSearch.setBorder(null);
         btnSearch.setBorderPainted(false);
         btnSearch.addActionListener(this::btnSearchActionPerformed);
 
-        btnCancelSearch.setText("Hủy");
+        btnCancelSearch.setText("Cancel");
         btnCancelSearch.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnCancelSearch.setBorderPainted(false);
         btnCancelSearch.setDefaultCapable(false);
@@ -196,7 +196,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Tìm kiếm");
+        jLabel3.setText("Search");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

@@ -64,7 +64,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Helvetica Neue", 1, 30)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("<html><center>CHÀO MỪNG BẠN ĐẾN VỚI<br>HỆ THỐNG QUẢN LÝ THƯ VIỆN</center></html>");
+        jLabel6.setText("<html><center>WELCOME TO<br>LIBRARY MANAGEMENT SYSTEM</center></html>");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -102,11 +102,11 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Đăng nhập");
+        jLabel1.setText("Login");
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel3.setText("Mật Khẩu :");
+        jLabel3.setText("Password:");
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtEmail.addActionListener(this::txtEmailActionPerformed);
@@ -118,7 +118,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel4.setText("Tài Khoản :");
+        jLabel4.setText("User Name:");
 
         txtPassWord.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtPassWord.addActionListener(this::txtPassWordActionPerformed);
@@ -131,7 +131,7 @@ public class LoginForm extends javax.swing.JFrame {
         btn_dangnhap.setBackground(new java.awt.Color(0, 102, 102));
         btn_dangnhap.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         btn_dangnhap.setForeground(new java.awt.Color(255, 255, 255));
-        btn_dangnhap.setText("Đăng Nhập");
+        btn_dangnhap.setText("Login");
         btn_dangnhap.addActionListener(this::btn_dangnhapActionPerformed);
 
         btnExit.setText("X");
