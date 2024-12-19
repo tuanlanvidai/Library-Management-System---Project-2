@@ -33,7 +33,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" pref="1065" max="-2" attributes="0"/>
-              <EmptySpace pref="228" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,7 +101,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel6" min="-2" pref="259" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel7" pref="259" max="32767" attributes="0"/>
+                      <Component id="jPanel7" pref="264" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -283,7 +283,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="77" max="32767" attributes="0"/>
+                          <EmptySpace pref="73" max="32767" attributes="0"/>
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                       </Group>
@@ -354,7 +354,7 @@
                           <Component id="txtTSoDocGia" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="109" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="112" max="32767" attributes="0"/>
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       </Group>
@@ -556,10 +556,10 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="4" rowCount="4">
-                            <Column editable="true" title="M&#xe3; s&#xe1;ch" type="java.lang.String"/>
-                            <Column editable="true" title="T&#xea;n S&#xe1;ch" type="java.lang.String"/>
-                            <Column editable="true" title="T&#xe1;c Gi&#x1ea3; " type="java.lang.String"/>
-                            <Column editable="true" title="N&#x103;m xu&#x1ea5;t b&#x1ea3;n" type="java.lang.Integer"/>
+                            <Column editable="true" title="Book Id" type="java.lang.String"/>
+                            <Column editable="true" title="Book Name" type="java.lang.String"/>
+                            <Column editable="true" title="Author" type="java.lang.String"/>
+                            <Column editable="true" title="Year of Publication" type="java.lang.Integer"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -606,11 +606,11 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="5" rowCount="4">
-                        <Column editable="true" title="M&#xe3; &#x111;&#x1ed9;c gi&#x1ea3;" type="java.lang.Integer"/>
-                        <Column editable="true" title="M&#xe3; s&#xe1;ch" type="java.lang.Integer"/>
-                        <Column editable="true" title="M&#xe3; phi&#x1ebf;u m&#x1b0;&#x1ee3;n" type="java.lang.Integer"/>
-                        <Column editable="true" title="Qu&#xe1; h&#x1ea1;n(ng&#xe0;y)" type="java.lang.String"/>
-                        <Column editable="true" title="Ti&#x1ec1;n ph&#x1ea1;t" type="java.lang.Integer"/>
+                        <Column editable="true" title="Reader Id" type="java.lang.Integer"/>
+                        <Column editable="true" title="Book Id" type="java.lang.Integer"/>
+                        <Column editable="true" title="Borrow Id" type="java.lang.Integer"/>
+                        <Column editable="true" title="Overdue(Date)" type="java.lang.String"/>
+                        <Column editable="true" title="Fine Money" type="java.lang.Integer"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

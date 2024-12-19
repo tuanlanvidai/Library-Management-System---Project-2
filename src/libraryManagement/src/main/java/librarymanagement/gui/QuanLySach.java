@@ -129,7 +129,7 @@ public class QuanLySach extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã sách", "Tên sách", "Tác giả", "Thể loại", "Năm xuất bản", "Tổng số lượng", "Số lượng hiện có"
+                "Book Id", "Book Name", "Author", "Genre", "Year Of Publication", "Total Quantity", "Available Quantity"
             }
         ));
         jScrollPane1.setViewportView(tblQuanLySach);
@@ -205,7 +205,7 @@ public class QuanLySach extends javax.swing.JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
     String query = txtQuery.getText().trim();
     if (query.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin để tìm kiếm.");
+        JOptionPane.showMessageDialog(null, "Please enter search information.","Error",JOptionPane.ERROR_MESSAGE);
         btnCancelSearch.setVisible(false); 
         return;
     }
@@ -218,7 +218,7 @@ public class QuanLySach extends javax.swing.JPanel {
                 dao.addDataFromSearch(books, model, tblQuanLySach); 
                 btnCancelSearch.setVisible(true); 
             } else {
-                JOptionPane.showMessageDialog(null, "Không tìm thấy sách với ID: " + bookId);
+                JOptionPane.showMessageDialog(null, "can't find book with ID: " + bookId);
                 btnCancelSearch.setVisible(false); 
             }
         } else {
@@ -228,12 +228,12 @@ public class QuanLySach extends javax.swing.JPanel {
                 dao.addDataFromSearch(books, model, tblQuanLySach);  
                 btnCancelSearch.setVisible(true);  
             } else {
-                JOptionPane.showMessageDialog(null, "Không tìm thấy sách với tên: " + query);
+                JOptionPane.showMessageDialog(null, "can't find book with name: " + query);
                 btnCancelSearch.setVisible(false);  
             }
         }
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Có lỗi khi tìm kiếm sách.");
+        JOptionPane.showMessageDialog(null, "Error when searching for book.");
     }
 
 
@@ -245,37 +245,37 @@ public class QuanLySach extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelSearchActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        BookManagement manage = new BookManagement("Thêm ");
+        BookManagement manage = new BookManagement("Add ");
         manage.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        BookManagement manage = new BookManagement("Sửa ");
+        BookManagement manage = new BookManagement("Edit ");
         manage.setVisible(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
                 int row = tblQuanLySach.getSelectedRow();
     if (row == -1) {
-        JOptionPane.showMessageDialog(null, "Vui lòng chọn một sách để xóa.");
+        JOptionPane.showMessageDialog(null, "Please choose a book to Delete.");
         return;
     }
     int column = 0;
     int id = Integer.parseInt(String.valueOf(tblQuanLySach.getModel().getValueAt(row, column)));
     int confirm = JOptionPane.showConfirmDialog(
         null, 
-        "Bạn có chắc chắn muốn xóa sách này không?", 
-        "Xác nhận xóa", 
+        "Do you want to delete?", 
+        "Confirm Deletion", 
         JOptionPane.YES_NO_OPTION, 
         JOptionPane.WARNING_MESSAGE
     );
     if (confirm == JOptionPane.YES_OPTION) {
         if (dao.deleteBook(id)) {
-            JOptionPane.showMessageDialog(null, "Xóa sách thành công!");
+            JOptionPane.showMessageDialog(null, "Book Deleted!");
             dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach); // Cập nhật bảng sau khi xóa
         } else {
-            JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi xóa sách. Vui lòng thử lại.");
+            JOptionPane.showMessageDialog(null, "Error when delete book. Please try again.");
         }
     }
 

@@ -242,12 +242,12 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="4">
-                    <Column editable="false" title="M&#xe3; th&#x1ee7; th&#x1b0;" type="java.lang.Integer"/>
-                    <Column editable="false" title="T&#xea;n" type="java.lang.String"/>
-                    <Column editable="false" title="Vai tr&#xf2;" type="java.lang.String"/>
-                    <Column editable="false" title="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i" type="java.lang.String"/>
+                    <Column editable="false" title="Librarian Id" type="java.lang.Integer"/>
+                    <Column editable="false" title="Name" type="java.lang.String"/>
+                    <Column editable="false" title="Role" type="java.lang.String"/>
+                    <Column editable="false" title="Phone" type="java.lang.String"/>
                     <Column editable="false" title="Email" type="java.lang.String"/>
-                    <Column editable="false" title="m&#x1ead;t kh&#x1ea9;u" type="java.lang.String"/>
+                    <Column editable="false" title="Password" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

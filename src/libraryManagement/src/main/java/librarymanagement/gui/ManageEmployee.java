@@ -4,15 +4,12 @@
  */
 package librarymanagement.gui;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import librarymanagement.dao.EmployeeDAO;
 import librarymanagement.gui.QuanLyThuThu;
 import librarymanagement.pojo.Employee;
@@ -53,11 +50,11 @@ public class ManageEmployee extends javax.swing.JFrame {
     public ManageEmployee(String type) {
         initComponents();
         keyword = type;
-        Title.setText(type + "Thủ Thư");
+        Title.setText(type + "Librarian");
         dao = new EmployeeDAO();
         AddItemToCBX();
         dao.addDataFromDB(model, tblDisplay);
-        if (keyword.equals("Sửa ")) {
+        if (keyword.equals("Edit ")) {
             if (employee!=null) {
                 txtId.setText(String.valueOf(employee.getId()));
                 txtName.setText(employee.getName());
@@ -200,7 +197,7 @@ public class ManageEmployee extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã thủ thư", "Tên thủ thư", "Vai trò", "Số điện thoại"
+                "Librarian Id", "Librarian Name", "Role", "Phone"
             }
         ) {
             Class[] types = new Class [] {
@@ -337,18 +334,18 @@ public class ManageEmployee extends javax.swing.JFrame {
                 || txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty()
                 || txtName.getText().isEmpty() && txtEmail.getText().isEmpty()
                 || txtPassword.getText().isEmpty() && txtPhone.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui Lòng nhập đầy đủ thông tin");
+            JOptionPane.showMessageDialog(null, "Please enter all the required information.");
         } else if (txtName.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui Lòng nhập tên thủ thư");
+            JOptionPane.showMessageDialog(null, "Please enter Librarian Name");
         } else if (txtPhone.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập vào số điện thoại");
+            JOptionPane.showMessageDialog(null, "Please enter Phone");
         } else if (txtEmail.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập vào Email");
+            JOptionPane.showMessageDialog(null, "Please enter Email");
         } else if (txtPassword.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập vào mật khẩu");
+            JOptionPane.showMessageDialog(null, "Please enter Password");
         } 
         else if(!matcher.matches()){
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đúng định dạng email");
+            JOptionPane.showMessageDialog(null, "Please Check Your Email Format");
         }
 //confirm btn handle
         else {
@@ -360,13 +357,13 @@ public class ManageEmployee extends javax.swing.JFrame {
             int id = 0;
             Employee employee = new Employee(name, role, phone, email, password);
             switch (keyword) {
-                case "Thêm ":
+                case "Add ":
                     if (dao.addEmployee(employee) == true) {
                         dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
                         dao.addDataFromDB(model, tblDisplay);
                     }
                     break;
-                case "Sửa ":
+                case "Edit ":
                     id = Integer.parseInt(txtId.getText());
                     employee.setId(id);
                     if (dao.editEmployee(employee) == true) {
@@ -397,7 +394,7 @@ public class ManageEmployee extends javax.swing.JFrame {
 
     private void tblDisplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked
         // get data from table
-        if (keyword.equals("Sửa ")) {
+        if (keyword.equals("Edit ")) {
             int row = tblDisplay.getSelectedRow();
             int colum = 0;
             int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
@@ -444,25 +441,49 @@ public class ManageEmployee extends javax.swing.JFrame {
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         // focus
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        String email = txtEmail.getText();
+        Matcher matcher = pattern.matcher(email);
+        if (txtName.getText().isEmpty() && txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty()
+                || txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtPhone.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtEmail.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtPhone.getText().isEmpty() || txtEmail.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtPhone.getText().isEmpty() && txtPassword.getText().isEmpty()
+                || txtPhone.getText().isEmpty() && txtEmail.getText().isEmpty()
+                || txtName.getText().isEmpty() && txtEmail.getText().isEmpty()
+                || txtPassword.getText().isEmpty() && txtPhone.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter all the required information.");
+        } else if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter Librarian Name");
+        } else if (txtPhone.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter Phone");
+        } else if (txtEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter Email");
+        } else if (txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter Password");
+        } 
+        else if(!matcher.matches()){
+            JOptionPane.showMessageDialog(null, "Please Check Your Email Format");
+        }
+//confirm btn handle
+        else {
             String name = txtName.getText();
             String role = cbxRole.getSelectedItem().toString();
-            String email = txtEmail.getText();
+            email = txtEmail.getText();
             String phone = txtPhone.getText();
             String password = txtPassword.getText();
             int id = 0;
             Employee employee = new Employee(name, role, phone, email, password);
             switch (keyword) {
-                case "Thêm ":
+                case "Add ":
                     if (dao.addEmployee(employee) == true) {
                         dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
                         dao.addDataFromDB(model, tblDisplay);
                     }
                     break;
-                case "Sửa ":
-                    if(!String.valueOf(txtId.getText()).isEmpty()){
-                        id = Integer.parseInt(txtId.getText());
-                    }
+                case "Edit ":
+                    id = Integer.parseInt(txtId.getText());
                     employee.setId(id);
                     if (dao.editEmployee(employee) == true) {
                         dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
@@ -470,7 +491,6 @@ public class ManageEmployee extends javax.swing.JFrame {
                     }
                     ;
                     break;
-
                 default:
                     throw new AssertionError();
             }

@@ -215,7 +215,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addComponent(txtSachQHan)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
+                .addContainerGap(73, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addGap(79, 79, 79))
         );
@@ -254,7 +254,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addGap(45, 45, 45)
                 .addComponent(txtTSoDocGia))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(0, 109, Short.MAX_VALUE)
+                .addGap(0, 112, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addGap(60, 60, 60))
         );
@@ -285,7 +285,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,7 +341,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Mã sách", "Tên Sách", "Tác Giả ", "Năm xuất bản"
+                "Book Id", "Book Name", "Author", "Year of Publication"
             }
         ) {
             Class[] types = new Class [] {
@@ -383,7 +383,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Mã độc giả", "Mã sách", "Mã phiếu mượn", "Quá hạn(ngày)", "Tiền phạt"
+                "Reader Id", "Book Id", "Borrow Id", "Overdue(Date)", "Fine Money"
             }
         ) {
             Class[] types = new Class [] {
@@ -459,7 +459,7 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1065, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

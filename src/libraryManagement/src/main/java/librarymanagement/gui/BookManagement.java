@@ -31,7 +31,7 @@ public class BookManagement extends javax.swing.JFrame {
     public BookManagement(String type) {
         initComponents();
         keyword = type;
-        Title.setText(type + "" + "sách");
+        Title.setText(type + "" + "Book");
         dao = new QuanLySachDAO();
         AddItemToCBX();
         dao.addDataToTable(model, tblDisplay);  
@@ -247,7 +247,7 @@ public class BookManagement extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Book Code", "Book Name", "Author", "Category", "Year Of Publication", "Total Quantity", "Quantity available"
+                "Book Id", "Book Name", "Author", "Category", "Year Of Publication", "Total Quantity", "Quantity available"
             }
         ) {
             Class[] types = new Class [] {
@@ -351,17 +351,17 @@ public class BookManagement extends javax.swing.JFrame {
             || txtTitle.getText().isEmpty() && txtPublishYear.getText().isEmpty()
             || txtTotalQuantity.getText().isEmpty() && txtPublishYear.getText().isEmpty()
             || txtAvailableQuantity.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+        JOptionPane.showMessageDialog(null, "Please enter all the require information");
     } else if (txtTitle.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập tên sách");
+        JOptionPane.showMessageDialog(null, "Please enter book name");
     } else if (txtAuthor.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập tên tác giả");
+        JOptionPane.showMessageDialog(null, "Please enter Author Name");
     } else if (txtPublishYear.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập năm xuất bản");
+        JOptionPane.showMessageDialog(null, "Please Enter Year of Publication");
     } else if (txtTotalQuantity.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập số lượng tổng");
+        JOptionPane.showMessageDialog(null, "Please enter total quantity");
     } else if (txtAvailableQuantity.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập số lượng hiện có");
+        JOptionPane.showMessageDialog(null, "Please enter availble quantity");
     } // Confirm action handling
     else {
         String title = txtTitle.getText().trim();
@@ -373,23 +373,23 @@ public class BookManagement extends javax.swing.JFrame {
 
         QuanLySachPOJO book = new QuanLySachPOJO(title, author, category, publishYear, totalQuantity, availableQty);
         switch (keyword) {
-            case "Thêm ":
+            case "Add ":
                 if (dao.isBookDuplicate(title)) { // Kiểm tra trùng tên sách khi thêm
-                    JOptionPane.showMessageDialog(null, "Tên sách đã tồn tại, vui lòng nhập lại!");
+                    JOptionPane.showMessageDialog(null, "Book already exist, please enter again!");
                     return;
                 }
                 if (dao.addBook(book)) {
                     dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
                     dao.addDataToTable(model, tblDisplay);
-                    JOptionPane.showMessageDialog(null, "Đã thêm sách thành công!");
+                    JOptionPane.showMessageDialog(null, "Book add successfully!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Có lỗi khi thêm sách.");
+                    JOptionPane.showMessageDialog(null, "Error when add book.");
                 }
                 break;
-            case "Sửa ":
+            case "Edit ":
                 int selectedRow = tblDisplay.getSelectedRow();
                 if (selectedRow == -1) {
-                    JOptionPane.showMessageDialog(null, "Vui lòng chọn cuốn sách cần chỉnh sửa.");
+                    JOptionPane.showMessageDialog(null, "Please choose the book you want to edit");
                     return;
                 }
                 DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
@@ -398,9 +398,9 @@ public class BookManagement extends javax.swing.JFrame {
                 if (dao.editBook(book)) {
                     dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
                     dao.addDataToTable(model, tblDisplay);
-                    JOptionPane.showMessageDialog(null, "Sách đã được cập nhật thành công!");
+                    JOptionPane.showMessageDialog(null, "Book update successfully!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật sách.");
+                    JOptionPane.showMessageDialog(null, "Error when update book.");
                 }
                 break;
             default:

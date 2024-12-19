@@ -38,7 +38,7 @@ public class BaoCao extends javax.swing.JPanel {
     private void addMonthList() {
         Month month = Month.JANUARY;
         Boolean stop = false;
-        cbxMonth.addItem("Chọn Tháng");
+        cbxMonth.addItem("Choose Month");
         while (!stop) {
             cbxMonth.addItem(month.toString());
             if (month.equals(Month.DECEMBER)) {
@@ -278,7 +278,7 @@ public class BaoCao extends javax.swing.JPanel {
 
         // Nếu người dùng chọn ngày, tìm theo ngày
         if (selectedDate != null && selectedMonth > 0) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chỉ chọn 1 mục");
+            JOptionPane.showMessageDialog(null, "Please Only Choose 1 section");
             cbxMonth.setSelectedIndex(0);
             con = false;
         }
@@ -290,7 +290,7 @@ public class BaoCao extends javax.swing.JPanel {
             else if (selectedMonth > 0) {
                 baoCa0List = baoCaoDAO.getBaoCaoByDate(null, selectedMonth);  // Tìm kiếm theo tháng
             } else {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày hoặc tháng để tìm kiếm", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please choose date or month to search", "Notification", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
@@ -309,7 +309,7 @@ public class BaoCao extends javax.swing.JPanel {
                     });
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Không có kết quả", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Result", "Notification", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed

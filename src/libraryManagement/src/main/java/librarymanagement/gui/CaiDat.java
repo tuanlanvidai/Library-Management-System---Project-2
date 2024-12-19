@@ -48,7 +48,7 @@ public class CaiDat extends javax.swing.JPanel {
             loadSettings();
             loadTheLoai();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Database Connection Error: " + e.getMessage());
         }
     }
 
@@ -62,17 +62,17 @@ public class CaiDat extends javax.swing.JPanel {
                 lostBookFee_txt.setText(String.valueOf(setting.getLostBookFee()));
                 maxBooksBorrowed_txt.setText(String.valueOf(setting.getMaxBooksBorrowed()));
             } else {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu cài đặt!");
+                JOptionPane.showMessageDialog(this, "Setting data not found!");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error Loading Data: " + e.getMessage());
         }
     }
 
     private void loadTheLoai() {
         try {
             List<String> theLoaiList = theLoaiDAO.getAllTheLoai();
-            DefaultTableModel model = new DefaultTableModel(new String[]{"Tên thể loại"}, 0);
+            DefaultTableModel model = new DefaultTableModel(new String[]{"Genre Name"}, 0);
             categoryTbl.setModel(model);
             model.setRowCount(0); // Xóa dữ liệu cũ trên bảng
 
@@ -80,7 +80,7 @@ public class CaiDat extends javax.swing.JPanel {
                 model.addRow(new Object[]{theLoai});
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi tải danh sách thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error Loading Genre List: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -269,7 +269,7 @@ public class CaiDat extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +348,7 @@ public class CaiDat extends javax.swing.JPanel {
                 {null}
             },
             new String [] {
-                "Tên thể loại"
+                "Genre Name"
             }
         ));
         jScrollPane1.setViewportView(categoryTbl);
@@ -502,7 +502,7 @@ public class CaiDat extends javax.swing.JPanel {
                     || lostBookFee_txt.getText().trim().isEmpty()) {
 
                 // Hiển thị lỗi nếu bất kỳ ô nào bị trống
-                JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ tất cả các trường!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter All Field!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -520,13 +520,13 @@ public class CaiDat extends javax.swing.JPanel {
             loadSettings();
 
             // Thông báo thành công
-            JOptionPane.showMessageDialog(this, "Cập nhật cài đặt thành công!");
+            JOptionPane.showMessageDialog(this, "Update Setting Successfully!");
         } catch (NumberFormatException ex) {
             // Xử lý lỗi khi nhập không phải số
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter the correct number format!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             // Xử lý lỗi kết nối cơ sở dữ liệu
-            JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error when update data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_settingSaveBtnActionPerformed
 
@@ -539,15 +539,15 @@ public class CaiDat extends javax.swing.JPanel {
             String newTheLoai = categoryName_txt.getText().trim();
 
             if (newTheLoai.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter Genre Name!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             theLoaiDAO.addTheLoai(newTheLoai); // Thêm thể loại vào cơ sở dữ liệu
             loadTheLoai(); // Cập nhật lại bảng
-            JOptionPane.showMessageDialog(this, "Thêm thể loại thành công!");
+            JOptionPane.showMessageDialog(this, "Genre add successfully!");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi thêm thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error when add genre: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_addCategoryActionPerformed
 
@@ -560,7 +560,7 @@ public class CaiDat extends javax.swing.JPanel {
             int selectedRow = categoryTbl.getSelectedRow();
 
             if (selectedRow == -1) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần sửa!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please choose genre you want to edit!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -568,15 +568,15 @@ public class CaiDat extends javax.swing.JPanel {
             String newName = categoryName_txt.getText().trim(); // Tên thể loại mới
 
             if (newName.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại mới!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter new genre name!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             theLoaiDAO.updateTheLoai(oldName, newName); // Cập nhật trong cơ sở dữ liệu
             loadTheLoai(); // Cập nhật lại bảng
-            JOptionPane.showMessageDialog(this, "Sửa thể loại thành công!");
+            JOptionPane.showMessageDialog(this, "Genre edit successfully!");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi sửa thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error when edit genre: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editCategoryActionPerformed
 
@@ -587,7 +587,7 @@ public class CaiDat extends javax.swing.JPanel {
 
             // Kiểm tra xem có dòng nào được chọn không
             if (selectedRow == -1) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần xóa!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please choose the genre you want to delete!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -601,10 +601,10 @@ public class CaiDat extends javax.swing.JPanel {
             loadTheLoai();
 
             // Hiển thị thông báo thành công
-            JOptionPane.showMessageDialog(this, "Xóa thể loại thành công!");
+            JOptionPane.showMessageDialog(this, "Genre delete successfully!");
         } catch (SQLException e) {
             // Xử lý lỗi khi xóa
-            JOptionPane.showMessageDialog(this, "Lỗi khi xóa thể loại: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error when delete genre: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_deleteCategoryActionPerformed
 
@@ -635,14 +635,14 @@ public class CaiDat extends javax.swing.JPanel {
                 p = run.exec(txt);
                 int ProcessComplete = p.waitFor();
                 if (ProcessComplete == 0) {
-                    JOptionPane.showMessageDialog(null, "Sao lưu thành công");
+                    JOptionPane.showMessageDialog(null, "Back up successfully");
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "Lỗi");
+                    JOptionPane.showMessageDialog(null, "Error");
                 }
             }
             else{
-                    JOptionPane.showMessageDialog(null, "Vui lòng chọn đường dẫn cho file sao lưu");
+                    JOptionPane.showMessageDialog(null, "Please select the path you want to put backup file");
                 }
         } catch (Exception e) {
         }

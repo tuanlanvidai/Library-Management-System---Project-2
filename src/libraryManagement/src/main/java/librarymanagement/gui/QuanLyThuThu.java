@@ -139,7 +139,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã thủ thư", "Tên", "Vai trò", "Số điện thoại", "Email", "mật khẩu"
+                "Librarian Id", "Name", "Role", "Phone", "Email", "Password"
             }
         ) {
             Class[] types = new Class [] {
@@ -268,7 +268,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
 
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
         // TODO add your handling code here:
-        ManageEmployee manage = new ManageEmployee("Thêm ");
+        ManageEmployee manage = new ManageEmployee("Add ");
         manage.setVisible(true);
     }//GEN-LAST:event_btnAdd1ActionPerformed
 
@@ -283,7 +283,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
                 ManageEmployee.employee = employee;
             }
 
-            ManageEmployee manage = new ManageEmployee("Sửa ");
+            ManageEmployee manage = new ManageEmployee("Edit ");
             manage.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -294,18 +294,25 @@ public class QuanLyThuThu extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblEmployee.getSelectedRow();
         int column = 0;
-        int id=0;
-         id = Integer.parseInt(String.valueOf(tblEmployee.getModel().getValueAt(row, column)));
-        if (id != 0) {
-           if( dao.deleteEmployee(id)){
-                dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
-           }
-           else{
-               JOptionPane.showMessageDialog(null, "Không thể xóa admin");
-           }
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản để xóa");
+        int id = 0;
+        id = Integer.parseInt(String.valueOf(tblEmployee.getModel().getValueAt(row, column)));
+        int confirm = JOptionPane.showConfirmDialog(
+                null,
+                "Do you want to delete that Librarian ?",
+                "Confirm Deletion",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (id != 0) {
+                if (dao.deleteEmployee(id)) {
+                    dao.addDataFromDB(QuanLyThuThu.model, QuanLyThuThu.tblEmployee);
+                } else {
+                    JOptionPane.showMessageDialog(null, "You can't Delete Admin");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please choose Librarian to Delete");
+            }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 

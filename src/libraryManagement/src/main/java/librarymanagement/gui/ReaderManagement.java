@@ -31,7 +31,7 @@ public class ReaderManagement extends javax.swing.JFrame {
     public ReaderManagement(String type) {
         initComponents();
         keyword = type;
-        Title.setText(type + "" + "độc giả");
+        Title.setText(type + "" + "Reader");
         dao = new QuanLyDocGiaDAO();
         model = (DefaultTableModel) tblDisplay.getModel();
         dao.addDataToTable(model, tblDisplay); 
@@ -159,7 +159,7 @@ public class ReaderManagement extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã độc giả", "Tên độc giả", "Địa chỉ", "Điện thoại", "Email", "Ngày đăng ký"
+                "Reader Id", "Reader Name", "Adress", "Phone", "Email", "Register Day"
             }
         ) {
             Class[] types = new Class [] {
@@ -291,13 +291,13 @@ String address = txtAddress.getText();
 String phone = txtPhone.getText();
 String email = txtEmail.getText();
 if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Tất cả các trường đều là bắt buộc.");
+    JOptionPane.showMessageDialog(null, "All fields are mandatory.");
     return;
 }
 
 try {
     QuanLyDocGia reader;
-    if (keyword.equals("Thêm ")) {
+    if (keyword.equals("Add ")) {
         Date date = txtRegisterDay.getDate();
         String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
         reader = new QuanLyDocGia(name, address, phone, email, registerDay, false);
@@ -306,14 +306,14 @@ try {
         if (dao.addReader(reader)) {
             dao.addDataToTable(model, tblDisplay);
             dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
-            JOptionPane.showMessageDialog(null, "Thêm độc giả thành công!");
+            JOptionPane.showMessageDialog(null, "add Reader Success!");
         } else {
-            JOptionPane.showMessageDialog(null, "Thêm độc giả thất bại.");
+            JOptionPane.showMessageDialog(null, "Failed to Add Reader.");
         }
-    } else if (keyword.equals("Sửa ")) {
+    } else if (keyword.equals("Edit ")) {
         int selectedRow = tblDisplay.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn độc giả cần chỉnh sửa.");
+            JOptionPane.showMessageDialog(null, "Please Choose a Reader to Edit.");
             return;
         }
         int readerId = (int) model.getValueAt(selectedRow, 0); // Lấy ID từ cột đầu tiên của bảng
@@ -325,15 +325,15 @@ try {
         if (dao.editReader(reader)) {
             dao.addDataToTable(model, tblDisplay);
             dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
-            JOptionPane.showMessageDialog(null, "Chỉnh sửa thành công!");
+            JOptionPane.showMessageDialog(null, "Edit Successfully!");
         } else {
-            JOptionPane.showMessageDialog(null, "Chỉnh sửa thất bại.");
+            JOptionPane.showMessageDialog(null, "Edit Failed.");
         }
     }
 } catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(null, "Đầu vào không hợp lệ. Vui lòng kiểm tra lại mục nhập của bạn.");
+    JOptionPane.showMessageDialog(null, "Input Invalid. Please Check your input.");
 } catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi không mong muốn.");
+    JOptionPane.showMessageDialog(null, "An Unexpected error has occurred.");
     e.printStackTrace();
 }
 
