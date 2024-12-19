@@ -126,17 +126,17 @@ public class ReaderManagement extends javax.swing.JFrame {
 
         labelPhone1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPhone1.setForeground(new java.awt.Color(255, 255, 255));
-        labelPhone1.setText("Địa chỉ");
+        labelPhone1.setText("Address");
 
         labelRole.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelRole.setForeground(new java.awt.Color(255, 255, 255));
-        labelRole.setText("Điện thoại");
+        labelRole.setText("Phone");
 
         txtPhone.addActionListener(this::txtPhoneActionPerformed);
 
         labelPhone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPhone.setForeground(new java.awt.Color(255, 255, 255));
-        labelPhone.setText("Ngày đăng ký");
+        labelPhone.setText("Registration date");
 
         labelRole1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelRole1.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,7 +186,7 @@ public class ReaderManagement extends javax.swing.JFrame {
 
         labelName1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelName1.setForeground(new java.awt.Color(255, 255, 255));
-        labelName1.setText("Tên độc giả");
+        labelName1.setText("Reader Name");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
