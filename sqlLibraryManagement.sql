@@ -51,7 +51,7 @@ CREATE TABLE BorrowBook (
 );
 
 CREATE TABLE ReturnBook (
-    returnId INT PRIMARY KEY,
+    returnId INT PRIMARY KEY AUTO_INCREMENT,
     borrowId INT,
     returnDate DATE NOT NULL,
     statusId INT,
