@@ -30,7 +30,9 @@ public class BaoCao extends javax.swing.JPanel {
         initComponents();
         baoCaoDAO = new BaoCaoDAO();
         baoCa0List = new ArrayList<>();
+        baoCa0List = baoCaoDAO.getAllBaoCao();
         model = (DefaultTableModel) tblBaoCao.getModel();
+        addDatatoTable();
         addMonthList();
         loadSummary();
     }
@@ -45,6 +47,22 @@ public class BaoCao extends javax.swing.JPanel {
                 stop = true;
             }
             month = month.plus(1);
+        }
+    }
+
+    private void addDatatoTable() {
+        model.setRowCount(0);  // Xóa dữ liệu cũ trong bảng
+        model = (DefaultTableModel) tblBaoCao.getModel();
+
+        // Thêm các dữ liệu mới vào bảng
+        for (BaoCa0 baoCa0 : baoCa0List) {
+            model.addRow(new Object[]{
+                baoCa0.getName(), // Tên người mượn
+                baoCa0.getBookName(), // Tên sách
+                baoCa0.getStatus(), // Trạng thái
+                baoCa0.getExDates(), // Số ngày quá hạn
+                baoCa0.getValues() // Giá trị (tiền phạt)
+            });
         }
     }
 
@@ -282,6 +300,11 @@ public class BaoCao extends javax.swing.JPanel {
             cbxMonth.setSelectedIndex(0);
             con = false;
         }
+        else if(selectedDate==null&&selectedMonth==0){
+            con =  false;
+            baoCa0List=baoCaoDAO.getAllBaoCao();
+            addDatatoTable();
+        }
         if (con) {
             if (selectedDate != null) {
                 java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
@@ -296,18 +319,7 @@ public class BaoCao extends javax.swing.JPanel {
 
             // Cập nhật bảng nếu có dữ liệu
             if (baoCa0List != null && !baoCa0List.isEmpty()) {
-                model.setRowCount(0);  // Xóa dữ liệu cũ trong bảng
-
-                // Thêm các dữ liệu mới vào bảng
-                for (BaoCa0 baoCa0 : baoCa0List) {
-                    model.addRow(new Object[]{
-                        baoCa0.getName(), // Tên người mượn
-                        baoCa0.getBookName(), // Tên sách
-                        baoCa0.getStatus(), // Trạng thái
-                        baoCa0.getExDates(), // Số ngày quá hạn
-                        baoCa0.getValues() // Giá trị (tiền phạt)
-                    });
-                }
+                addDatatoTable();
             } else {
                 JOptionPane.showMessageDialog(this, "No Result", "Notification", JOptionPane.INFORMATION_MESSAGE);
             }

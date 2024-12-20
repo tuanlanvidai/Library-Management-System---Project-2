@@ -19,8 +19,9 @@ import librarymanagement.pojo.BaoCa0;
  * @author CuongVu
  */
 public class BaoCaoDAO {    //Khai báo phương thức. Ngày cụ thể hoặc Tháng cụ thể  để lọc theo ngày trả sách
+    List<BaoCa0> baoCa0List;
     public List<BaoCa0> getBaoCaoByDate(java.sql.Date selectedDate, int selectedMonth) {
-    List<BaoCa0> baoCa0List = new ArrayList<>();
+    baoCa0List = new ArrayList<>();
     
     String sql = "SELECT b.title AS 'BookName', " + 
                  "       r.name AS 'Name', " +
@@ -90,5 +91,39 @@ public class BaoCaoDAO {    //Khai báo phương thức. Ngày cụ thể hoặc
         }
 
         return totalBooks;
+    }
+    public List<BaoCa0> getAllBaoCao(){
+        baoCa0List = new ArrayList<>();
+        String sql = "SELECT b.title AS 'BookName', " + 
+                 "       r.name AS 'Name', " +
+                 "       s.statusName AS 'Status', " + 
+                 "       rf.lateDays AS 'ExDates', " + 
+                 "       rf.fineMoney AS 'Values' " + 
+                 "FROM Book b " + 
+                 "JOIN BorrowBook bb ON b.bookId = bb.bookId " +
+                 "JOIN ReturnBook rt ON bb.borrowId = rt.borrowId " + 
+                 "JOIN BookStatus s ON rt.statusId = s.statusId " + 
+                 "JOIN ReturnFine rf ON rt.returnId = rf.returnId " + 
+                 "JOIN Reader r ON bb.readerId = r.readerId " + 
+                 "WHERE rf.isDeleted = 0 AND rt.isDeleted = 0 ";
+        sql += "ORDER BY r.name ASC;"; 
+        try (Connection con = DriverManager.getConnection(ConfigUtils.dbConnect, ConfigUtils.username, ConfigUtils.password);
+         PreparedStatement stmt = con.prepareStatement(sql)) {
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String bookName = rs.getString(1);
+            String name = rs.getString(2);
+            String status = rs.getString(3);
+            int exDates = rs.getInt(4);
+            double values = rs.getDouble(5);  // Sử dụng double đúng cách
+
+            BaoCa0 baoCa0 = new BaoCa0(name, bookName, status, exDates, (int) values);
+            baoCa0List.add(baoCa0);
+        }
+    } catch (SQLException e) {
+            System.out.println(e);
+    }
+        return baoCa0List;
     }
 }
