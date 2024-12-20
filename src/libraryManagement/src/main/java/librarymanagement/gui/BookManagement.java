@@ -6,25 +6,25 @@ package librarymanagement.gui;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;  
-import javax.swing.table.DefaultTableModel;  
-import librarymanagement.dao.QuanLySachDAO;  
-import librarymanagement.pojo.QuanLySachPOJO;    
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import librarymanagement.dao.QuanLySachDAO;
+import librarymanagement.pojo.QuanLySachPOJO;
 
 /**
  *
  * @author hoangvu
  */
 public class BookManagement extends javax.swing.JFrame {
-    
+
     QuanLySachDAO dao;
     String keyword;
     private DefaultTableModel model;
-    
+
     public BookManagement() {
         initComponents();
         dao = new QuanLySachDAO();
-        model = (DefaultTableModel) tblDisplay.getModel(); 
+        model = (DefaultTableModel) tblDisplay.getModel();
         dao.addDataToTable(model, tblDisplay);
     }
 
@@ -34,21 +34,20 @@ public class BookManagement extends javax.swing.JFrame {
         Title.setText(type + "" + "Book");
         dao = new QuanLySachDAO();
         AddItemToCBX();
-        dao.addDataToTable(model, tblDisplay);  
+        dao.addDataToTable(model, tblDisplay);
     }
-    
-    public void emptyInp() {
-    txtTitle.setText("");
-    txtAuthor.setText("");
-    txtPublishYear.setText("");
-    txtTotalQuantity.setText("");
-    txtAvailableQuantity.setText("");
-    cbxCategory.setSelectedIndex(0);
-}
 
+    public void emptyInp() {
+        txtTitle.setText("");
+        txtAuthor.setText("");
+        txtPublishYear.setText("");
+        txtTotalQuantity.setText("");
+        txtAvailableQuantity.setText("");
+        cbxCategory.setSelectedIndex(0);
+    }
 
     private void AddItemToCBX() {
-         List<String> item = dao.getCategoryNames(); 
+        List<String> item = dao.getCategoryNames();
         for (int i = 0; i < item.size(); i++) {
             cbxCategory.addItem(item.get(i));
         }
@@ -340,74 +339,74 @@ public class BookManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyboActionPerformed
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-            if (txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty() && txtAvailableQuantity.getText().isEmpty()
-            || txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty()
-            || txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
-            || txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
-            || txtTitle.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
-            || txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() || txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
-            || txtTitle.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
-            || txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty()
-            || txtTitle.getText().isEmpty() && txtPublishYear.getText().isEmpty()
-            || txtTotalQuantity.getText().isEmpty() && txtPublishYear.getText().isEmpty()
-            || txtAvailableQuantity.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please enter all the require information");
-    } else if (txtTitle.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please enter book name");
-    } else if (txtAuthor.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please enter Author Name");
-    } else if (txtPublishYear.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please Enter Year of Publication");
-    } else if (txtTotalQuantity.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please enter total quantity");
-    } else if (txtAvailableQuantity.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please enter availble quantity");
-    } // Confirm action handling
-    else {
-        String title = txtTitle.getText().trim();
-        String author = txtAuthor.getText().trim();
-        String category = cbxCategory.getSelectedItem().toString().trim();
-        int publishYear = Integer.parseInt(txtPublishYear.getText().trim());
-        int totalQuantity = Integer.parseInt(txtTotalQuantity.getText().trim());
-        int availableQty = Integer.parseInt(txtAvailableQuantity.getText().trim());
+        if (txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty() && txtAvailableQuantity.getText().isEmpty()
+                || txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty()
+                || txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
+                || txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
+                || txtTitle.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
+                || txtTitle.getText().isEmpty() && txtAuthor.getText().isEmpty() || txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
+                || txtTitle.getText().isEmpty() && txtPublishYear.getText().isEmpty() && txtTotalQuantity.getText().isEmpty()
+                || txtAuthor.getText().isEmpty() && txtPublishYear.getText().isEmpty()
+                || txtTitle.getText().isEmpty() && txtPublishYear.getText().isEmpty()
+                || txtTotalQuantity.getText().isEmpty() && txtPublishYear.getText().isEmpty()
+                || txtAvailableQuantity.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter all the require information");
+        } else if (txtTitle.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter book name");
+        } else if (txtAuthor.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter Author Name");
+        } else if (txtPublishYear.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please Enter Year of Publication");
+        } else if (txtTotalQuantity.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter total quantity");
+        } else if (txtAvailableQuantity.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter availble quantity");
+        } // Confirm action handling
+        else {
+            String title = txtTitle.getText().trim();
+            String author = txtAuthor.getText().trim();
+            String category = cbxCategory.getSelectedItem().toString().trim();
+            int publishYear = Integer.parseInt(txtPublishYear.getText().trim());
+            int totalQuantity = Integer.parseInt(txtTotalQuantity.getText().trim());
+            int availableQty = Integer.parseInt(txtAvailableQuantity.getText().trim());
 
-        QuanLySachPOJO book = new QuanLySachPOJO(title, author, category, publishYear, totalQuantity, availableQty);
-        switch (keyword) {
-            case "Add ":
-                if (dao.isBookDuplicate(title)) { // Kiểm tra trùng tên sách khi thêm
-                    JOptionPane.showMessageDialog(null, "Book already exist, please enter again!");
-                    return;
-                }
-                if (dao.addBook(book)) {
-                    dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
-                    dao.addDataToTable(model, tblDisplay);
-                    JOptionPane.showMessageDialog(null, "Book add successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error when add book.");
-                }
-                break;
-            case "Edit ":
-                int selectedRow = tblDisplay.getSelectedRow();
-                if (selectedRow == -1) {
-                    JOptionPane.showMessageDialog(null, "Please choose the book you want to edit");
-                    return;
-                }
-                DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
-                int bookId = (int) model.getValueAt(selectedRow, 0);
-                book.setBookId(bookId);
-                if (dao.editBook(book)) {
-                    dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
-                    dao.addDataToTable(model, tblDisplay);
-                    JOptionPane.showMessageDialog(null, "Book update successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error when update book.");
-                }
-                break;
-            default:
-                throw new AssertionError();
+            QuanLySachPOJO book = new QuanLySachPOJO(title, author, category, publishYear, totalQuantity, availableQty);
+            switch (keyword) {
+                case "Add ":
+                    if (dao.isBookDuplicate(title)) { // Kiểm tra trùng tên sách khi thêm
+                        JOptionPane.showMessageDialog(null, "Book already exist, please enter again!");
+                        return;
+                    }
+                    if (dao.addBook(book)) {
+                        dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
+                        dao.addDataToTable(model, tblDisplay);
+                        JOptionPane.showMessageDialog(null, "Book add successfully!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error when add book.");
+                    }
+                    break;
+                case "Edit ":
+                    int selectedRow = tblDisplay.getSelectedRow();
+                    if (selectedRow == -1) {
+                        JOptionPane.showMessageDialog(null, "Please choose the book you want to edit");
+                        return;
+                    }
+                    DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+                    int bookId = (int) model.getValueAt(selectedRow, 0);
+                    book.setBookId(bookId);
+                    if (dao.editBook(book)) {
+                        dao.addDataToTable(QuanLySach.model, QuanLySach.tblQuanLySach);
+                        dao.addDataToTable(model, tblDisplay);
+                        JOptionPane.showMessageDialog(null, "Book update successfully!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error when update book.");
+                    }
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            emptyInp();
         }
-        emptyInp();
-    }
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void cbxCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCategoryActionPerformed
@@ -419,7 +418,7 @@ public class BookManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTitleActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-     // TODO add your handling code here:
+        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
 
@@ -429,17 +428,19 @@ public class BookManagement extends javax.swing.JFrame {
 
     private void tblDisplayMouseClicked1(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked1
         // TODO add your handling code here:
-         int row = tblDisplay.getSelectedRow();
-        int colum = 0;
-        int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
-        QuanLySachPOJO book = dao.getBookById(id);
-        if (book != null) {
-            txtTitle.setText(book.getTitle());
-            txtAuthor.setText(book.getAuthor());
-            cbxCategory.setSelectedItem(book.getCategory());
-            txtPublishYear.setText(String.valueOf(book.getPublishYear()));
-            txtTotalQuantity.setText(String.valueOf(book.getTotalQuantity()));
-            txtAvailableQuantity.setText(String.valueOf(book.getAvailableQty()));
+        if (keyword.equals("Edit ")) {
+            int row = tblDisplay.getSelectedRow();
+            int colum = 0;
+            int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
+            QuanLySachPOJO book = dao.getBookById(id);
+            if (book != null) {
+                txtTitle.setText(book.getTitle());
+                txtAuthor.setText(book.getAuthor());
+                cbxCategory.setSelectedItem(book.getCategory());
+                txtPublishYear.setText(String.valueOf(book.getPublishYear()));
+                txtTotalQuantity.setText(String.valueOf(book.getTotalQuantity()));
+                txtAvailableQuantity.setText(String.valueOf(book.getAvailableQty()));
+            }
         }
     }//GEN-LAST:event_tblDisplayMouseClicked1
 

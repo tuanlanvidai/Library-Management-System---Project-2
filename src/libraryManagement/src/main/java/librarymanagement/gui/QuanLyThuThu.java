@@ -36,7 +36,7 @@ public class QuanLyThuThu extends javax.swing.JPanel {
     private List<Employee> FilterName(String name) {
         List<Employee> employees = new ArrayList<>();
         for (int i = 0; i < temp.size(); i++) {
-            if (temp.get(i).getName().contains(name)) {
+            if (temp.get(i).getName().toLowerCase().contains(name.toLowerCase())) {
                 employees.add(temp.get(i));
             }
         }

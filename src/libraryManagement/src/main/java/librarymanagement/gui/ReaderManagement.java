@@ -1,4 +1,4 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -14,18 +14,17 @@ import librarymanagement.pojo.QuanLyDocGia;
 import librarymanagement.gui.QuanLyDocGiaJPanel;
 import librarymanagement.pojo.Reader;
 
-
 public class ReaderManagement extends javax.swing.JFrame {
-    
+
     QuanLyDocGiaDAO dao;
     String keyword;
     private DefaultTableModel model;
- 
+
     public ReaderManagement() {
         initComponents();
         dao = new QuanLyDocGiaDAO();
-        model = (DefaultTableModel) tblDisplay.getModel();  
-        dao.addDataToTable(model, tblDisplay); 
+        model = (DefaultTableModel) tblDisplay.getModel();
+        dao.addDataToTable(model, tblDisplay);
     }
 
     public ReaderManagement(String type) {
@@ -34,7 +33,7 @@ public class ReaderManagement extends javax.swing.JFrame {
         Title.setText(type + "" + "Reader");
         dao = new QuanLyDocGiaDAO();
         model = (DefaultTableModel) tblDisplay.getModel();
-        dao.addDataToTable(model, tblDisplay); 
+        dao.addDataToTable(model, tblDisplay);
     }
 
     /**
@@ -286,75 +285,77 @@ public class ReaderManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_bttCancelActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-                    String name = txtName.getText();
-String address = txtAddress.getText();
-String phone = txtPhone.getText();
-String email = txtEmail.getText();
-if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "All fields are mandatory.");
-    return;
-}
-
-try {
-    QuanLyDocGia reader;
-    if (keyword.equals("Add ")) {
-        Date date = txtRegisterDay.getDate();
-        String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
-        reader = new QuanLyDocGia(name, address, phone, email, registerDay, false);
-
-        // Thêm độc giả mới
-        if (dao.addReader(reader)) {
-            dao.addDataToTable(model, tblDisplay);
-            dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
-            JOptionPane.showMessageDialog(null, "add Reader Success!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Failed to Add Reader.");
-        }
-    } else if (keyword.equals("Edit ")) {
-        int selectedRow = tblDisplay.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(null, "Please Choose a Reader to Edit.");
+        String name = txtName.getText();
+        String address = txtAddress.getText();
+        String phone = txtPhone.getText();
+        String email = txtEmail.getText();
+        if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "All fields are mandatory.");
             return;
         }
-        int readerId = (int) model.getValueAt(selectedRow, 0); // Lấy ID từ cột đầu tiên của bảng
-        Date date = txtRegisterDay.getDate();
-        String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
-        reader = new QuanLyDocGia(readerId, name, address, phone, email, registerDay, false);
 
-        // Sửa thông tin độc giả
-        if (dao.editReader(reader)) {
-            dao.addDataToTable(model, tblDisplay);
-            dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
-            JOptionPane.showMessageDialog(null, "Edit Successfully!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Edit Failed.");
+        try {
+            QuanLyDocGia reader;
+            if (keyword.equals("Add ")) {
+                Date date = txtRegisterDay.getDate();
+                String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                reader = new QuanLyDocGia(name, address, phone, email, registerDay, false);
+
+                // Thêm độc giả mới
+                if (dao.addReader(reader)) {
+                    dao.addDataToTable(model, tblDisplay);
+                    dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
+                    JOptionPane.showMessageDialog(null, "add Reader Success!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to Add Reader.");
+                }
+            } else if (keyword.equals("Edit ")) {
+                int selectedRow = tblDisplay.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please Choose a Reader to Edit.");
+                    return;
+                }
+                int readerId = (int) model.getValueAt(selectedRow, 0); // Lấy ID từ cột đầu tiên của bảng
+                Date date = txtRegisterDay.getDate();
+                String registerDay = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                reader = new QuanLyDocGia(readerId, name, address, phone, email, registerDay, false);
+
+                // Sửa thông tin độc giả
+                if (dao.editReader(reader)) {
+                    dao.addDataToTable(model, tblDisplay);
+                    dao.addDataToTable(QuanLyDocGiaJPanel.model, QuanLyDocGiaJPanel.tblQuanLyDocGia);
+                    JOptionPane.showMessageDialog(null, "Edit Successfully!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Edit Failed.");
+                }
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Input Invalid. Please Check your input.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "An Unexpected error has occurred.");
+            e.printStackTrace();
         }
-    }
-} catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(null, "Input Invalid. Please Check your input.");
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "An Unexpected error has occurred.");
-    e.printStackTrace();
-}
 
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-  this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void tblDisplayMouseClicked1(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked1
         // TODO add your handling code here:
-        int row = tblDisplay.getSelectedRow();
-        int colum = 0;
-        int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
-        QuanLyDocGia reader = dao. getReaderById(id);
-        if (reader != null) {
-            txtName.setText(reader.getTenDocGia());
-            txtAddress.setText(reader.getDiaChi());
-            txtPhone.setText(reader.getSoDienThoai());
-            txtEmail.setText(reader.getEmail());
-            txtRegisterDay.setDate(java.sql.Date.valueOf(reader.getNgayDangKy()));
+        if (keyword.equals("Edit ")) {
+            int row = tblDisplay.getSelectedRow();
+            int colum = 0;
+            int id = Integer.parseInt(tblDisplay.getModel().getValueAt(row, colum).toString());
+            QuanLyDocGia reader = dao.getReaderById(id);
+            if (reader != null) {
+                txtName.setText(reader.getTenDocGia());
+                txtAddress.setText(reader.getDiaChi());
+                txtPhone.setText(reader.getSoDienThoai());
+                txtEmail.setText(reader.getEmail());
+                txtRegisterDay.setDate(java.sql.Date.valueOf(reader.getNgayDangKy()));
+            }
         }
 
     }//GEN-LAST:event_tblDisplayMouseClicked1
