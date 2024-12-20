@@ -182,7 +182,7 @@ public class MuonTraSach extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Tên Độc Giả", "Ngày lập thẻ", "Số sách đang mượn"
+                "Id", "Reader Name", "Created Date", "Number Of Borrowed Book"
             }
         ) {
             Class[] types = new Class [] {
@@ -227,7 +227,7 @@ public class MuonTraSach extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã PM", "Tên sách", "Ngày mượn", "Ngày trả ", "Tiền phạt quá hạn"
+                "Borrow Id", "Book Name", "Borrow Day", "Due Day ", "Fine Money"
             }
         ) {
             Class[] types = new Class [] {
@@ -243,9 +243,9 @@ public class MuonTraSach extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Search");
 
-        cmbTimTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reader Name", "Reader Code" }));
+        cmbTimTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reader Name", "Reader Id" }));
 
-        btnTim.setText("Sarch");
+        btnTim.setText("Search");
         btnTim.addActionListener(this::btnTimActionPerformed);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -351,7 +351,7 @@ public class MuonTraSach extends javax.swing.JPanel {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -423,9 +423,9 @@ public class MuonTraSach extends javax.swing.JPanel {
         String keyword = txtTim.getText().trim();
         String searchOption = cmbTimTheo.getSelectedItem().toString();
 
-        if (searchOption.equals("Tên độc giả")) {
+        if (searchOption.equals("Reader Name")) {
             filterBorrowerTableByName(keyword);
-        } else if (searchOption.equals("Mã độc giả")) {
+        } else if (searchOption.equals("Reader Id")) {
             filterBorrowerTableById(keyword);
         }
     }//GEN-LAST:event_btnTimActionPerformed

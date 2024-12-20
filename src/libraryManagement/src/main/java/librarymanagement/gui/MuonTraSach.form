@@ -45,7 +45,7 @@
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="41" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -168,14 +168,19 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="0">
-                        <Column editable="true" title="ID" type="java.lang.Integer"/>
-                        <Column editable="true" title="T&#xea;n &#x110;&#x1ed9;c Gi&#x1ea3;" type="java.lang.String"/>
-                        <Column editable="true" title="Ng&#xe0;y l&#x1ead;p th&#x1ebb;" type="java.lang.String"/>
-                        <Column editable="true" title="S&#x1ed1; s&#xe1;ch &#x111;ang m&#x1b0;&#x1ee3;n" type="java.lang.Object"/>
+                        <Column editable="true" title="Id" type="java.lang.Integer"/>
+                        <Column editable="true" title="Reader Name" type="java.lang.String"/>
+                        <Column editable="true" title="Created Date" type="java.lang.String"/>
+                        <Column editable="true" title="Number Of Borrowed Book" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -267,20 +272,15 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="5" rowCount="0">
-                        <Column editable="true" title="M&#xe3; PM" type="java.lang.Integer"/>
-                        <Column editable="true" title="T&#xea;n s&#xe1;ch" type="java.lang.String"/>
-                        <Column editable="true" title="Ng&#xe0;y m&#x1b0;&#x1ee3;n" type="java.lang.String"/>
-                        <Column editable="true" title="Ng&#xe0;y tr&#x1ea3; " type="java.lang.Object"/>
-                        <Column editable="true" title="Ti&#x1ec1;n ph&#x1ea1;t qu&#xe1; h&#x1ea1;n" type="java.lang.Object"/>
+                        <Column editable="true" title="Borrow Id" type="java.lang.Integer"/>
+                        <Column editable="true" title="Book Name" type="java.lang.String"/>
+                        <Column editable="true" title="Borrow Day" type="java.lang.String"/>
+                        <Column editable="true" title="Due Day " type="java.lang.Object"/>
+                        <Column editable="true" title="Fine Money" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -330,7 +330,7 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
                     <StringItem index="0" value="Reader Name"/>
-                    <StringItem index="1" value="Reader Code"/>
+                    <StringItem index="1" value="Reader Id"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -340,7 +340,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnTim">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Sarch"/>
+                <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimActionPerformed"/>
