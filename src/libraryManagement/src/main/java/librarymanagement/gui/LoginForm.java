@@ -259,7 +259,8 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void txtPassWordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassWordKeyPressed
         // TODO add your handling code here:
-        if (txtEmail.getText().isEmpty() && txtPassWord.getText().isEmpty()) {
+       if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            if (txtEmail.getText().isEmpty() && txtPassWord.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter all information");
             txtEmail.requestFocus();
         } else if (txtEmail.getText().isEmpty()) {
@@ -291,6 +292,7 @@ public class LoginForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Wrong email format");
             }
         }
+       }
     }//GEN-LAST:event_txtPassWordKeyPressed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
