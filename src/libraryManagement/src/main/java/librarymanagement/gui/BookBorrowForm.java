@@ -547,25 +547,25 @@ public class BookBorrowForm extends javax.swing.JFrame {
         try {
             String readerIdText = txtMaDocGia.getText().trim();
             if (readerIdText.isEmpty() || !readerIdText.matches("\\d+")) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Mã độc giả không hợp lệ!");
+                javax.swing.JOptionPane.showMessageDialog(this, "Invalid Reader Id !");
                 return;
             }
             int readerId = Integer.parseInt(readerIdText);
 
             String bookIdText = txtMaSach.getText().trim();
             if (bookIdText.isEmpty() || !bookIdText.matches("\\d+")) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Mã sách không hợp lệ!");
+                javax.swing.JOptionPane.showMessageDialog(this, "Invalid Book Id!");
                 return;
             }
             int bookId = Integer.parseInt(bookIdText);
 
             if (!muonTraSachDAO.readerExists(readerId)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Độc giả không tồn tại trong hệ thống.");
+                javax.swing.JOptionPane.showMessageDialog(this, "Reader does not exist.");
                 return;
             }
 
             if (!muonTraSachDAO.bookExists(bookId)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Sách không tồn tại trong hệ thống.");
+                javax.swing.JOptionPane.showMessageDialog(this, "Book does not exist.");
                 return;
             }
 
@@ -575,7 +575,7 @@ public class BookBorrowForm extends javax.swing.JFrame {
             // Book availbility
             int availableQty = Integer.parseInt(txtSoSachSanCo.getText().trim());
             if (availableQty <= 0) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Sách không còn sẵn có!");
+                javax.swing.JOptionPane.showMessageDialog(this, "Book not availble!");
                 return;
             }
 
@@ -583,7 +583,7 @@ public class BookBorrowForm extends javax.swing.JFrame {
             int maxBooksBorrowed = muonTraSachDAO.getMaxBooksBorrowed();
             int currentBooksBorrowed = muonTraSachDAO.getCurrentBooksBorrowed(readerId);
             if (currentBooksBorrowed >= maxBooksBorrowed) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Độc giả đã mượn đủ số lượng sách tối đa: " + maxBooksBorrowed);
+                javax.swing.JOptionPane.showMessageDialog(this, "Reader has borrowed the maximum number of books: " + maxBooksBorrowed);
                 return;
             }
 
@@ -591,11 +591,11 @@ public class BookBorrowForm extends javax.swing.JFrame {
             boolean isInserted = muonTraSachDAO.addBorrowRecord(readerId, bookId, borrowDate, dueDate);
 
             if (isInserted) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Thêm phiếu mượn thành công!");
+                javax.swing.JOptionPane.showMessageDialog(this, "Successfully added the loan slip!");
                 loadBookData(); // update the table
                 this.dispose();
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Thêm phiếu mượn thất bại!");
+                javax.swing.JOptionPane.showMessageDialog(this, "adding loan slip failed!");
             }
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());

@@ -517,7 +517,7 @@ public class BookReturn extends javax.swing.JFrame {
         String borrowIdText = txtMaPM.getText().trim();
 
         if (borrowIdText.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập mã phiếu mượn!", "Lỗi", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "Please enter borrow Id!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -525,14 +525,14 @@ public class BookReturn extends javax.swing.JFrame {
         try {
             borrowId = Integer.parseInt(borrowIdText);
         } catch (NumberFormatException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Mã phiếu mượn phải là một số hợp lệ!", "Lỗi", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "borrow id must be a valid number!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         MuonTraSachDAO dao = new MuonTraSachDAO();
 
         if (!dao.borrowRecordExists(borrowId)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Mã phiếu mượn không tồn tại!", "Lỗi", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "borrow id is not exist!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
         int statusId = cmbDamage.getSelectedIndex() + 1; // Bình thường: 1, Hư hại: 2, Mất sách: 3
@@ -542,19 +542,19 @@ public class BookReturn extends javax.swing.JFrame {
         int totalFine = dao.calculateTotalFine(dueDate, statusId);
 
         if (totalFine > 0) {
-            String message = "Tiền phạt: " + totalFine + " VND\n";
+            String message = "Fine money: " + totalFine + " VND\n";
             if (statusId == 2) {
-                message += "Lý do: Hư hại sách\n";
+                message += "Reason: Damaged book\n";
             } else if (statusId == 3) {
-                message += "Lý do: Mất sách\n";
+                message += "Reason: Lost book\n";
             }
             if (dueDate.before(returnDate)) {
                 long daysLate = returnDate.toLocalDate().toEpochDay() - dueDate.toLocalDate().toEpochDay();
-                message += "Trễ hạn: " + daysLate + " ngày\n";
+                message += "Late: " + daysLate + " Day\n";
             }
-            message += "Bạn có muốn tiếp tục không?";
+            message += "Do you want to continue?";
 
-            int confirm = javax.swing.JOptionPane.showConfirmDialog(this, message, "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(this, message, "Confirm", javax.swing.JOptionPane.YES_NO_OPTION);
             if (confirm != javax.swing.JOptionPane.YES_OPTION) {
                 return;
             }
@@ -573,7 +573,7 @@ public class BookReturn extends javax.swing.JFrame {
         if (muonTraSachPanel != null) {
             muonTraSachPanel.refreshBorrowerTable();
         }
-        javax.swing.JOptionPane.showMessageDialog(this, "Tạo phiếu trả thành công!");
+        javax.swing.JOptionPane.showMessageDialog(this, "Successfully!");
         this.dispose();
     }//GEN-LAST:event_btnTaoPhieuActionPerformed
 
